@@ -30,16 +30,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     BasicLogoutSuccessHandler basicLogoutSuccessHandler;
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.ldapAuthentication().contextSource().url(ldapHostUrl).and().
+                userDnPatterns("uid={0},ou=people").groupSearchBase("ou=group").
+                groupSearchFilter("memberUid={1}").userSearchBase("ou=people");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests().anyRequest().authenticated().
                 and().formLogin().permitAll().
-                and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll().
-                logoutSuccessHandler(basicLogoutSuccessHandler);
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.ldapAuthentication().userDnPatterns("uid={0},ou=people").groupSearchBase("ou=people").contextSource().url(ldapHostUrl);
+                and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).deleteCookies("JSESSIONID").
+                logoutSuccessHandler(basicLogoutSuccessHandler).permitAll();
     }
 }
