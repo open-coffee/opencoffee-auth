@@ -1,25 +1,36 @@
 package de.synyx;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.naming.Context;
 import javax.naming.ldap.InitialLdapContext;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Hashtable;
+import java.util.Properties;
 
 /**
  * Created by klem on 19.02.15.
  */
 public class LdapAuthenticationTest {
 
-    @Value(value = "${ldap.hostUrl}")
-    private String hostUrl;
+    private static String hostUrl;
 
-    @Value(value = "${test.ldap.user")
-    private String username;
+    private static String username;
 
-    @Value(value = "${test.ldap.password")
-    private String password;
+    private static String password;
+
+
+    @BeforeClass
+    public static void setUp() throws Exception{
+        Properties properties = new Properties();
+        properties.load(new FileReader(new File(new File("").getAbsolutePath() + "/src/test/resources/application.properties")));
+
+        hostUrl=properties.getProperty("ldap.hostUrl");
+        username=properties.getProperty("test.ldap.user");
+        password=properties.getProperty("test.ldap.password");
+    }
 
     @Test
     public void ldapAuthenticationIsSuccessful() throws Exception {
