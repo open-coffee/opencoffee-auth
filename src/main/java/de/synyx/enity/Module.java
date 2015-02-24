@@ -1,14 +1,18 @@
 package de.synyx.enity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
-import org.springframework.hateoas.Identifiable;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by klem on 18.02.15.
  */
+
 @Entity
 public class Module {
 
@@ -17,19 +21,17 @@ public class Module {
     private Long id;
 
     @Column(unique = true)
-    private String uri;
+    private URI uri;
 
     private String name;
 
-    @JsonIgnore
-    private String password;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "EventId", referencedColumnName = "Id")
+    @RestResource(exported = false)
+    private List<Event> events;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public Module(){
+        events = new ArrayList<Event>();
     }
 
     public Long getId(){
@@ -40,11 +42,11 @@ public class Module {
         this.id = id;
     }
 
-    public String getUri() {
+    public URI getUri() {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(URI uri) {
         this.uri = uri;
     }
 
@@ -54,5 +56,13 @@ public class Module {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }
