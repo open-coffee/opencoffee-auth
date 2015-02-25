@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 public class Selfservice {
 
+    public static final String MODULES_EVENT_ENDPOINT = "/events";
+    public static final String EVENT_LISTENER_PROCESSOR_CONTROLLER_ENDPOINT = "/EventListenerProcessor";
+
     public static void main(String[] args) {
 
         ApplicationContext ctx = SpringApplication.run(Selfservice.class, args);
