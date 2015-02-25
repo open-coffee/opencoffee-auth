@@ -2,18 +2,12 @@ package de.synyx.controller;
 
 import com.google.common.collect.Lists;
 import de.synyx.core.EventProcessor;
-import de.synyx.enity.Event;
-import de.synyx.repository.EventRepository;
+import de.synyx.event.Event;
+import de.synyx.event.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-
-import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 
 /**
  * Created by klem on 20.02.15.
@@ -29,9 +23,9 @@ public class EventProcessorController {
     @Autowired
     EventProcessor eventProcessor;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void processEvent(@RequestBody String name){
-        ArrayList<Event> events = Lists.newArrayList(eventRepository.findByName(name));
+    @RequestMapping(method = RequestMethod.POST, value = "{eventName}")
+    public void processEvent(@PathVariable String eventName){
+        ArrayList<Event> events = Lists.newArrayList(eventRepository.findOne(eventName));
         for(Event event : events){
             eventProcessor.processEvent(event);
         }
