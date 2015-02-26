@@ -1,4 +1,4 @@
-package de.synyx.event;
+package de.synyx.selfservice.event;
 
 import org.springframework.data.repository.CrudRepository;
 

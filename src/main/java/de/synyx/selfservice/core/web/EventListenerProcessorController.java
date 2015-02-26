@@ -1,11 +1,11 @@
-package de.synyx.core.web;
+package de.synyx.selfservice.core.web;
 
 import com.google.common.collect.Lists;
-import de.synyx.Selfservice;
-import de.synyx.core.EventListenerProcessor;
-import de.synyx.event.Event;
-import de.synyx.event.EventListener;
-import de.synyx.event.EventListenerRepository;
+import de.synyx.selfservice.Selfservice;
+import de.synyx.selfservice.core.EventListenerProcessor;
+import de.synyx.selfservice.event.Event;
+import de.synyx.selfservice.event.EventListener;
+import de.synyx.selfservice.event.EventListenerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

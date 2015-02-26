@@ -1,6 +1,5 @@
-package de.synyx.module;
+package de.synyx.selfservice.module;
 
-import de.synyx.module.Module;
 import org.springframework.data.repository.CrudRepository;
 
 /**

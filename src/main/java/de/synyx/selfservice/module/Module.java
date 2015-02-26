@@ -1,6 +1,6 @@
-package de.synyx.module;
+package de.synyx.selfservice.module;
 
-import de.synyx.event.Event;
+import de.synyx.selfservice.event.Event;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.rest.core.annotation.RestResource;

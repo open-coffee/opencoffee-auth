@@ -1,4 +1,4 @@
-package de.synyx.service;
+package de.synyx.selfservice.service;
 
 import org.springframework.stereotype.Service;
 

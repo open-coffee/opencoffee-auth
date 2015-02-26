@@ -1,4 +1,4 @@
-package de.synyx.configuration;
+package de.synyx.selfservice.configuration;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

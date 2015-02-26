@@ -1,4 +1,4 @@
-package de.synyx.configuration.development;
+package de.synyx.selfservice.configuration.development;
 
 import org.h2.server.web.WebServlet;
 import org.h2.tools.Server;

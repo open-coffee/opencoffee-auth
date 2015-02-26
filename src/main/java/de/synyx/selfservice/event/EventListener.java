@@ -1,6 +1,6 @@
-package de.synyx.event;
+package de.synyx.selfservice.event;
 
-import de.synyx.module.Module;
+import de.synyx.selfservice.module.Module;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,8 +1,8 @@
-package de.synyx.core;
+package de.synyx.selfservice.core;
 
-import de.synyx.Selfservice;
-import de.synyx.event.Event;
-import de.synyx.event.EventListener;
+import de.synyx.selfservice.Selfservice;
+import de.synyx.selfservice.event.Event;
+import de.synyx.selfservice.event.EventListener;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
