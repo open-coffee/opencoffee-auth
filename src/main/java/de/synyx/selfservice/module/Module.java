@@ -23,9 +23,9 @@ public class Module {
     private String name;
 
     @Column(unique = true)
-    private URI uri;
+    private String uri;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ModuleName", referencedColumnName = "name")
     @RestResource(exported = false)
     private List<Event> events;
