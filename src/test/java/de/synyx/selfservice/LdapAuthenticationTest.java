@@ -1,4 +1,4 @@
-package de.synyx;
+package de.synyx.selfservice;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

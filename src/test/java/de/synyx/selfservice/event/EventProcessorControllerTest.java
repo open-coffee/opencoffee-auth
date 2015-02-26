@@ -1,4 +1,4 @@
-package de.synyx.event;
+package de.synyx.selfservice.event;
 
 import de.synyx.selfservice.core.web.EventListenerProcessorController;
 import org.junit.Before;

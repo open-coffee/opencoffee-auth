@@ -1,7 +1,6 @@
-package de.synyx.event;
+package de.synyx.selfservice.event;
 
 import de.synyx.selfservice.Selfservice;
-import de.synyx.selfservice.event.Event;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.net.URI;
 import java.net.URL;
 
 /**
