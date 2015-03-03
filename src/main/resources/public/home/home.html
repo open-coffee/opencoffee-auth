@@ -1,0 +1,11 @@
+<div class="header">
+    <h1> Willkommen beim synyx self service! </h1>
+</div>
+<div ng-show="modules.length > 0">
+    <p class="lead" >
+        Folgende Module stehen Ihnen zur Verfügung.
+    </p>
+    <ul>
+        <li ng-repeat="module in modules">{{module.name}}</li>
+    </ul>
+</div>

@@ -1,5 +1,6 @@
-package de.synyx.selfservice.event;
+package de.synyx.selfservice.event.web;
 
+import de.synyx.selfservice.event.Event;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;

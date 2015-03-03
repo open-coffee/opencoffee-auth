@@ -4,16 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.synyx.selfservice.Selfservice;
 import de.synyx.selfservice.event.Event;
 import de.synyx.selfservice.event.EventRepository;
-import de.synyx.selfservice.event.EventResource;
-import de.synyx.selfservice.event.EventResources;
+import de.synyx.selfservice.event.web.EventResources;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,11 +41,25 @@ public class ModuleControllerEventListener extends AbstractRepositoryEventListen
     @Override
     protected void onAfterCreate(Module module) {
         updateEventsOfModule(module);
+        updateTemplate(module);
+    }
+
+    private void updateTemplate(Module module) {
+        List<URI> javaScriptFiles = getJavaScriptFiles(module);
+        addJavaScriptFilesToTemplate(javaScriptFiles);
+    }
+
+    private List<URI> getJavaScriptFiles(Module module) {
+        //TODO
+        return null;
+    }
+
+    private void addJavaScriptFilesToTemplate(List<URI> javaScriptFiles) {
+        //TODO
     }
 
     private void updateEventsOfModule(Module module) {
         List<Event> events = getEvents(module);
-
         module.setEvents(events);
         moduleRepository.save(module);
 

@@ -20,18 +20,22 @@ import java.util.List;
 public class Module {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(unique = true)
     private String name;
 
     @Column(unique = true)
     private String uri;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ModuleName", referencedColumnName = "name")
+    @JoinColumn(name = "moduleId", referencedColumnName = "id")
     @RestResource(exported = false)
     private List<Event> events;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ModuleName", referencedColumnName = "name")
+    @JoinColumn(name = "moduleId", referencedColumnName = "id")
     @RestResource(exported = false)
     private List<ModuleActuator> actuators;
 
