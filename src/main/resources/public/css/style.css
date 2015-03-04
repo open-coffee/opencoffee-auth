@@ -15,9 +15,6 @@ h2 {
 
 p {
     padding: 0 10px;
-}
-
-p {
     font-size: 13px;
     font-weight: 400;
     line-height: 18px;
@@ -25,7 +22,7 @@ p {
 }
 
 .content{
-    padding-top: 60px;
+    padding-top: 75px;
 }
 
 div {
@@ -53,4 +50,8 @@ div {
 .whiteContent {
     border-bottom: 1px solid #D1D4CD;
     border-top: 1px solid #D1D4CD;
+}
+
+.logo {
+    padding-right: 10px;
 }
