@@ -1,4 +1,4 @@
-angular.module('Selfservice').controller('NavController', function ($scope, $location, $route, $http, modulesFactory) {
+angular.module('Selfservice').controller('NavController', function ($scope, $location, $route, $http, $sce, modulesFactory) {
 
     $scope.modules = [];
     $scope.scripts = [];
@@ -9,8 +9,8 @@ angular.module('Selfservice').controller('NavController', function ($scope, $loc
         $scope.modules = modules;
         angular.forEach(modules, function(value, key) {
             angular.forEach(value.scripts, function(value, key) {
-                var script = {'src':value.endpoint};
-                this.push(script)
+                var script = {'src': $sce.getTrusted(value.src)}
+                this.push(value)
             }, this);
         },$scope.scripts);
 

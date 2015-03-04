@@ -54,7 +54,11 @@ public class ModuleControllerEventListener extends AbstractRepositoryEventListen
         try {
             URI scriptURI = new URI(module.getUri() + Selfservice.MODULES_SCRIPTS_ENDPOINT);
             ScriptResources scriptResources = restTemplate().getForObject(scriptURI, ScriptResources.class);
-            return new ArrayList<Script>(scriptResources.getContent());
+            ArrayList<Script> scripts = new ArrayList<Script>(scriptResources.getContent());
+            for(Script script : scripts){
+                script.setSrc(module.getUri()+script.getSrc());
+            }
+            return scripts;
         } catch (URISyntaxException e) {
             logger.error(String.format(ERROR_BASE + "%s.", module.getName(), e.getMessage()));
             return new ArrayList<Script>(0);

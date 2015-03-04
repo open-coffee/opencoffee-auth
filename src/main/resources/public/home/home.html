@@ -13,7 +13,7 @@
             Die Vorteile einer solchen Plattform sind:
         </p>
             <ul>
-                <li>Alle Plattformen an einem Ort (Keine riesige Favoritenliste mehr!)</li>
+                <li>Alle Anwendungen an einem Ort (Keine riesige Favoritenliste mehr!)</li>
                 <li>Single Sign-on</li>
                 <li>Einheitliches Design</li>
                 <li>Kommunikation der Anwendungen untereinander</li>
@@ -33,11 +33,12 @@
         </p>
     </div>
 </div>
-<div ng-show="modules.length > 0">
-    <p class="lead">
-        Folgende Module stehen Ihnen zur Verfügung.
-    </p>
-    <ul>
-        <li ng-repeat="module in modules">{{module.name}}</li>
-    </ul>
+
+<div ng-show="modules.length > 0" class="white box">
+    <div class="whiteContent">
+        <h2>Folgende Module stehen euch bereits zur Verfügung:</h2>
+        <ul>
+            <li ng-repeat="module in modules">{{module.name}}</li>
+        </ul>
+    </div>
 </div>

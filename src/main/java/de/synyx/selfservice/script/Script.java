@@ -19,6 +19,6 @@ public class Script extends ResourceSupport{
     @GeneratedValue
     Long scriptId;
 
-    private String endpoint;
+    private String src;
 
 }
