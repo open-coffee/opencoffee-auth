@@ -2,15 +2,14 @@ angular.module('Selfservice').factory('modulesFactory', ['$http', '$q',function(
     var modulesEndpoint = "/modules"
     var modulesFactory = {};
     modulesFactory.modules = [];
-    var deferred = $q.defer()
+    var modulesLoaded = $q.defer()
 
 
     function success(data){
-        var id = 0;
         if(data._embedded != undefined) {
             modulesFactory.modules = data._embedded.modules;
         }
-        deferred.resolve(modulesFactory.modules);
+        modulesLoaded.resolve(modulesFactory.modules);
     }
 
     function error(data, status, headers, config){
@@ -21,7 +20,7 @@ angular.module('Selfservice').factory('modulesFactory', ['$http', '$q',function(
     };
 
     modulesFactory.getModules = function getModules(){
-        return deferred.promise;
+        return modulesLoaded.promise;
     };
 
     modulesFactory.requestModules();

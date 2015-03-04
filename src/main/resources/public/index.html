@@ -18,6 +18,7 @@
 <body ng-controller="NavController">
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle btn navbar-btn" ng-init="navCollapsed = true"
                 ng-click="navCollapsed = !navCollapsed">
@@ -39,8 +40,11 @@
             </li>
         </ul>
     </div>
+    </div>
 </div>
 
 <div class="content col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8" ng-view></div>
+
+<script ng-repeat="script in scripts" type="application/javascript" ng-src="{{script.src}}"></script>
 </body>
 </html>

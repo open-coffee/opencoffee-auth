@@ -52,6 +52,12 @@ div {
     border-top: 1px solid #D1D4CD;
 }
 
+.greenCorner {
+    bottom: 0;
+    position: absolute;
+    right: -1px;
+}
+
 .logo {
     padding-right: 10px;
 }

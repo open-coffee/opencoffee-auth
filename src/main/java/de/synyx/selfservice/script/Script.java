@@ -1,11 +1,10 @@
-package de.synyx.selfservice.event;
+package de.synyx.selfservice.script;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
-import java.net.URI;
 
 /**
  * Created by klem on 20.02.15.
@@ -14,9 +13,12 @@ import java.net.URI;
 @Getter
 @Setter
 @Entity
-public class Event extends ResourceSupport{
+public class Script extends ResourceSupport{
 
     @Id
-    private String name;
+    @GeneratedValue
+    Long scriptId;
+
+    private String endpoint;
 
 }

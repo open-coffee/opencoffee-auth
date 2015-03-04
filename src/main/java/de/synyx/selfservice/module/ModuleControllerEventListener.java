@@ -2,9 +2,9 @@ package de.synyx.selfservice.module;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.synyx.selfservice.Selfservice;
-import de.synyx.selfservice.event.Event;
-import de.synyx.selfservice.event.EventRepository;
-import de.synyx.selfservice.event.web.EventResources;
+import de.synyx.selfservice.script.Script;
+import de.synyx.selfservice.script.ScriptRepository;
+import de.synyx.selfservice.script.web.ScriptResources;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,50 +29,35 @@ import java.util.List;
 public class ModuleControllerEventListener extends AbstractRepositoryEventListener<Module> {
 
     @Autowired
-    private EventRepository eventRepository;
+    private ScriptRepository eventRepository;
 
     @Autowired
     private ModuleRepository moduleRepository;
 
     Logger logger = Logger.getLogger(Selfservice.class);
 
-    private static String ERROR_BASE = "Unerwarteter Fehler beim Abfragen der Events von Modul \"%s\": ";
+    private static String ERROR_BASE = "Unerwarteter Fehler beim Abfragen der Scripts von Modul \"%s\": ";
 
     @Override
     protected void onAfterCreate(Module module) {
-        updateEventsOfModule(module);
-        updateTemplate(module);
+        updateScriptsOfModule(module);
     }
 
-    private void updateTemplate(Module module) {
-        List<URI> javaScriptFiles = getJavaScriptFiles(module);
-        addJavaScriptFilesToTemplate(javaScriptFiles);
-    }
-
-    private List<URI> getJavaScriptFiles(Module module) {
-        //TODO
-        return null;
-    }
-
-    private void addJavaScriptFilesToTemplate(List<URI> javaScriptFiles) {
-        //TODO
-    }
-
-    private void updateEventsOfModule(Module module) {
-        List<Event> events = getEvents(module);
-        module.setEvents(events);
+    private void updateScriptsOfModule(Module module) {
+        List<Script> scripts = getScripts(module);
+        module.setScripts(scripts);
         moduleRepository.save(module);
 
     }
 
-    private List<Event> getEvents(Module module) {
+    private List<Script> getScripts(Module module) {
         try {
-            URI eventUri = new URI(module.getUri() + Selfservice.MODULES_EVENT_ENDPOINT);
-            EventResources eventResources = restTemplate().getForObject(eventUri, EventResources.class);
-            return new ArrayList<Event>(eventResources.getContent());
+            URI scriptURI = new URI(module.getUri() + Selfservice.MODULES_SCRIPTS_ENDPOINT);
+            ScriptResources scriptResources = restTemplate().getForObject(scriptURI, ScriptResources.class);
+            return new ArrayList<Script>(scriptResources.getContent());
         } catch (URISyntaxException e) {
             logger.error(String.format(ERROR_BASE + "%s.", module.getName(), e.getMessage()));
-            return new ArrayList<Event>(0);
+            return new ArrayList<Script>(0);
         }
     }
 
