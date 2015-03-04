@@ -2,13 +2,14 @@
 <html ng-app="Selfservice">
 <head>
     <title>synyx - self service</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="SHORTCUT ICON" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body ng-controller="NavController">
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle btn navbar-btn" ng-init="navCollapsed = true"
@@ -18,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/" title="synyx self service">self service</a>
+                <a class="navbar-brand" href="" ng-click="changeView('/')" title="synyx self service">self service</a>
             </div>
 
             <div collapse="navCollapsed" class="navbar-collapse col-sm-8">
@@ -33,7 +34,7 @@
 
     <div class="container content" ng-view></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular.min.js"></script>
     <script type="text/javascript" src="js/lib/angular-route.min.js"></script>
     <script type="text/javascript" src="js/lib/angular-touch.min.js"></script>
     <script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.12.1.min.js"></script>
