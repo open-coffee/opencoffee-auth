@@ -2,23 +2,24 @@ var selfservice = angular.module('Selfservice', ['ngRoute', 'ngTouch', 'ui.boots
 
 selfservice.config(['$routeProvider', '$sceDelegateProvider', '$controllerProvider', '$provide', '$compileProvider',
     function($routeProvider,$sceDelegateProvider, $controllerProvider, $provide, $compileProvider) {
+
         $routeProvider.otherwise({redirectTo: '/'});
-        $sceDelegateProvider.resourceUrlWhitelist([
-            // Allow same origin resource loads.
-            'self',
-            // Allow loading from our assets domain.  Notice the difference between * and **.
-            'http://localhost:8090/**'
-        ]);
 
         selfservice._controller = selfservice.controller;
         selfservice._service = selfservice.service;
         selfservice._factory = selfservice.factory;
         selfservice._value = selfservice.value;
         selfservice._directive = selfservice.directive;
-        selfservice.addRoute = function(callback){
-            callback($routeProvider);
+
+        selfservice.getRouteProvider = function(){
+            return $routeProvider;
         };
 
+        selfservice.addTrustedResourceURL = function(url){
+            $sceDelegateProvider.resourceUrlWhitelist(
+                $sceDelegateProvider.resourceUrlWhitelist().concat([url])
+            );
+        };
         // Provider-based controller.
         selfservice.controller = function( name, constructor ) {
 

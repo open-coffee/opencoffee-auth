@@ -9,8 +9,9 @@ angular.module('Selfservice').controller('NavController', function ($scope, $loc
         $scope.modules = modules;
         angular.forEach(modules, function(value, key) {
             angular.forEach(value.scripts, function(value, key) {
-                var script = {'src': $sce.getTrusted(value.src)}
-                this.push(value)
+                var script = {};
+                script.src =  $sce.trustAsResourceUrl(value.src);
+                this.push(script);
             }, this);
         },$scope.scripts);
 
