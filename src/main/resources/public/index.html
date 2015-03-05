@@ -45,6 +45,6 @@
 
 <div class="content col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8" ng-view></div>
 
-<script ng-repeat="script in scripts" type="text/javascript" ng-src="http://localhost:8090/ExampleModule.js"></script>
+<script ng-repeat="script in scripts" type="text/javascript" ng-src="{{script.src}}"></script>
 </body>
 </html>
