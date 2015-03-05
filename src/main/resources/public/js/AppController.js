@@ -1,4 +1,6 @@
-angular.module('Selfservice').controller('NavController', function ($scope, $location, $route, $http, $sce, modulesFactory) {
+var selfservice = angular.module('Selfservice');
+
+selfservice.controller('AppController', function ($scope, $location, $route, $http, $sce, modulesFactory) {
 
     $scope.modules = [];
     $scope.scripts = [];
@@ -30,3 +32,10 @@ angular.module('Selfservice').controller('NavController', function ($scope, $loc
         $route.reload();
     };
 });
+
+selfservice.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: '/home/home.html',
+        controller: 'AppController'
+    });
+}]);
