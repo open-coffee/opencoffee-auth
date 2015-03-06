@@ -1,6 +1,6 @@
 var selfservice = angular.module('Selfservice');
 
-selfservice.controller('AppController', function ($scope, $location, $route, $http, $sce, modulesFactory) {
+selfservice.controller('navigation', function ($rootScope, $scope, $location, $route, $http, $sce, modulesFactory) {
 
     $scope.modules = [];
     $scope.scripts = [];
@@ -16,8 +16,6 @@ selfservice.controller('AppController', function ($scope, $location, $route, $ht
                 this.push(script);
             }, this);
         },$scope.scripts);
-
-
     });
 
     $scope.isActive = function (viewLocation) {
@@ -31,11 +29,32 @@ selfservice.controller('AppController', function ($scope, $location, $route, $ht
         }
         $route.reload();
     };
-});
 
-selfservice.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/', {
-        templateUrl: '/home/home.html',
-        controller: 'AppController'
+    $scope.checkAuthentication = function(callback) {
+
+        $http.get('user').success(function(data) {
+            if (data.name) {
+                $rootScope.authenticated = true;
+            } else {
+                $rootScope.authenticated = false;
+            }
+            callback && callback();
+        }).error(function() {
+            $rootScope.authenticated = false;
+            callback && callback();
+        });
+
+    }
+
+    $scope.checkAuthentication(function() {
+        if ($rootScope.authenticated) {
+            $location.path("/");
+        }else{
+            $location.path("/login");
+        }
     });
-}]);
+
+    $scope.isLoginPage = function(){
+        return $location.path() == "/login"
+    }
+});

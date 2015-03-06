@@ -61,3 +61,16 @@ div {
 .logo {
     padding-right: 10px;
 }
+
+.btn-success {
+    color: #000000;
+    background-color: #b2c900;
+    border-color: #b2c900;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -12,16 +12,10 @@ angular.module('Selfservice').factory('modulesFactory', ['$http', '$q', function
         modulesLoaded.resolve(modulesFactory.modules);
     }
 
-    function error(data, status, headers, config) {
-    }
-
     modulesFactory.requestModules = function requestModules() {
         $http.get(modulesEndpoint)
             .success(function (data) {
                 success(data);
-            })
-            .error(function (data, status, headers, config) {
-                error(data, status, headers, config);
             });
     };
 
