@@ -36,7 +36,7 @@
             </div>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li ng-show="authenticated"><a href="" ng-click="changeView('/logout')">Logout</a></li>
+            <li ng-show="authenticated"><a href="" ng-click="changeView('/logout')">{{user.name}} | Logout</a></li>
             <li ng-show="!authenticated && !isLoginPage()"><a href="" ng-click="changeView('/login')">Login</a></li>
         </ul>
         <div collapse="navCollapsed" class="navbar-collapse col-xs-11">

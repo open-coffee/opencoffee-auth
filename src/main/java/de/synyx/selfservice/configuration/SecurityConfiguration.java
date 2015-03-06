@@ -48,8 +48,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/img/**", "/fonts/**", "/**/**.html", "/**/**.js", "/**/**.css", "/", "/login").permitAll()
                     .anyRequest().authenticated().and().csrf()
-                .csrfTokenRepository(csrfTokenRepository()).and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+                .disable();//While Developement
+                //TODO:after developement activate
+                //.csrfTokenRepository(csrfTokenRepository()).and()
+                //.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
     private Filter csrfHeaderFilter() {

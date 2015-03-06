@@ -4,6 +4,7 @@ selfservice.controller('navigation', function ($rootScope, $scope, $location, $r
 
     $scope.modules = [];
     $scope.scripts = [];
+    $scope.user = {};
 
     var modulesPromise = modulesFactory.getModules();
 
@@ -35,6 +36,7 @@ selfservice.controller('navigation', function ($rootScope, $scope, $location, $r
         $http.get('user').success(function(data) {
             if (data.name) {
                 $rootScope.authenticated = true;
+                $scope.user = data;
             } else {
                 $rootScope.authenticated = false;
             }
