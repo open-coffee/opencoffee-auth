@@ -11,6 +11,25 @@ selfservice.controller('login',
         });
 
         $scope.credentials = {};
+
+        var successfulLogin = function(data){
+            $scope.checkAuthentication(function() {
+                if ($rootScope.authenticated) {
+                    $location.path("/");
+                    $scope.error = false;
+                } else {
+                    $location.path("/login");
+                    $scope.error = true;
+                }
+            });
+        };
+
+        var unsuccessfulLogin = function(data){
+            $location.path("/login");
+            $scope.error = true;
+            $rootScope.authenticated = false;
+        };
+
         $scope.login = function() {
             $http({
                 method: 'POST',
@@ -25,31 +44,14 @@ selfservice.controller('login',
                     return str.join("&");
                 },
                 data:$scope.credentials}
-            ).success(function(data) {
-                    $scope.checkAuthentication(function() {
-                    if ($rootScope.authenticated) {
-                        $location.path("/");
-                        $scope.error = false;
-                    } else {
-                        $location.path("/login");
-                        $scope.error = true;
-                    }
+            )
+                .success(function(data){
+                    successfulLogin(data);
+                })
+                .error(function(data) {
+                    unsuccessfulLogin(data);
                 });
-            }).error(function(data) {
-                $location.path("/login");
-                $scope.error = true;
-                $rootScope.authenticated = false;
-            })
         };
-
-        $scope.logout = function() {
-            $http.post('logout', {}).success(function() {
-                $rootScope.authenticated = false;
-                $location.path("/");
-            }).error(function(data) {
-                $rootScope.authenticated = false;
-            });
-        }
     });
 
 selfservice.config(['$routeProvider', function($routeProvider) {

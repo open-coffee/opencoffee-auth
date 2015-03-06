@@ -3,18 +3,18 @@
     <img src="img/stagecornergreen.png" alt="" class="greenCorner">
 </div>
 <div class="alert alert-danger" ng-show="error">
-    There was a problem logging in. Please try again.
+    Der Login war nicht erfolgreich. Bitte versuche es erneut.
 </div>
 <div class="white box">
     <div class="whiteContent">
         <form role="form" ng-submit="login()">
             <div class="form-group">
-                <label for="username">Username:</label> <input type="text"
+                <label for="username">Benutzername:</label> <input type="text"
                                                                class="form-control" id="username" name="username"
                                                                ng-model="credentials.username"/>
             </div>
             <div class="form-group">
-                <label for="password">Password:</label> <input type="password"
+                <label for="password">Passwort:</label> <input type="password"
                                                                class="form-control" id="password" name="password"
                                                                ng-model="credentials.password"/>
             </div>
