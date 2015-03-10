@@ -36,7 +36,7 @@ selfservice.controller('login',
 
 selfservice.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/login', {
-        templateUrl: 'login/login.html',
+        templateUrl: 'authentication/login/login.html',
         controller: 'login'
     });
 }]);

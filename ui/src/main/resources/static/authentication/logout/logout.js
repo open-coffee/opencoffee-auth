@@ -19,7 +19,7 @@ selfservice.controller('logout',
 
 selfservice.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/logout', {
-        templateUrl: 'logout/logout.html',
+        templateUrl: 'authentication/logout/logout.html',
         controller: 'logout'
     });
 }]);

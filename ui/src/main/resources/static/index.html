@@ -3,54 +3,26 @@
 <head>
     <title>synyx - self service</title>
     <link rel="SHORTCUT ICON" href="img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/css/style.css">
     <script type="text/javascript" src="lib/angular.min.js"></script>
     <script type="text/javascript" src="lib/angular-route.min.js"></script>
     <script type="text/javascript" src="lib/angular-touch.min.js"></script>
     <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.12.1.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="authenticationHttpInterceptor.js"></script>
-    <script type="text/javascript" src="autofocus.js"></script>
-    <script type="text/javascript" src="tokenFactory.js"></script>
-    <script type="text/javascript" src="modulesFactory.js"></script>
-    <script type="text/javascript" src="navigation.js"></script>
-    <script type="text/javascript" src="login/login.js"></script>
-    <script type="text/javascript" src="logout/logout.js"></script>
+    <script type="text/javascript" src="directives/autofocus.js"></script>
+    <script type="text/javascript" src="modules/modulesFactory.js"></script>
+    <script type="text/javascript" src="/navigation/navigation.js"></script>
+    <script type="text/javascript" src="authentication/authenticationHttpInterceptor.js"></script>
+    <script type="text/javascript" src="authentication/tokenFactory.js"></script>
+    <script type="text/javascript" src="authentication/login/login.js"></script>
+    <script type="text/javascript" src="authentication/logout/logout.js"></script>
     <script type="text/javascript" src="home/home.js"></script>
 </head>
 
 <body ng-controller="navigation">
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-        <div class="navbar-header">
-            <button type="button" ng-show="modules.length > 0" class="navbar-toggle btn navbar-btn"
-                    ng-init="navCollapsed = true"
-                    ng-click="navCollapsed = !navCollapsed">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div>
-                <img class="logo" align="left" src="img/logo.png">
-                <a class="navbar-brand" href="#/" title="synyx self service">self service</a>
-            </div>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li ng-show="authenticated"><a href="#/logout">{{user.name}} | Logout</a></li>
-            <li ng-show="!authenticated && !isLoginPage()"><a href="#/login">Login</a></li>
-        </ul>
-        <div collapse="navCollapsed" class="navbar-collapse col-xs-11">
-            <ul class="nav navbar-nav">
-                <li ng-repeat="module in modules" ng-class="{ active: isActive('/{{module.name}}')}">
-                    <a ng-href="#/{{module.name}}">{{module.name}}</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-include src="'navigation/navigation.html'"></div>
 
 <div class="content col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8" ng-view></div>
 

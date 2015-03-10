@@ -1,5 +1,5 @@
 Eine laufende Redis Instanz wird benoetigt.
-Hierzu liegt eine "docker-compose.yml" bei die mittels "docker-compose up" gestartet werden kann.
+Hierzu liegt eine "docker-compose.yml" bei die mittels "sudo docker-compose up" gestartet werden kann.
 Falls docker und/oder docker-compose noch nicht installiert sind : https://docs.docker.com/compose/install/
 
 
