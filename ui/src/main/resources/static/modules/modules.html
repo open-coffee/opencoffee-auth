@@ -1,0 +1,18 @@
+<div class="green topic box">
+    <h1>Modules</h1>
+    <img src="img/stagecornergreen.png" alt="" class="greenCorner">
+</div>
+<div class="white box">
+    <div class="whiteContent">
+        <a href="#/modules/add">Modul hinzufügen</a>
+    </div>
+</div>
+
+<div ng-show="modules.length > 0" class="white box">
+    <div class="whiteContent">
+        <h2>Folgende Module stehen euch bereits zur Verfügung:</h2>
+        <ul>
+            <li ng-repeat="module in modules">{{module.name}}</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="green topic box">
+    <h1>Neues Modul</h1>
+    <img src="img/stagecornergreen.png" alt="" class="greenCorner">
+</div>
+<div class="white box">
+    <div class="whiteContent">
+        <form class="form-horizontal" name="form" align="left">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 col-xs-4 control-label">Name</label>
+
+                <div class=" col-xs-8">
+                    <input id="name" type="text" ng-model="module.name" name="name" placeholder="ExampleModule"
+                           class="form-control" style="margin-bottom: 10px" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="uri" class="col-sm-2 col-xs-4 control-label">URI</label>
+
+                <div class=" col-xs-8">
+                    <input id="uri" type="text" ng-model="module.uri" name="uri" placeholder="https://myModule.synyx.de"
+                           class="form-control" style="margin-bottom: 10px" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6 col-sm-3 col-xs-offset-4 col-sm-offset-2">
+                    <input type="submit" ng-disabled="form.$invalid"
+                           ng-click="addModule()" value="Hinzufügen" class="btn btn-default"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
