@@ -1,5 +1,5 @@
 angular.module('Selfservice').factory('modulesFactory', ['$http', '$q', 'tokenFactory', function ($http, $q, tokenFactory) {
-    var modulesEndpoint = "http://localhost:9000/modules"
+    var modulesEndpoint = "/resource/modules"
     var modulesFactory = {};
     modulesFactory.modules = [];
     var modulesLoaded = $q.defer()
@@ -13,14 +13,14 @@ angular.module('Selfservice').factory('modulesFactory', ['$http', '$q', 'tokenFa
         modulesLoaded.resolve(modulesFactory.modules);
     }
 
-    var tokenPromise = tokenFactory.getToken();
+    /*var tokenPromise = tokenFactory.getToken();
     tokenPromise.then(
         function (token) {
             authToken = token
-            modulesFactory.requestModules();
+
         }
     );
-
+*/
     modulesFactory.requestModules = function requestModules() {
         $http({
             url: modulesEndpoint,
@@ -37,6 +37,8 @@ angular.module('Selfservice').factory('modulesFactory', ['$http', '$q', 'tokenFa
     modulesFactory.getModules = function getModules() {
         return modulesLoaded.promise;
     };
+
+    modulesFactory.requestModules();
 
     return modulesFactory;
 }]);

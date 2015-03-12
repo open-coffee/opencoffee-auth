@@ -2,7 +2,7 @@ var selfservice = angular.module('Selfservice');
 
 selfservice.controller('logout',
 
-    function($rootScope, $scope, $http, $location) {
+    function($rootScope, $scope, $http) {
 
         $scope.logout = function() {
             $http.post('/logout', {}).success(function() {

@@ -28,8 +28,10 @@ public class ResourceApplicationTests {
     private RestTemplate template = new TestRestTemplate();
 
     @Test
-    public void resourceProtected() {
+    public void resourceLoads() {
         ResponseEntity<String> response = template.getForEntity("http://localhost:" + port + "/", String.class);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        String auth = response.getHeaders().getFirst("WWW-Authenticate");
+        assertTrue("Wrong location: " + auth , auth.startsWith("Bearer"));
     }
 }

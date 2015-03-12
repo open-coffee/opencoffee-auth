@@ -10,7 +10,8 @@
 
 	<modules>
 		<module>ui</module>
-		<module>resource</module>
+        <module>resource</module>
+        <module>authserver</module>
 		<module>exampleModule</module>
 	</modules>
 	

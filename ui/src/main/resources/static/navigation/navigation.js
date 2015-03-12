@@ -38,5 +38,5 @@ selfservice.controller('navigation', function ($rootScope, $scope, $location, $r
             $scope.lastPath = $location.path();
             $location.path('/login');
         }
-    });
+    })
 });

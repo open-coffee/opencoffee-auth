@@ -23,7 +23,7 @@ angular.module('Selfservice').factory('tokenFactory', ['$http', '$q', function (
         return tokenLoaded.promise;
     };
 
-    tokenFactory.requestToken();
+    //tokenFactory.requestToken();
 
     return tokenFactory;
 }]);
