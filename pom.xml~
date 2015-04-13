@@ -10,7 +10,7 @@
 
 	<modules>
 		<module>ui</module>
-        	<module>auth</module>
-	</modules>
+        <module>auth</module>
+    </modules>
 	
 </project>
