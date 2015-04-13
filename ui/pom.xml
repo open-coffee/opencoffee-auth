@@ -10,6 +10,17 @@
 
 	<name>ui</name>
 
+    <distributionManagement>
+        <repository>
+            <id>releases.nexus.synyx.de</id>
+            <url>http://nexus.synyx.de/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots.nexus.synyx.de</id>
+            <url>http://nexus.synyx.de/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
