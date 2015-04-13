@@ -19,12 +19,12 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception{//NOSONAR
         endpoints.authenticationManager(authenticationManager);
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception{//NOSONAR
         clients.inMemory()
                 .withClient("acme")
                 .secret("acmesecret")

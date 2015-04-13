@@ -13,7 +13,6 @@
 
     <artifactId>auth</artifactId>
 
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>de.synyx.selfservice.Authserver</start-class>

@@ -8,9 +8,20 @@
 	<packaging>pom</packaging>
 	<name>Selfservice</name>
 
-	<modules>
+    <distributionManagement>
+        <repository>
+            <id>releases.nexus.synyx.de</id>
+            <url>http://nexus.synyx.de/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots.nexus.synyx.de</id>
+            <url>http://nexus.synyx.de/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <modules>
 		<module>ui</module>
-        	<module>auth</module>
+        <module>auth</module>
 	</modules>
 	
 </project>
