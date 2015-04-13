@@ -58,7 +58,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients.inMemory()
                     .withClient("acme")
-                    .secret("acmesecret")
+                    .secret("acmesecret").redirectUris("http://localhost:8080/login")
                     .authorizedGrantTypes("authorization_code", "refresh_token",
                             "password").scopes("openid");
         }

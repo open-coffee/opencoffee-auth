@@ -4,6 +4,7 @@ import de.synyx.selfservice.resource.script.Script;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,18 +17,18 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Module {
+public class Module extends ResourceSupport{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long moduleId;
 
     private String name;
 
     private String uri;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "moduleId", referencedColumnName = "id")
+    @JoinColumn(name = "moduleId", referencedColumnName = "moduleId")
     @RestResource(exported = false)
     private List<Script> scripts;
 
