@@ -1,4 +1,4 @@
-package de.synyx.selfservice.proxy;
+package de.synyx.selfservice.ui.proxy;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

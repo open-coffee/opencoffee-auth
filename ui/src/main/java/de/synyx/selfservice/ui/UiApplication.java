@@ -1,4 +1,4 @@
-package de.synyx.selfservice;
+package de.synyx.selfservice.ui;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

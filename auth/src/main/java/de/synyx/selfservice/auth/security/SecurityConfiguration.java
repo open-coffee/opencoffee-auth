@@ -1,4 +1,4 @@
-package de.synyx.selfservice.security;
+package de.synyx.selfservice.auth.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;

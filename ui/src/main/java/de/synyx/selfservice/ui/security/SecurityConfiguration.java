@@ -1,4 +1,4 @@
-package de.synyx.selfservice.security;
+package de.synyx.selfservice.ui.security;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.cloud.security.Http401AuthenticationEntryPoint;

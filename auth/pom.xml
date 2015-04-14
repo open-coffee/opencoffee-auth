@@ -15,7 +15,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>de.synyx.selfservice.Authserver</start-class>
+        <start-class>de.synyx.selfservice.auth.Authserver</start-class>
         <java.version>1.7</java.version>
     </properties>
 
