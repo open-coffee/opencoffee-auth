@@ -15,7 +15,7 @@ public class Authserver {
      *
      * @param args are passed to SpringApplication.run()
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) { //NOSONAR
         SpringApplication.run(Authserver.class, args);
     }
 }
