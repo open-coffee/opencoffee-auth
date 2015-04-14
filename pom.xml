@@ -11,6 +11,7 @@
     <modules>
 		<module>ui</module>
         <module>auth</module>
-	</modules>
+        <module>exampleModule</module>
+    </modules>
 	
 </project>
