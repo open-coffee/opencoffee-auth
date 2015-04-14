@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
@@ -75,8 +76,6 @@ public class UiApplicationTests {
                 + port + "/someUrl", String.class);
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Session realm=\"JSESSIONID\"",
-                response.getHeaders().getFirst("WWW-Authenticate"));
 
         response = template.getForEntity("http://localhost:"
                 + port + "/someUrl/test.html", String.class);
@@ -89,8 +88,6 @@ public class UiApplicationTests {
                 + port + "/someUrl", String.class);
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Session realm=\"JSESSIONID\"",
-                response.getHeaders().getFirst("WWW-Authenticate"));
 
         response = template.getForEntity("http://localhost:"
                 + port + "/someUrl/test.js", String.class);
@@ -103,12 +100,28 @@ public class UiApplicationTests {
                 + port + "/someUrl", String.class);
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Session realm=\"JSESSIONID\"",
-                response.getHeaders().getFirst("WWW-Authenticate"));
 
         response = template.getForEntity("http://localhost:"
                 + port + "/someUrl/test.css", String.class);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void loginRedirects() {
+        ResponseEntity<String> response = template.getForEntity("http://localhost:"
+                + port + "/login", String.class);
+        assertEquals(HttpStatus.FOUND, response.getStatusCode());
+        String location = response.getHeaders().getFirst("Location");
+        assertTrue("Wrong location: " + location , location.startsWith(authorizeUri));
+    }
+
+    @Test
+    public void protectedResourcesReturnWWWAuthenticateSessionRealmJSESSIONID() {
+        ResponseEntity<String> response = template.getForEntity("http://localhost:"
+                + port + "/protected", String.class);
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        assertEquals("Session realm=\"JSESSIONID\"",
+                response.getHeaders().getFirst("WWW-Authenticate"));
     }
 
 }
