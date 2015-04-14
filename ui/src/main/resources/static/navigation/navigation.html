@@ -1,29 +1,36 @@
 <div class="navbar-inner col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
     <div class="navbar-header">
-        <button type="button" ng-show="modules.length > 0" class="navbar-toggle btn navbar-btn"
-                ng-init="navCollapsed = true"
-                ng-click="navCollapsed = !navCollapsed">
+        <button ng-show="authenticated" type="button" class="navbar-toggle btn navbar-btn"
+                ng-click="toggleNavCollapsed()">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
+        <p class="navbar-text pull-right visible-xs">{{user}}</p>
+
         <div>
             <img class="logo" align="left" src="img/logo.png">
             <a class="navbar-brand" href="#/" title="synyx self service">self service</a>
         </div>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-        <li ng-show="authenticated"><a href="#/logout">{{user.name}} | Logout</a></li>
-        <li ng-show="!authenticated && !isLoginPage()"><a href="/login">Login</a></li>
-    </ul>
-    <div collapse="navCollapsed" class="navbar-collapse">
-        <ul class="nav navbar-nav">
-            <li ng-class="{ active: isActive('/modules')}">
+    <div  ng-show="authenticated" ng-cloak>
+        <ul collapse="navCollapsed" class="nav navbar-nav navbar-left navbar-collapse">
+            <li ng-class="{ active: isSubRouteOf('/modules')}">
                 <a href="#/modules">Module</a>
             </li>
-            <li ng-repeat="module in modules" ng-class="{ active: isActive('/{{module.name}}')}">
+            <li ng-repeat="module in modules" ng-class="{ active: isSubRouteOf('/{{module.name}}')}">
                 <a ng-href="#/{{module.name}}">{{module.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-right" ng-cloak>
+        <p class="navbar-text hidden-xs">{{user}}</p>
+        <ul collapse="navCollapsed" class="nav navbar-nav navbar-collapse">
+            <li ng-show="authenticated">
+                <a href="#/logout">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"> Logout</span>
+                </a>
             </li>
         </ul>
     </div>

@@ -37,7 +37,7 @@ public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception { //NOSONAR
         String[] freePaths = {
-                "/api/user", "/img/**", "/lib/**", "/style/**", "/**/**.html", "/**/**.js", "/**/**.css", "/"
+                "/api/user", "/img/**", "/lib/**", "/style/**", "/**/**.html", "/**/**.js", "/"
         };
 
         http

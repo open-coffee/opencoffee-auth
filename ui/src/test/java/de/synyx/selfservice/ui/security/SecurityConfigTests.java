@@ -1,4 +1,4 @@
-package de.synyx.selfservice;
+package de.synyx.selfservice.ui.security;
 
 import de.synyx.selfservice.ui.UiApplication;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 @SpringApplicationConfiguration(classes = UiApplication.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
-public class UiApplicationTests {
+public class SecurityConfigTests {
 
     @Value("${local.server.port}")
     private int port;
@@ -30,10 +30,6 @@ public class UiApplicationTests {
     private String authorizeUri;
 
     private RestTemplate template = new TestRestTemplate();
-
-	@Test
-	public void contextLoads() {
-	}
 
     @Test
     public void homePageLoads() {
@@ -53,22 +49,22 @@ public class UiApplicationTests {
     @Test
     public void imgEndpointNotProtected() {
         ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/img", String.class);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+                + port + "/img/logo.png", String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     public void libEndpointNotProtected() {
         ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/lib", String.class);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+                + port + "/lib/angular.js", String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     public void styleEndpointNotProtected() {
         ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/style", String.class);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+                + port + "/style/css/app.css", String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -79,8 +75,8 @@ public class UiApplicationTests {
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 
         response = template.getForEntity("http://localhost:"
-                + port + "/someUrl/test.html", String.class);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+                + port + "/navigation/navigation.html", String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -91,20 +87,8 @@ public class UiApplicationTests {
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 
         response = template.getForEntity("http://localhost:"
-                + port + "/someUrl/test.js", String.class);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
-    @Test
-    public void cssContentNotProtected() {
-        ResponseEntity<String> response = template.getForEntity("http://localhost:"
-                + port + "/someUrl", String.class);
-
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-
-        response = template.getForEntity("http://localhost:"
-                + port + "/someUrl/test.css", String.class);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+                + port + "/app.js", String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -124,5 +108,14 @@ public class UiApplicationTests {
         assertEquals("Session realm=\"JSESSIONID\"",
                 response.getHeaders().getFirst("WWW-Authenticate"));
     }
+
+    @Test
+    public void modulesEndpointProtected() {
+        ResponseEntity<String> response = template.getForEntity("http://localhost:"
+                + port + "/modules", String.class);
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+    }
+
+
 
 }
