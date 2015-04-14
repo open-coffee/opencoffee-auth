@@ -1,5 +1,7 @@
 package de.synyx.selfservice.proxy;
 
+import de.synyx.selfservice.UiApplication;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +24,11 @@ public class Proxy {
     private RestTemplate restTemplate;
 
     @RequestMapping("/api/user")
-    public String getUser(Principal principal) throws URISyntaxException{
-        URI targetUri = new URI("http", null, "localhost", 9999, "/" + "uaa/user", null, null);
-        ResponseEntity<String> responseEntity =
-                restTemplate.exchange(targetUri, HttpMethod.GET, new HttpEntity<String>(""), String.class);
-        return responseEntity.getBody();
+    public Principal getUser(Principal user){
+        return user;
     }
-/*
+
+    /*
     @RequestMapping(value = "/api/{module}/**")
     public String redirectPost(@RequestBody(required = false) String body, @PathVariable("module") String module,
                                HttpMethod method, HttpServletRequest request, HttpServletResponse response)

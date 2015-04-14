@@ -36,6 +36,10 @@ public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception { //NOSONAR
+        String[] freePaths = {
+                "/api/user", "/img/**", "/lib/**", "/style/**", "/**/**.html", "/**/**.js", "/**/**.css", "/"
+        };
+
         http
                 .logout()
                 .and()
@@ -43,9 +47,8 @@ public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
                 .authenticationEntryPoint(
                         new Http401AuthenticationEntryPoint(
                                 "Session realm=\"JSESSIONID\""))
-                .and().authorizeRequests()
-                .antMatchers("/api/user", "/img/**", "/lib/**", "/style/**", "/**/**.html", "/**/**.js", "/**/**.css",
-                        "/").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(freePaths).permitAll()
                 .anyRequest().authenticated().and().csrf()
                 .csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);

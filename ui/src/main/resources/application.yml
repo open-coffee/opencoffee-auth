@@ -4,10 +4,6 @@ security:
 
 spring:
   oauth2:
-    sso:
-      home:
-        secure: false
-        path: /,/**/*.html,/uaa/user
     client:
       accessTokenUri: http://localhost:9999/uaa/oauth/token
       userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
