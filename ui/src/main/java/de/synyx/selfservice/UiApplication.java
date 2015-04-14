@@ -8,9 +8,9 @@ import org.springframework.cloud.security.oauth2.sso.EnableOAuth2Sso;
 @EnableOAuth2Sso
 public class UiApplication {
 
-    /**
-     * Entrypoint of the Application.
-     * @param args Will be passed to SpringApplication.run()
+    /**This main method starts the UiApplication
+     *
+     * @param args are passed to SpringApplication.run()
      */
     public static void main(String[] args) {
         SpringApplication.run(UiApplication.class, args);

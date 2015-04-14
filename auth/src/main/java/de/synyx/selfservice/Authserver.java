@@ -11,9 +11,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableResourceServer
 public class Authserver {
 
-    /**
-     * Entrypoint of the Application.
-     * @param args Will be passed to SpringApplication.run()
+    /**This main method starts the Authserver
+     *
+     * @param args are passed to SpringApplication.run()
      */
     public static void main(String[] args) {
         SpringApplication.run(Authserver.class, args);
