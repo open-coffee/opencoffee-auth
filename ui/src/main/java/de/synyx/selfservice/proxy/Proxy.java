@@ -1,14 +1,13 @@
 package de.synyx.selfservice.proxy;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
@@ -32,7 +31,8 @@ public class Proxy {
 /*
     @RequestMapping(value = "/api/{module}/**")
     public String redirectPost(@RequestBody(required = false) String body, @PathVariable("module") String module,
-                               HttpMethod method, HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+                               HttpMethod method, HttpServletRequest request, HttpServletResponse response)
+                               throws URISyntaxException {
         URI targetUri = new URI("http", null, "localhost", 8090, "/" + module, request.getQueryString(), null);
         ResponseEntity<String> responseEntity =
                 restTemplate.exchange(targetUri, method, new HttpEntity<String>(body), String.class);

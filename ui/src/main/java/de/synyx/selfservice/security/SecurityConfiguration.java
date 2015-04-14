@@ -28,13 +28,14 @@ import java.io.IOException;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
 
+
     @Override
     public void match(RequestMatchers matchers) {
         matchers.anyRequest();
     }
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception { //NOSONAR
         http
                 .logout()
                 .and()
@@ -43,7 +44,8 @@ public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
                         new Http401AuthenticationEntryPoint(
                                 "Session realm=\"JSESSIONID\""))
                 .and().authorizeRequests()
-                .antMatchers("/api/user", "/img/**", "/lib/**", "/style/**", "/**/**.html", "/**/**.js", "/**/**.css", "/").permitAll()
+                .antMatchers("/api/user", "/img/**", "/lib/**", "/style/**", "/**/**.html", "/**/**.js", "/**/**.css",
+                        "/").permitAll()
                 .anyRequest().authenticated().and().csrf()
                 .csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);

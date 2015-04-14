@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception { //NOSONAR
         //auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
         auth.ldapAuthentication().contextSource().url(ldapHostUrl).and().
                 userDnPatterns("uid={0},ou=people").groupSearchBase("ou=group").
