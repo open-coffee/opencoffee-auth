@@ -14,9 +14,6 @@ import java.security.Principal;
 @RestController
 public class Proxy {
 
-    @Autowired
-    private RestTemplate restTemplate;
-
     @RequestMapping("/api/user")
     public Principal getUser(Principal user){
         return user;
