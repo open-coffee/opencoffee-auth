@@ -14,13 +14,38 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="uri" class="col-sm-2 col-xs-4 control-label">URI</label>
+                <label for="protocol" class="col-sm-2 col-xs-4 control-label">Protokoll</label>
 
                 <div class=" col-xs-8">
-                    <input id="uri" type="text" ng-model="module.uri" name="uri" placeholder="https://myModule.synyx.de"
+                    <input id="protocol" type="text" ng-model="module.protocol" name="protocol" placeholder="https/http"
                            class="form-control" style="margin-bottom: 10px" required/>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="host" class="col-sm-2 col-xs-4 control-label">Host</label>
+
+                <div class=" col-xs-8">
+                    <input id="host" type="text" ng-model="module.host" name="host" placeholder="localhost"
+                           class="form-control" style="margin-bottom: 10px" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="port" class="col-sm-2 col-xs-4 control-label">Port</label>
+
+                <div class=" col-xs-8">
+                    <input id="port" type="text" ng-model="module.port" name="port" placeholder="8080"
+                           class="form-control" style="margin-bottom: 10px" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="urlPath" class="col-sm-2 col-xs-4 control-label">Url-Pfad</label>
+
+                <div class=" col-xs-8">
+                    <input id="urlPath" type="text" ng-model="module.urlPath" name="urlPath" placeholder="/example"
+                           class="form-control" style="margin-bottom: 10px" required/>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-xs-6 col-sm-3 col-xs-offset-4 col-sm-offset-2">
                     <input type="submit" ng-disabled="form.$invalid"

@@ -1,7 +1,7 @@
 var selfservice = angular.module('Selfservice');
 
 selfservice.controller('modules', function($scope, $location, tokenFactory, $http){
-    var modulesEndpoint = "http://localhost:9000/modules"
+    var modulesEndpoint = "/selfserviceModules"
     var authToken = {};
     $scope.module = {};
 

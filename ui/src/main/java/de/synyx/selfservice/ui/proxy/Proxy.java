@@ -1,8 +1,8 @@
 package de.synyx.selfservice.ui.proxy;
 
 
-import de.synyx.selfservice.ui.module.Module;
-import de.synyx.selfservice.ui.module.ModuleRepository;
+import de.synyx.selfservice.ui.module.SelfserviceModule;
+import de.synyx.selfservice.ui.module.SelfserviceModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +31,7 @@ public class Proxy {
     private RestTemplate restTemplate;
 
     @Autowired
-    private ModuleRepository moduleRepository;
+    private SelfserviceModuleRepository selfserviceModuleRepository;
 
     @RequestMapping("/api/user")
     public Principal getUser(Principal user) {
@@ -39,17 +39,17 @@ public class Proxy {
     }
 
 
-    @RequestMapping(value = "/api/{module}/**")
+    @RequestMapping(value = "/api/proxy/{module}/**")
     public String redirectPost(@RequestBody(required = false) String body, @PathVariable("module") String moduleName,
                                HttpMethod method, HttpServletRequest request, HttpServletResponse response)
             throws URISyntaxException {
-        Module module = moduleRepository.findByName(moduleName);
+        SelfserviceModule selfserviceModule = selfserviceModuleRepository.findByName(moduleName);
 
         String requestedUrlPath = request.getServletPath();
-        requestedUrlPath = requestedUrlPath.replace("/api/" + moduleName, "");
+        requestedUrlPath = requestedUrlPath.replace("/api/proxy/" + moduleName, "");
 
-        URI targetUri = new URI(module.getProtocol(), null, module.getHost(), module.getPort(),
-                module.getUrlPath() + requestedUrlPath, request.getQueryString(),null);
+        URI targetUri = new URI(selfserviceModule.getProtocol(), null, selfserviceModule.getHost(), selfserviceModule.getPort(),
+                selfserviceModule.getUrlPath() + requestedUrlPath, request.getQueryString(),null);
 
         HttpHeaders headers = getHeaders(request);
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
