@@ -1,0 +1,29 @@
+<div class="green topic box">
+    <h1>{{moduleName}}</h1>
+    <img src="img/stagecornergreen.png" alt="" class="greenCorner">
+</div>
+<div ng-hide="moduleNotFound" ng-repeat="action in module.actions" class="white box">
+    <div class="whiteContent">
+        <h2>{{action.name}}</h2>
+        <form class="form-horizontal" name="form" align="left">
+            <div ng-repeat="param in action.params" class="form-group">
+                <label for="{{param.name}}" class="col-sm-2 col-xs-4 control-label">{{param.name}}</label>
+
+                <div class=" col-xs-8">
+                    <input id="{{param.name}}" type="{{param.type}}" class="form-control"
+                           ng-model="params[param.name]" name="{{param.name}}" style="margin-bottom: 10px"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-6 col-sm-3 col-xs-offset-4 col-sm-offset-2">
+                    <input type="submit" ng-disabled="form.$invalid"
+                           ng-click="processAction(action)" value="{{action.name}}" class="btn btn-default"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-show="moduleNotFound" class="alert alert-danger">
+    Das Modul {{moduleName}} existiert nicht :(
+</div>

@@ -1,4 +1,4 @@
-var selfservice = angular.module('Selfservice', ['ngRoute', 'ui.bootstrap']);
+var selfservice = angular.module('Selfservice', ['ngRoute', 'ui.bootstrap', 'ngResource']);
 
 selfservice.config(['$routeProvider', '$httpProvider', '$sceDelegateProvider', '$controllerProvider', '$provide', '$compileProvider',
     function ($routeProvider, $httpProvider, $sceDelegateProvider, $controllerProvider, $provide, $compileProvider) {
