@@ -49,9 +49,9 @@ public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
                                 "Session realm=\"JSESSIONID\""))
                 .and()
                 .authorizeRequests().antMatchers(freePaths).permitAll()
-                .anyRequest().authenticated().and().csrf()
-                .csrfTokenRepository(csrfTokenRepository()).and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+                .anyRequest().authenticated().and().csrf().disable();
+                /*.csrfTokenRepository(csrfTokenRepository()).and()
+                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);*/
     }
 
     private Filter csrfHeaderFilter() {

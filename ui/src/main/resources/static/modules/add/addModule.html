@@ -1,0 +1,25 @@
+<div class="green topic box">
+    <h1>Neues Modul</h1>
+    <img src="img/stagecornergreen.png" alt="" class="greenCorner">
+</div>
+<div class="white box">
+    <div class="whiteContent">
+        <form class="form-horizontal" name="form" align="left">
+            <div class="form-group">
+                <label for="yamlConfig" class="col-sm-2 col-xs-4 control-label">Konfiguration</label>
+
+                <div class=" col-xs-8">
+                    <input id="yamlConfig" type="file" onchange="angular.element(this).scope().fileChanged(this)"
+                           name="yamlConfig" placeholder="myConfig.yaml" style="margin-bottom: 10px"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-6 col-sm-3 col-xs-offset-4 col-sm-offset-2">
+                    <input type="submit" ng-disabled="form.$invalid"
+                           ng-click="addModule()" value="Hinzufügen" class="btn btn-default"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
