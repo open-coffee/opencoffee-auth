@@ -4,17 +4,6 @@ selfservice.controller('login',['$rootScope', '$scope', '$location', 'authServic
     function ($rootScope, $scope, $location, authService) {
         $scope.credentials = {};
 
-        $scope.login = function () {
-            authService.authenticate($scope.credentials, function (username) {
-                if($rootScope.authenticated){
-                    $rootScope.user = username;
-                    $location.path($scope.$parent.lastPath);
-                }else{
-                    $scope.error = true;
-                }
-            })
-        };
-
         var redirectIfLoggedIn = function (){
             authService.isAuthenticated(function (username) {
                 $rootScope.user = username;

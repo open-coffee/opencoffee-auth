@@ -17,10 +17,10 @@
     <div  ng-show="authenticated" ng-cloak>
         <ul collapse="navCollapsed" class="nav navbar-nav navbar-left navbar-collapse">
             <li ng-class="{ active: isSubRouteOf('/modules')}">
-                <a href="#/modules">Module</a>
+                <a href="#/modules/add">Neues Modul</a>
             </li>
-            <li ng-repeat="module in modules" ng-class="{ active: isSubRouteOf('/{{module.name}}')}">
-                <a ng-href="#/{{module.name}}">{{module.name}}</a>
+            <li ng-repeat="module in modules" ng-class="{ active: isSubRouteOf('/view/{{module.name}}')}">
+                <a ng-href="#/view/{{module.name}}">{{module.name}}</a>
             </li>
         </ul>
     </div>

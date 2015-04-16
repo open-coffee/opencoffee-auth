@@ -17,12 +17,7 @@ selfservice.config(['$routeProvider', '$httpProvider', '$sceDelegateProvider', '
         selfservice.getRouteProvider = function () {
             return $routeProvider;
         };
-
-        selfservice.addTrustedResourceURL = function (url) {
-            $sceDelegateProvider.resourceUrlWhitelist(
-                $sceDelegateProvider.resourceUrlWhitelist().concat([url])
-            );
-        };
+        
         // Provider-based controller.
         selfservice.controller = function (name, constructor) {
 

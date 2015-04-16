@@ -1,44 +1,36 @@
-angular.module('Selfservice').factory('modulesFactory', ['$http', '$q', 'tokenFactory', function ($http, $q, tokenFactory) {
-    var modulesEndpoint = "/resource/modules"
-    var modulesFactory = {};
-    modulesFactory.modules = [];
-    var modulesLoaded = $q.defer()
-    var authToken = {};
+angular.module('Selfservice').factory('modules', ['$resource', '$filter', 'HALResource',
+    function ($resource, $filter, HALResource) {
+        var modulesEndpoint = '/selfserviceModules/:id';
 
+        var Module = $resource(modulesEndpoint);
 
-    function success(data) {
-        if (data._embedded != undefined) {
-            modulesFactory.modules = data._embedded.modules;
-        }
-        modulesLoaded.resolve(modulesFactory.modules);
-    }
+        var modulesList = [];
 
-    /*var tokenPromise = tokenFactory.getToken();
-    tokenPromise.then(
-        function (token) {
-            authToken = token
-
-        }
-    );
-*/
-    modulesFactory.requestModules = function requestModules() {
-        $http({
-            url: modulesEndpoint,
-            method: 'GET',
-            headers: {
-                'X-Auth-Token': authToken.token
+        var modules = {
+            get: function(){
+                return modulesList;
+            },
+            add: function(module){
+                return Module.save(module).$promise.then(function(savedModule){
+                    modulesList.push(savedModule);
+                });
+            },
+            findByName: function(name){
+                return modulesList.promise.then(function(){
+                    return $filter('findByValue')(modulesList, "name", name);
+                });
+            },
+            fetch: function(){
+                modulesList.promise = Module.get().$promise
+                    .then(function(response){
+                        modulesList.splice(0,modulesList.length);
+                        modulesList.push.apply(modulesList, HALResource.getContent(response));
+                    });
             }
-        }).success(function (data) {
-            success(data);
-        });
-    };
+        };
 
+        modules.fetch();
 
-    modulesFactory.getModules = function getModules() {
-        return modulesLoaded.promise;
-    };
-
-    modulesFactory.requestModules();
-
-    return modulesFactory;
-}]);
+        return modules;
+    }
+]);

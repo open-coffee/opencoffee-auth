@@ -1,9 +1,10 @@
 var selfservice = angular.module('Selfservice');
 
-selfservice.controller('navigation', ['$rootScope', '$scope', '$location', 'authService', '$route',
-    function ($rootScope, $scope, $location, authService, $route) {
+selfservice.controller('navigation', ['$rootScope', '$scope', '$location', 'authService', '$route', 'modules',
+    function ($rootScope, $scope, $location, authService, $route, modules) {
         $scope.lastPath = "";
         $scope.navCollapsed = true;
+        $scope.modules = modules.get();
 
         $scope.isSubRouteOf = function (viewLocation) {
             viewLocation = viewLocation.split('/');
