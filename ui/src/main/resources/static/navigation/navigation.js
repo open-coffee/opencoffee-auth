@@ -43,6 +43,7 @@ selfservice.controller('navigation', ['$rootScope', '$scope', '$location', 'auth
                     $scope.lastPath = newUrl.$$route.originalPath;
                 }
                 $location.path('/login');
+                //window.location.href = '/login';
             }
         };
 

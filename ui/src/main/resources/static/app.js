@@ -17,7 +17,7 @@ selfservice.config(['$routeProvider', '$httpProvider', '$sceDelegateProvider', '
         selfservice.getRouteProvider = function () {
             return $routeProvider;
         };
-        
+
         // Provider-based controller.
         selfservice.controller = function (name, constructor) {
 
