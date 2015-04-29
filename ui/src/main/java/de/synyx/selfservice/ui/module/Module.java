@@ -10,7 +10,7 @@ import java.util.Set;
  */
 
 @Entity
-public class SelfserviceModule {
+public class Module {
 
     @Id
     @GeneratedValue
@@ -22,13 +22,10 @@ public class SelfserviceModule {
     private int port;
     private String urlPath;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="view_id")
+    private ModuleView moduleView;
 
-    @NotNull
-    private String category;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "module_id", referencedColumnName = "id")
-    private List<ModuleAction> actions;
 
     public Long getId() {
         return id;
@@ -78,19 +75,11 @@ public class SelfserviceModule {
         this.urlPath = urlPath;
     }
 
-    public String getCategory() {
-        return category;
+    public ModuleView getModuleView() {
+        return moduleView;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public List<ModuleAction> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<ModuleAction> actions) {
-        this.actions = actions;
+    public void setModuleView(ModuleView moduleView) {
+        this.moduleView = moduleView;
     }
 }

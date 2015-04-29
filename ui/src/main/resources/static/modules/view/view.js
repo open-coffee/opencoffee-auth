@@ -22,8 +22,8 @@ selfservice.controller('moduleView', ['$scope', '$routeParams', 'modules', '$loc
         };
 
         var initModuleView = function () {
-            for(var actionIndex = 0; actionIndex < $scope.module.actions.length; actionIndex++){
-                var action = $scope.module.actions[actionIndex];
+            for(var actionIndex = 0; actionIndex < $scope.module.moduleView.actions.length; actionIndex++){
+                var action = $scope.module.moduleView.actions[actionIndex];
                 action.radios = [];
                 action.selects = [];
                 action.inputs = [];

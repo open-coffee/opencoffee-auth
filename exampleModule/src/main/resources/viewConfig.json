@@ -1,5 +1,4 @@
 {
-  "name": "example",
   "category":"irgendwas",
   "actions": [
     {
@@ -17,7 +16,7 @@
         },
         {
           "name": "anyNumber",
-          "type": "Number",
+          "type": "NUMBER",
           "limits":{
             "min": 1,
             "max": 99
@@ -26,9 +25,9 @@
       ]
     },
     {
-      "name": doOtherStuff,
+      "name": "doOtherStuff",
       "endpoint": "/doOtherStuff",
-      "accept": XML,
+      "accept": "XML",
       "params": [
         {
           "name": "anEmail",

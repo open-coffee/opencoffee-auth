@@ -2,7 +2,7 @@
     <h1>{{moduleName}}</h1>
     <img src="img/stagecornergreen.png" alt="" class="greenCorner">
 </div>
-<div ng-hide="moduleNotFound" ng-repeat="action in module.actions" class="white box">
+<div ng-hide="moduleNotFound" ng-repeat="action in module.moduleView.actions" class="white box">
     <div class="whiteContent">
         <h2>{{action.name}}</h2>
 

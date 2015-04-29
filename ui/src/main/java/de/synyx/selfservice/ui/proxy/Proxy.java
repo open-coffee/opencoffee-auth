@@ -1,8 +1,8 @@
 package de.synyx.selfservice.ui.proxy;
 
 
-import de.synyx.selfservice.ui.module.SelfserviceModule;
-import de.synyx.selfservice.ui.module.SelfserviceModuleRepository;
+import de.synyx.selfservice.ui.module.Module;
+import de.synyx.selfservice.ui.module.ModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +31,7 @@ public class Proxy {
     private RestTemplate restTemplate;
 
     @Autowired
-    private SelfserviceModuleRepository selfserviceModuleRepository;
+    private ModuleRepository moduleRepository;
 
     @RequestMapping("/api/user")
     public Principal getUser(Principal user) {
@@ -43,13 +43,13 @@ public class Proxy {
     public String redirectPost(@RequestBody(required = false) String body, @PathVariable("module") String moduleName,
                                HttpMethod method, HttpServletRequest request, HttpServletResponse response)
             throws URISyntaxException {
-        SelfserviceModule selfserviceModule = selfserviceModuleRepository.findByName(moduleName);
+        Module module = moduleRepository.findByName(moduleName);
 
         String requestedUrlPath = request.getServletPath();
         requestedUrlPath = requestedUrlPath.replace("/api/proxy/" + moduleName, "");
 
-        URI targetUri = new URI(selfserviceModule.getProtocol(), null, selfserviceModule.getHost(), selfserviceModule.getPort(),
-                selfserviceModule.getUrlPath() + requestedUrlPath, request.getQueryString(),null);
+        URI targetUri = new URI(module.getProtocol(), null, module.getHost(), module.getPort(),
+                module.getUrlPath() + requestedUrlPath, request.getQueryString(),null);
 
         HttpHeaders headers = getHeaders(request);
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
