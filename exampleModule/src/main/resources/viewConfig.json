@@ -1,0 +1,48 @@
+{
+  "name": "example",
+  "category":"irgendwas",
+  "actions": [
+    {
+      "name": "doStuff",
+      "endpoint": "/doStuff",
+      "accept" : "JSON",
+      "params": [
+        {
+          "name" : "selectedValues",
+          "options":["hello", "bye", "test", "tada"]
+        },
+        {
+          "name": "radioValues",
+          "options":["eins", "zwei", "drei"]
+        },
+        {
+          "name": "anyNumber",
+          "type": "Number",
+          "limits":{
+            "min": 1,
+            "max": 99
+          }
+        }
+      ]
+    },
+    {
+      "name": doOtherStuff,
+      "endpoint": "/doOtherStuff",
+      "accept": XML,
+      "params": [
+        {
+          "name": "anEmail",
+          "type": "EMAIL"
+        },
+        {
+          "name": "aDate",
+          "type": "DATE",
+          "limits": {
+            "min": "2014-01-01",
+            "max": "2015-06-01"
+          }
+        }
+      ]
+    }
+  ]
+}

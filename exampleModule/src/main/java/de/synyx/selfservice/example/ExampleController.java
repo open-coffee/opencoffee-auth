@@ -3,26 +3,24 @@ package de.synyx.selfservice.example;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 /**
  * Created by klem on 14.04.15.
  */
 @RestController
 public class ExampleController {
 
-    @RequestMapping(value = "/hello")
-    public Hello sayHello(){
-        return new Hello("hello");
+    @RequestMapping(value = "/config")
+    public String getViewConfig(){
+        String ret = "";
+        try {
+             ret = new FileReader("viewConfig.json").toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
-    class Hello {
-        private String huhu;
-
-        public Hello(String huhu) {
-            this.huhu = huhu;
-        }
-
-        public String getHuhu() {
-            return huhu;
-        }
-    }
 }
