@@ -23,11 +23,11 @@ public class ModuleActionParameter {
     @NotNull
     private String name;
 
-    @NotNull
     private ModuleActionParameterType type;
 
     @ElementCollection
     private Map<String,String> limits;
+
     @ElementCollection
     private Set<String> options;
 
@@ -72,6 +72,6 @@ public class ModuleActionParameter {
     }
 
     public enum ModuleActionParameterType{
-        TEXT, NUMBER, EMAIL, DATE, PASSWORD, FILE
+        TEXT, NUMBER, EMAIL, DATE, PASSWORD
     }
 }

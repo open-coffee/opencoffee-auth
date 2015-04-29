@@ -5,24 +5,49 @@
 <div ng-hide="moduleNotFound" ng-repeat="action in module.actions" class="white box">
     <div class="whiteContent">
         <h2>{{action.name}}</h2>
-        <form class="form-horizontal" name="form" align="left">
-            <div ng-repeat="param in action.params" class="form-group">
-                <label for="{{param.name}}" class="col-sm-2 col-xs-4 control-label">{{param.name}}</label>
 
-                <div class=" col-xs-8">
+        <form class="form-horizontal" name="form" align="left">
+
+            <div ng-repeat="param in action.inputs" class="form-group">
+                <label for="{{param.name}}" class="col-xs-3 control-label">{{param.name}}</label>
+
+                <div class="col-xs-9">
                     <input id="{{param.name}}" type="{{param.type}}" class="form-control"
-                           ng-model="params[param.name]" name="{{param.name}}" style="margin-bottom: 10px"/>
+                           ng-model="param.value" name="{{param.name}}"
+                           ng-attr-max="{{hasMax(param) ? param.limits.max : ''}}"
+                           ng-attr-min="{{hasMin(param) ? param.limits.min : ''}}" />
+                </div>
+            </div>
+
+            <div ng-repeat="param in action.radios" class="form-group">
+                <label class="col-xs-3 control-label">{{param.name}}</label>
+
+                <div class="col-xs-3" ng-repeat="option in param.options">
+                    <label class="control-label" for="{{option}}">{{option}}</label>
+                    <input id="{{option}}" type="radio" ng-model="param.value" name="{{option}}" ng-value="option"/>
+                </div>
+            </div>
+
+            <div ng-repeat="param in action.selects" class="form-group">
+                <label for="{{param.name}}" class="col-xs-3 control-label">{{param.name}}</label>
+                <div class="col-xs-9">
+                    <select id={{param.name}} class="form-control" ng-model="param.value"
+                            ng-options="option for option in param.options">
+                    </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-xs-6 col-sm-3 col-xs-offset-4 col-sm-offset-2">
+                <div class="col-xs-6 col-xs-offset-3">
                     <input type="submit" ng-disabled="form.$invalid"
                            ng-click="processAction(action)" value="{{action.name}}" class="btn btn-default"/>
                 </div>
             </div>
         </form>
     </div>
+</div>
+<div ng-hide="moduleNotFound" class="white box">
+    <button class="btn btn-default" ng-click="deleteModule()">Modul löschen</button>
 </div>
 <div ng-show="moduleNotFound" class="alert alert-danger">
     Das Modul {{moduleName}} existiert nicht :(

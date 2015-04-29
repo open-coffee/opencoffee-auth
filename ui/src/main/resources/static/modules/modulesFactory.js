@@ -15,6 +15,12 @@ angular.module('Selfservice').factory('modules', ['$resource', '$filter', 'HALRe
                     modulesList.push(savedModule);
                 });
             },
+            remove: function(module){
+                return Module.remove(module).$promise.then(function () {
+                    var index = modulesList.indexOf(module);
+                    modulesList.splice(index, 1);
+                })
+            },
             findByName: function(name){
                 return modulesList.promise.then(function(){
                     return $filter('findByValue')(modulesList, "name", name);
