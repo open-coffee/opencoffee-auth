@@ -6,6 +6,7 @@ import org.springframework.cloud.security.oauth2.sso.OAuth2SsoConfigurerAdapter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -48,9 +49,9 @@ public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
                                 "Session realm=\"JSESSIONID\""))
                 .and()
                 .authorizeRequests().antMatchers(freePaths).permitAll()
-                .anyRequest().authenticated().and().csrf().disable();
-                /*.csrfTokenRepository(csrfTokenRepository()).and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);*/
+                .anyRequest().authenticated().and().csrf()
+                .csrfTokenRepository(csrfTokenRepository()).and()
+                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
     private Filter csrfHeaderFilter() {

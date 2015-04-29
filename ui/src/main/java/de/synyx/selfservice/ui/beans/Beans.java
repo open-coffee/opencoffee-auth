@@ -1,6 +1,5 @@
 package de.synyx.selfservice.ui.beans;
 
-import org.h2.tools.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;

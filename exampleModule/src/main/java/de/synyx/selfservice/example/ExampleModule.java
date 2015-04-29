@@ -11,7 +11,7 @@ import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 @EnableOAuth2Resource
 public class ExampleModule {
 
-    public static void main(String[] args){
+    public static void main(String[] args){ //NOSONAR
         SpringApplication.run(ExampleModule.class, args);
     }
 }

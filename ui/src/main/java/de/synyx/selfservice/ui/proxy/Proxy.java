@@ -28,6 +28,9 @@ import java.util.Enumeration;
 @RestController
 public class Proxy {
 
+    private static final String MODULE_PROXY_ENDPOINT = "/api/proxy/{module}/**";
+    private static final String MODULE_NAME="module";
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -40,50 +43,50 @@ public class Proxy {
     }
 
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.GET)
-    public ResponseEntity<String> proxyGet(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.GET)
+    public ResponseEntity<String> proxyGet(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                            HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.POST)
-    public ResponseEntity<String> proxyPost(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.POST)
+    public ResponseEntity<String> proxyPost(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                             HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.PUT)
-    public ResponseEntity<String> proxyPut(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.PUT)
+    public ResponseEntity<String> proxyPut(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                            HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.DELETE)
-    public ResponseEntity<String> proxyDelete(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.DELETE)
+    public ResponseEntity<String> proxyDelete(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                               HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.HEAD)
-    public ResponseEntity<String> proxyHead(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.HEAD)
+    public ResponseEntity<String> proxyHead(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                             HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.OPTIONS)
-    public ResponseEntity<String> proxyOptions(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.OPTIONS)
+    public ResponseEntity<String> proxyOptions(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                                HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.PATCH)
-    public ResponseEntity<String> proxyPatch(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.PATCH)
+    public ResponseEntity<String> proxyPatch(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                              HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
 
-    @RequestMapping(value = "/api/proxy/{module}/**", method = RequestMethod.TRACE)
-    public ResponseEntity<String> proxyTRACE(@PathVariable("module") String moduleName, HttpMethod method,
+    @RequestMapping(value = MODULE_PROXY_ENDPOINT, method = RequestMethod.TRACE)
+    public ResponseEntity<String> proxyTRACE(@PathVariable(MODULE_NAME) String moduleName, HttpMethod method,
                                              HttpServletRequest request) throws URISyntaxException, IOException {
         return forwardRequestToModule(moduleName, request, method);
     }
