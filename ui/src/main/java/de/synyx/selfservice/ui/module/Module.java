@@ -1,9 +1,6 @@
 package de.synyx.selfservice.ui.module;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by klem on 14.04.15.

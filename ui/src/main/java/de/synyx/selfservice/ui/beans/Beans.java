@@ -1,8 +1,6 @@
 package de.synyx.selfservice.ui.beans;
 
-import org.h2.server.web.WebServlet;
 import org.h2.tools.Server;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +15,7 @@ public class Beans {
         return new RestTemplate();
     }
 
+    /*
     @Bean
     org.h2.tools.Server h2Server() {
         Server server = new Server();
@@ -29,4 +28,5 @@ public class Beans {
         return server;
 
     }
+    */
 }
