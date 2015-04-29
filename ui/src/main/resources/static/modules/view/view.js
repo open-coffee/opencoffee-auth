@@ -11,14 +11,18 @@ selfservice.config(['$routeProvider',
     }
 ])
 
-selfservice.controller('moduleView', ['$scope', '$routeParams', 'modules', '$location' ,
-    function($scope, $routeParams, modules, $location){
+selfservice.controller('moduleView', ['$scope', '$routeParams', 'modules', '$location' , '$http',
+    function($scope, $routeParams, modules, $location, $http){
         $scope.moduleName = "";
         $scope.moduleNotFound = false;
         $scope.module = null;
 
         $scope.processAction = function(action){
-            console.log("TODO");
+            params = {};
+            for(var i = 0; i < action.params.length; i++){
+                params[action.params[i].name] = action.params[i].value;
+            }
+            alert("POST \"" + JSON.stringify(params) + "\" to " + action.endpoint);
         };
 
         var initModuleView = function () {

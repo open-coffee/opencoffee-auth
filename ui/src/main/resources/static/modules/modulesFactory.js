@@ -13,7 +13,7 @@ angular.module('Selfservice').factory('modules', ['$resource', '$filter', 'HALRe
             add: function(module){
                return Module.save(module).$promise
                    .then(function(savedModule){
-                        return $http.get("/api/proxy/" + savedModule.name + "/config")
+                        return $http.get("/api/proxy/" + savedModule.name + "/viewConfig.json")
                             .then(function(response){
                                 savedModule.moduleView = response.data;
                                 return Module.save(savedModule).$promise;

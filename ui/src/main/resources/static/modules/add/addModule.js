@@ -1,9 +1,10 @@
 var selfservice = angular.module('Selfservice');
 
-selfservice.controller('addModule', ['$scope', 'modules',
-    function($scope, modules){
+selfservice.controller('addModule', ['$scope', 'modules', '$location',
+    function($scope, modules, $location){
         var portSpecified = function(){
-            return $scope.module.port != 80 && $scope.module.port != 443;
+            return $scope.module.port != $scope.protocols[0].port
+                && $scope.module.port != $scope.protocols[1].port;
         };
 
         $scope.protocols = [
@@ -25,7 +26,9 @@ selfservice.controller('addModule', ['$scope', 'modules',
 
         $scope.addModule = function requestModules() {
             $scope.module.protocol = $scope.module.protocol.name;
-            modules.add($scope.module);
+            modules.add($scope.module).then(function(){
+                $location.path("/view/" + $scope.module.name);
+            });
         };
 
         $scope.portIsDefaultProtocolPort = function(){

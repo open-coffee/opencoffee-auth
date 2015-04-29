@@ -10,12 +10,14 @@ import java.util.Set;
  */
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"protocol", "host", "port", "urlPath"}))
 public class Module {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
     private String protocol;
     private String host;
