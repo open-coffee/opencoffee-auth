@@ -27,13 +27,13 @@ import java.util.Enumeration;
 @Service
 public class ModuleRequestProxy {
 
+    private static final Logger LOGGER = Logger.getLogger(ModuleRequestProxy.class);
+
     @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
     private ModuleRepository moduleRepository;
-
-    private static final Logger logger = Logger.getLogger(ModuleRequestProxy.class);
 
     public ResponseEntity<String> forwardRequestToModule(String moduleName, HttpServletRequest request,
                                                           HttpMethod method) {
@@ -49,7 +49,7 @@ public class ModuleRequestProxy {
     private Module getModule(String moduleName){
         Module module = moduleRepository.findByName(moduleName);
         if(module == null){
-            logger.warn("Could not find module: " + moduleName);
+            LOGGER.warn("Could not find module: " + moduleName);
             throw new ModuleNotFoundException(moduleName);
         }
         return module;
@@ -65,7 +65,7 @@ public class ModuleRequestProxy {
         }catch (URISyntaxException syntaxException){
             ModuleURIMalformedException exception = new ModuleURIMalformedException(syntaxException.getMessage());
             exception.setStackTrace(syntaxException.getStackTrace());
-            throw exception;
+            throw exception; //NOSONAR
         }
         return targetUri;
     }
@@ -78,7 +78,7 @@ public class ModuleRequestProxy {
         }catch (IOException e){
             ProxyRequestBodyException exception = new ProxyRequestBodyException(e.getMessage());
             exception.setStackTrace(e.getStackTrace());
-            throw exception;
+            throw exception; //NOSONAR
         }
         return entity;
     }
@@ -99,12 +99,12 @@ public class ModuleRequestProxy {
     private ResponseEntity<String> sendRequest(URI targetUri, HttpMethod method, HttpEntity entity){
         ResponseEntity<String> responseEntity;
         try{
-            logger.info("Forward request to " + targetUri.toURL().toString());
+            LOGGER.info("Forward request to " + targetUri.toURL().toString());
             responseEntity = restTemplate.exchange(targetUri, method, entity, String.class);
         }catch (MalformedURLException e){
             ModuleURIMalformedException exception = new ModuleURIMalformedException(e.getMessage());
             exception.setStackTrace(e.getStackTrace());
-            throw exception;
+            throw exception; //NOSONAR
         }
         catch (HttpClientErrorException e){
             responseEntity = new ResponseEntity<>(e.getResponseBodyAsString(), e.getStatusCode());

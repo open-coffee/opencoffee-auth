@@ -17,7 +17,7 @@ import java.security.Principal;
  */
 @RestController
 public class ModuleProxyController {
-    private static final Logger logger = Logger.getLogger(ModuleProxyController.class);
+    private static final Logger LOGGER = Logger.getLogger(ModuleProxyController.class);
 
     @Autowired
     private ModuleRequestProxy moduleRequestProxy;
@@ -28,7 +28,7 @@ public class ModuleProxyController {
                                            HttpMethod method, HttpServletRequest request) {
         String logMessage = String.format("Recieved %s-Request for Module: %s from User: %s",
                 method.toString(), moduleName, user.getName());
-        logger.info(logMessage);
+        LOGGER.info(logMessage);
         return moduleRequestProxy.forwardRequestToModule(moduleName, request, method);
     }
 }
