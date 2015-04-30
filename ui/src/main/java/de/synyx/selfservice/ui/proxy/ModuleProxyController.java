@@ -17,17 +17,14 @@ import java.security.Principal;
  */
 @RestController
 public class ModuleProxyController {
-
-    private static final String MODULE_NAME="module";
-
-    private Logger logger = Logger.getLogger(ModuleProxyController.class);
+    private static final Logger logger = Logger.getLogger(ModuleProxyController.class);
 
     @Autowired
     private ModuleRequestProxy moduleRequestProxy;
 
     @RequestMapping(value = "/api/proxy/{module}/**")
     @ResponseBody
-    public ResponseEntity<String> proxyGet(Principal user, @PathVariable(MODULE_NAME) String moduleName,
+    public ResponseEntity<String> proxyGet(Principal user, @PathVariable("module") String moduleName,
                                            HttpMethod method, HttpServletRequest request) {
         String logMessage = String.format("Recieved %s-Request for Module: %s from User: %s",
                 method.toString(), moduleName, user.getName());

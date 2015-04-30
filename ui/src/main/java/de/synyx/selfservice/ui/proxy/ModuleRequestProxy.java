@@ -33,7 +33,7 @@ public class ModuleRequestProxy {
     @Autowired
     private ModuleRepository moduleRepository;
 
-    private Logger logger = Logger.getLogger(ModuleRequestProxy.class);
+    private static final Logger logger = Logger.getLogger(ModuleRequestProxy.class);
 
     public ResponseEntity<String> forwardRequestToModule(String moduleName, HttpServletRequest request,
                                                           HttpMethod method) {
@@ -63,7 +63,9 @@ public class ModuleRequestProxy {
             targetUri = new URI(module.getProtocol(), null, module.getHost(),
                     module.getPort(), module.getUrlPath() + requestedUrlPath, request.getQueryString(),null);
         }catch (URISyntaxException syntaxException){
-            throw  new ModuleURIMalformedException(syntaxException.getMessage());
+            ModuleURIMalformedException exception = new ModuleURIMalformedException(syntaxException.getMessage());
+            exception.setStackTrace(syntaxException.getStackTrace());
+            throw exception;
         }
         return targetUri;
     }
@@ -74,7 +76,9 @@ public class ModuleRequestProxy {
         try {
             entity = new HttpEntity<>(IOUtils.toString(request.getInputStream()), headers);
         }catch (IOException e){
-            throw new ProxyRequestBodyException(e.getMessage());
+            ProxyRequestBodyException exception = new ProxyRequestBodyException(e.getMessage());
+            exception.setStackTrace(e.getStackTrace());
+            throw exception;
         }
         return entity;
     }
@@ -97,8 +101,10 @@ public class ModuleRequestProxy {
         try{
             logger.info("Forward request to " + targetUri.toURL().toString());
             responseEntity = restTemplate.exchange(targetUri, method, entity, String.class);
-        }catch (MalformedURLException malformedURLException){
-            throw new ModuleURIMalformedException(malformedURLException.getMessage());
+        }catch (MalformedURLException e){
+            ModuleURIMalformedException exception = new ModuleURIMalformedException(e.getMessage());
+            exception.setStackTrace(e.getStackTrace());
+            throw exception;
         }
         catch (HttpClientErrorException e){
             responseEntity = new ResponseEntity<>(e.getResponseBodyAsString(), e.getStatusCode());
