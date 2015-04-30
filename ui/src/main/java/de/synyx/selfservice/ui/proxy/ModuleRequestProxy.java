@@ -57,7 +57,7 @@ public class ModuleRequestProxy {
 
     private URI getTargetUri(HttpServletRequest request, Module module){
         String requestedUrlPath = request.getServletPath();
-        requestedUrlPath = requestedUrlPath.replace("/api/proxy/" + module.getName(), "");
+        requestedUrlPath = requestedUrlPath.replace("/api/proxy/" + module.getName() + "/", "");
         URI targetUri;
         try{
             targetUri = new URI(module.getProtocol(), null, module.getHost(),

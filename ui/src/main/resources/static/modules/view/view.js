@@ -48,10 +48,6 @@ selfservice.controller('moduleView', ['$scope', '$routeParams', 'modules', '$loc
             }
         };
 
-        $scope.testPost = function(){
-            $http.post("/api/proxy/" + $scope.module.name + "/test", "hallo");
-        };
-
         $scope.hasMax = function (param) {
             return param.limits && angular.isDefined(param.limits.max);
         };
