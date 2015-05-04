@@ -34,7 +34,7 @@ selfservice.controller('navigation', ['$rootScope', '$scope', '$location', 'auth
         };
 
         var isFreeRoute = function (url) {
-            return urlMatchesPath(url, '/login') || urlMatchesPath(url, '/logout');
+            return urlMatchesPath(url, '/logout');
         }
 
         var redirectToLoginIfNotFreeRotue = function(newUrl) {
@@ -42,8 +42,7 @@ selfservice.controller('navigation', ['$rootScope', '$scope', '$location', 'auth
                 if(urlIsDefined(newUrl)){
                     $scope.lastPath = newUrl.$$route.originalPath;
                 }
-                $location.path('/login');
-                //window.location.href = '/login';
+                window.location.href = '/login';
             }
         };
 

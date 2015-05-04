@@ -1,16 +1,15 @@
 security:
   user:
     password: password
-
 spring:
   oauth2:
     client:
-      accessTokenUri: http://euenos.synyx.coffee:9999/uaa/oauth/token
-      userAuthorizationUri: http://euenos.synyx.coffee:9999/uaa/oauth/authorize
+      accessTokenUri: http://localhost:9999/uaa/oauth/token
+      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
       clientId: selfservice
       clientSecret: selfservicesecret
     resource:
-      userInfoUri: http://euenos.synyx.coffee:9999/uaa/user
+      userInfoUri: http://localhost:9999/uaa/user
   datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:selfservice;DB_CLOSE_ON_EXIT=FALSE

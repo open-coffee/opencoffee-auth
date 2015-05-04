@@ -9,7 +9,7 @@ selfservice.controller('logout',['$rootScope', '$scope', '$http',
             }).error(function(data) {
                 $rootScope.authenticated = false;
             });
-        }
+        };
 
         $scope.logout();
     }
