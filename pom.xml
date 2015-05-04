@@ -8,10 +8,10 @@
 	<packaging>pom</packaging>
 	<name>Selfservice</name>
 
-    <modules>
+	<modules>
 		<module>ui</module>
-        <module>auth</module>
-        <module>exampleModule</module>
+		<module>auth</module>
+		<module>exampleModule</module>
     </modules>
 	
 </project>
