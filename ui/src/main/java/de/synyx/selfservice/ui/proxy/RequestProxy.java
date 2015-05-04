@@ -23,7 +23,7 @@ public class RequestProxy {
     private static final Logger LOGGER = Logger.getLogger(RequestProxy.class);
 
     @Autowired
-    protected RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
 
     public ResponseEntity<String> forwardRequest(URI targetUri, HttpMethod method, HttpServletRequest request) {

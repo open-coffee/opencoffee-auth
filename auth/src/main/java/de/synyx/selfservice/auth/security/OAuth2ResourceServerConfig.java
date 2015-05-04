@@ -23,10 +23,10 @@ import java.io.IOException;
 @EnableResourceServer
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    private TokenExtractor tokenExtractor = new BearerTokenExtractor();
+    private final TokenExtractor tokenExtractor = new BearerTokenExtractor();
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception { //NOSONAR
         http.addFilterAfter(new OncePerRequestFilter() {
             @Override
             protected void doFilterInternal(HttpServletRequest request,
@@ -36,12 +36,10 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
                 // the security context in case it is actually an OAuth2Authentication
                 if (tokenExtractor.extract(request) == null) {
                     SecurityContextHolder.clearContext();
-                    System.out.println("HAAALLOOO");
                 }
                 filterChain.doFilter(request, response);
             }
         }, AbstractPreAuthenticatedProcessingFilter.class);
-        http
-                .authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().authenticated();
     }
 }
