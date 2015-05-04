@@ -32,7 +32,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value(value = "${ldap.hostUrl}")
     private String ldapHostUrl;
 
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { //NOSONAR
         //auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
@@ -44,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception { //NOSONAR
         http
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login").permitAll()
                 .and()
                 .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
                 .and()

@@ -8,11 +8,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * @author Yannic Klem - klem@synyx.de
  */
 @SpringBootApplication //NOSONAR
-@EnableResourceServer
 public class Authserver {
-
-
-
     public static void main(String[] args) { //NOSONAR
         SpringApplication.run(Authserver.class, args);
     }
