@@ -36,13 +36,12 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
                 // the security context in case it is actually an OAuth2Authentication
                 if (tokenExtractor.extract(request) == null) {
                     SecurityContextHolder.clearContext();
+                    System.out.println("HAAALLOOO");
                 }
                 filterChain.doFilter(request, response);
             }
         }, AbstractPreAuthenticatedProcessingFilter.class);
         http
-                .authorizeRequests()
-                .antMatchers("/img/stagecornergreen.png").permitAll()
-                .anyRequest().authenticated();
+                .authorizeRequests().anyRequest().authenticated();
     }
 }

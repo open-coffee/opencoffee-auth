@@ -21,8 +21,8 @@ p {
     margin-bottom: 9px;
 }
 
-.content{
-    padding-top: 75px;
+.container{
+    padding-top:10px;
 }
 
 div {
@@ -50,6 +50,8 @@ div {
 .whiteContent {
     border-bottom: 1px solid #D1D4CD;
     border-top: 1px solid #D1D4CD;
+    padding-top: 10px;
+    padding-bottom : 10px;
 }
 
 .greenCorner {
@@ -68,13 +70,10 @@ div {
     border-color: #b2c900;
 }
 
-.centered {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .alert {
     margin-bottom: 10px;
+}
+
+.form-container form{
+    display: inline;
 }

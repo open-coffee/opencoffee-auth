@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 @Configuration
 @Order(-10)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     @Value(value = "${ldap.hostUrl}")
     private String ldapHostUrl;
