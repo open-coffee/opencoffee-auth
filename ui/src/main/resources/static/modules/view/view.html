@@ -6,42 +6,36 @@
     <div class="whiteContent">
         <h2>{{action.name}}</h2>
 
-        <form class="form-horizontal" name="form" align="left">
+        <form class="form" name="form">
 
             <div ng-repeat="param in action.inputs" class="form-group">
-                <label for="{{param.name}}" class="col-xs-3 control-label">{{param.name}}</label>
-
-                <div class="col-xs-9">
-                    <input id="{{param.name}}" type="{{param.type}}" class="form-control"
-                           ng-model="param.value" name="{{param.name}}"
-                           ng-attr-max="{{hasMax(param) ? param.limits.max : ''}}"
-                           ng-attr-min="{{hasMin(param) ? param.limits.min : ''}}" />
-                </div>
+                <label for="{{param.name}}" class="control-label">{{param.name}}</label>
+                <input id="{{param.name}}" type="{{param.type}}" class="form-control"
+                       ng-model="param.value" name="{{param.name}}"
+                       ng-attr-max="{{hasMax(param) ? param.limits.max : ''}}"
+                       ng-attr-min="{{hasMin(param) ? param.limits.min : ''}}"/>
             </div>
 
             <div ng-repeat="param in action.radios" class="form-group">
-                <label class="col-xs-3 control-label">{{param.name}}</label>
-
+                <label class="control-label">{{param.name}}</label>
+                <br>
                 <div class="col-xs-3" ng-repeat="option in param.options">
-                    <label class="control-label" for="{{option}}">{{option}}</label>
+                    <label for="{{option}}">{{option}}</label>
                     <input id="{{option}}" type="radio" ng-model="param.value" name="{{option}}" ng-value="option"/>
                 </div>
+                <br>
             </div>
 
             <div ng-repeat="param in action.selects" class="form-group">
-                <label for="{{param.name}}" class="col-xs-3 control-label">{{param.name}}</label>
-                <div class="col-xs-9">
-                    <select id={{param.name}} class="form-control" ng-model="param.value"
-                            ng-options="option for option in param.options">
-                    </select>
-                </div>
+                <label for="{{param.name}}" class="control-label">{{param.name}}</label>
+                <select id={{param.name}} class="form-control" ng-model="param.value"
+                        ng-options="option for option in param.options">
+                </select>
             </div>
 
-            <div class="form-group">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <input type="submit" ng-disabled="form.$invalid"
-                           ng-click="processAction(action)" value="{{action.name}}" class="btn btn-default"/>
-                </div>
+            <div align="right">
+                <input type="submit" ng-disabled="form.$invalid" ng-click="processAction(action)"
+                       value="{{action.name}}" class="btn btn-default"/>
             </div>
         </form>
     </div>

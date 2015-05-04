@@ -15,8 +15,8 @@
         <div class="white box">
             <div class="whiteContent">
                 <p class="lead">
-                    Soll der Anwendung "${authorizationRequest.clientId}" der Zugriff auf Ihre Ressourcen
-                    gestattet werden?
+                    Soll der Anwendung "${authorizationRequest.clientId}" der Zugriff auf Ihre Ressourcen gestattet
+                    werden?
                 </p>
 				<ul>
 					<li>URL: ${authorizationRequest.redirectUri}</li>
