@@ -26,7 +26,7 @@ import java.io.IOException;
  * Created by klem on 13.04.15.
  */
 @Configuration
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@Order(-10)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value(value = "${ldap.hostUrl}")
@@ -44,43 +44,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception { //NOSONAR
         http
-                .httpBasic()
+                .formLogin().permitAll()
                 .and()
-                .logout()
+                .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
                 .and()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .csrf().csrfTokenRepository(csrfTokenRepository())
-                .and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
-    }
-
-    private Filter csrfHeaderFilter() {
-        return new OncePerRequestFilter() {
-            @Override
-            protected void doFilterInternal(HttpServletRequest request,
-                                            HttpServletResponse response, FilterChain filterChain)
-                    throws ServletException, IOException {
-                CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class
-                        .getName());
-                if (csrf != null) {
-                    Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
-                    String token = csrf.getToken();
-                    if (cookie == null || token != null
-                            && !token.equals(cookie.getValue())) {
-                        cookie = new Cookie("XSRF-TOKEN", token);
-                        cookie.setPath("/");
-                        response.addCookie(cookie);
-                    }
-                }
-                filterChain.doFilter(request, response);
-            }
-        };
-    }
-
-    private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
+                .authorizeRequests().anyRequest().authenticated();
     }
 }

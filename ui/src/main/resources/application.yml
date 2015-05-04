@@ -7,8 +7,8 @@ spring:
     client:
       accessTokenUri: http://euenos.synyx.coffee:9999/uaa/oauth/token
       userAuthorizationUri: http://euenos.synyx.coffee:9999/uaa/oauth/authorize
-      clientId: acme
-      clientSecret: acmesecret
+      clientId: selfservice
+      clientSecret: selfservicesecret
     resource:
       userInfoUri: http://euenos.synyx.coffee:9999/uaa/user
   datasource:
