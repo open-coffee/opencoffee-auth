@@ -26,8 +26,8 @@ selfservice.controller('addModule', ['$scope', 'modules', '$location',
 
         $scope.addModule = function requestModules() {
             $scope.module.protocol = $scope.module.protocol.name;
-            modules.add($scope.module).then(function(){
-                $location.path("/view/" + $scope.module.name);
+            modules.add($scope.module).then(function(module){
+                $location.path("/view/" + module.name);
             });
         };
 

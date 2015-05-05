@@ -1,14 +1,11 @@
 package de.synyx.selfservice.ui.module;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.CascadeType;
 
 /**
  * Created by klem on 14.04.15.
@@ -28,11 +25,6 @@ public class Module {
     private String host;
     private int port;
     private String urlPath;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="view_id")
-    private ModuleView moduleView;
-
 
     public Long getId() {
         return id;
@@ -82,11 +74,4 @@ public class Module {
         this.urlPath = urlPath;
     }
 
-    public ModuleView getModuleView() {
-        return moduleView;
-    }
-
-    public void setModuleView(ModuleView moduleView) {
-        this.moduleView = moduleView;
-    }
 }

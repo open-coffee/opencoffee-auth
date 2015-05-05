@@ -26,26 +26,28 @@ selfservice.controller('moduleView', ['$scope', '$routeParams', 'modules', '$loc
         };
 
         var initModuleView = function () {
-            for(var actionIndex = 0; actionIndex < $scope.module.moduleView.actions.length; actionIndex++){
-                var action = $scope.module.moduleView.actions[actionIndex];
-                action.radios = [];
-                action.selects = [];
-                action.inputs = [];
-                for(var paramIndex= 0; paramIndex < action.params.length; paramIndex++){
-                    var parameter = action.params[paramIndex];
-                    var options = parameter.options;
-                    if(options && options.length>0){
-                        if(options.length <= 3){
-                            action.radios.push(parameter);
+            modules.getModuleView($scope.module).then(function () {
+                for (var actionIndex = 0; actionIndex < $scope.module.moduleView.actions.length; actionIndex++) {
+                    var action = $scope.module.moduleView.actions[actionIndex];
+                    action.radios = [];
+                    action.selects = [];
+                    action.inputs = [];
+                    for (var paramIndex = 0; paramIndex < action.params.length; paramIndex++) {
+                        var parameter = action.params[paramIndex];
+                        var options = parameter.options;
+                        if (options && options.length > 0) {
+                            if (options.length <= 3) {
+                                action.radios.push(parameter);
+                            } else {
+                                action.selects.push(parameter);
+                                parameter.value = parameter.options[0];
+                            }
                         }else{
-                            action.selects.push(parameter);
-                            parameter.value = parameter.options[0];
+                            action.inputs.push(parameter);
                         }
-                    }else{
-                        action.inputs.push(parameter);
                     }
                 }
-            }
+            })
         };
 
         $scope.hasMax = function (param) {

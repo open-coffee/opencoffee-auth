@@ -30,7 +30,7 @@ import java.io.IOException;
 public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
 
     @Autowired
-    private MyLogoutSuccessHandler logoutSuccessHandler;
+    private SelfserviceUiLogoutSuccessHandler logoutSuccessHandler;
 
     @Override
     public void match(RequestMatchers matchers) {

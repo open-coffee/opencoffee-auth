@@ -18,12 +18,13 @@
 
             <div ng-repeat="param in action.radios" class="form-group">
                 <label class="control-label">{{param.name}}</label>
-                <br>
-                <div class="col-xs-3" ng-repeat="option in param.options">
-                    <label for="{{option}}">{{option}}</label>
-                    <input id="{{option}}" type="radio" ng-model="param.value" name="{{option}}" ng-value="option"/>
+
+                <div class="form-group">
+                    <div ng-repeat="option in param.options">
+                        <input id="{{option}}" type="radio" ng-model="param.value" name="{{option}}" ng-value="option"/>
+                        <label for="{{option}}">{{option}}</label>
+                    </div>
                 </div>
-                <br>
             </div>
 
             <div ng-repeat="param in action.selects" class="form-group">

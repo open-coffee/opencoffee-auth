@@ -19,7 +19,7 @@ import java.io.IOException;
  * Created by klem on 04.05.15.
  */
 @Service
-public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
+public class SelfserviceUiLogoutSuccessHandler implements LogoutSuccessHandler {
     @Value("${authorizationServer.revokeUri}")
     private String revokeUri;
 

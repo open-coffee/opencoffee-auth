@@ -1,6 +1,6 @@
 angular.module('Selfservice').factory('modules', ['$resource', '$filter', 'HALResource', '$http',
     function ($resource, $filter, HALResource, $http) {
-        var modulesEndpoint = '/selfserviceModules/:id';
+        var modulesEndpoint = '/api/selfserviceModules/:id';
 
         var Module = $resource(modulesEndpoint);
 
@@ -13,14 +13,8 @@ angular.module('Selfservice').factory('modules', ['$resource', '$filter', 'HALRe
             add: function(module){
                return Module.save(module).$promise
                    .then(function(savedModule){
-                        return $http.get("/api/proxy/" + savedModule.name + "/viewConfig.json")
-                            .then(function(response){
-                                savedModule.moduleView = response.data;
-                                return Module.save(savedModule).$promise;
-                            });
-                    })
-                   .then(function(savedModule){
                        modulesList.push(savedModule);
+                       return savedModule;
                    })
             },
             remove: function(module){
@@ -40,6 +34,16 @@ angular.module('Selfservice').factory('modules', ['$resource', '$filter', 'HALRe
                         modulesList.splice(0,modulesList.length);
                         modulesList.push.apply(modulesList, HALResource.getContent(response));
                     });
+            },
+            getModuleView: function (module) {
+                if (!module.viewRequestPromise) {
+                    module.viewRequestPromise = $http.get("/api/proxy/" + module.name + "/viewConfig.json")
+                        .then(function (response) {
+                            module.moduleView = response.data;
+                            return module;
+                        });
+                }
+                return module.viewRequestPromise;
             }
         };
 
