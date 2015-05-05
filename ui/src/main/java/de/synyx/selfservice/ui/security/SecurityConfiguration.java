@@ -1,5 +1,6 @@
 package de.synyx.selfservice.ui.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.cloud.security.Http401AuthenticationEntryPoint;
 import org.springframework.cloud.security.oauth2.sso.OAuth2SsoConfigurerAdapter;
@@ -28,6 +29,8 @@ import java.io.IOException;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
 
+    @Autowired
+    private MyLogoutSuccessHandler logoutSuccessHandler;
 
     @Override
     public void match(RequestMatchers matchers) {
@@ -42,7 +45,7 @@ public class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
 
         http
                 .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID", "XSRF-TOKEN")
-                .logoutSuccessHandler(new MyLogoutSuccessHandler())
+                .logoutSuccessHandler(logoutSuccessHandler)
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(

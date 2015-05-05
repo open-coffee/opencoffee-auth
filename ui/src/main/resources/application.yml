@@ -1,6 +1,8 @@
 security:
   user:
     password: password
+authorizationServer:
+  revokeUri: http://localhost:9999/uaa/oauth/revoke
 spring:
   oauth2:
     client:
