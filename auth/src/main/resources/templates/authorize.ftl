@@ -23,22 +23,26 @@
                     <li>scope: ${authorizationRequest.scope?join(", ")}</li>
                 </ul>
 				<div class="form-container" align="right">
-                <form id="confirmationForm" name="confirmationForm"
-                      action="../oauth/authorize" method="post">
-                    <input name="user_oauth_approval" value="true" type="hidden" />
-                    <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" id="scope.openid" name="scope.openid" value="true">
-                    <input type="hidden" id="authorize" name="authorize" value="Authorize">
-                    <button class="btn btn-success" type="submit">Ja</button>
-                </form>
-                <form id="denyForm" name="confirmationForm"
-                      action="../oauth/authorize" method="post">
-                    <input name="user_oauth_approval" value="true" type="hidden" />
-                    <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" id="scope.openid" name="scope.openid" value="false">
-                    <input type="hidden" id="authorize" name="authorize" value="Authorize">
-                    <button class="btn btn-danger" type="submit">Nein</button>
-                </form>
+                    <form id="confirmationForm" name="confirmationForm"
+                          action="../oauth/authorize" method="post">
+                        <input name="user_oauth_approval" value="true" type="hidden"/>
+                        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" id="scope.openid" name="scope.openid" value="true">
+                        <input type="hidden" id="authorize" name="authorize" value="Authorize">
+                        <button class="btn btn-success" type="submit">Ja</button>
+                    </form>
+                    <form id="denyForm" name="confirmationForm"
+                          action="../oauth/authorize" method="post">
+                        <input name="user_oauth_approval" value="true" type="hidden"/>
+                        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" id="scope.openid" name="scope.openid" value="false">
+                        <input type="hidden" id="authorize" name="authorize" value="Authorize">
+                        <button class="btn btn-danger" type="submit">Nein</button>
+                    </form>
+                    <form id="logoutForm" name="logoutForm" action="../logout" method="post">
+                        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button class="btn btn-success" type="submit">Logout</button>
+                    </form>
                 </div>
             </div>
         </div>
