@@ -19,20 +19,32 @@
     </#if>
         <div class="white box">
             <div class="whiteContent">
-                <form role="form" action="login" method="post">
-                    <div class="form-group">
-                        <label for="username">Benutzername:</label>
-                        <input type="text" class="form-control" id="username" name="username" autofocus/>
+                <#if !RequestParameters['logout']??>
+                    <form role="form" action="login" method="post">
+                        <div class="form-group">
+                            <label for="username">Benutzername:</label>
+                            <input type="text" class="form-control" id="username" name="username" autofocus/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Passwort:</label>
+                            <input type="password" class="form-control" id="password" name="password"/>
+                        </div>
+                        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-success glyphicon glyphicon-log-in">
+                            Login
+                        </button>
+                    </form>
+                </#if>
+                <#if RequestParameters['logout']??>
+                    <div>
+                        <h2>Willkommen bei synyx!</h2>
+                        <p>Sie sind eingeloggt.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Passwort:</label>
-                        <input type="password" class="form-control" id="password" name="password"/>
-                    </div>
-                    <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <button type="submit" class="btn btn-success glyphicon glyphicon-log-in">
-                        Login
-                    </button>
-                </form>
+                    <form id="logoutForm" name="logoutForm" action="/uaa/logout" method="post">
+                        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button class="btn btn-success" type="submit">Logout</button>
+                    </form>
+                </#if>
 			</div>
 		</div>
         <div class="green box"></div>
