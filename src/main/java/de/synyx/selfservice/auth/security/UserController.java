@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+
 /**
  * Created by klem on 13.04.15.
  */
@@ -12,7 +13,8 @@ import java.security.Principal;
 public class UserController {
 
     @RequestMapping("/user")
-    public Principal getUser(Principal user){
+    public Principal getUser(Principal user) {
+
         return user;
     }
 }
