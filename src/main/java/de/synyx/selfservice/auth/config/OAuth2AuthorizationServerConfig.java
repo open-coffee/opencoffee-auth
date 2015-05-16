@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.security;
+package de.synyx.selfservice.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

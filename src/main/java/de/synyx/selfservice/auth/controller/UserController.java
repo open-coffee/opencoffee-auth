@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.security;
+package de.synyx.selfservice.auth.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
