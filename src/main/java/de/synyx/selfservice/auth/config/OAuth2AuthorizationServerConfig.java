@@ -9,7 +9,10 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -22,6 +25,12 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private TokenStore tokenStore;
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    ClientDetailsService clientDetailsService;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception { // NOSONAR
 
@@ -32,10 +41,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception { // NOSONAR
 
-        clients.inMemory()
-            .withClient("selfservice")
-            .secret("selfservicesecret")
-            .authorizedGrantTypes("authorization_code", "refresh_token", "password")
-            .scopes("openid");
+        clients.jdbc(dataSource);
     }
 }

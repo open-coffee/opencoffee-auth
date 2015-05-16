@@ -12,6 +12,20 @@ create table oauth_client_details (
   autoapprove VARCHAR(256)
 );
 
+INSERT INTO oauth_client_details VALUES (
+  'selfservice',
+  null,
+  'selfservicesecret',
+  'openid',
+  'authorization_code,password,refresh_token',
+  null,
+  null,
+  null,
+  NULL,
+  null,
+  ''
+);
+
 create table oauth_client_token (
   token_id VARCHAR(256),
   token LONGVARBINARY,
