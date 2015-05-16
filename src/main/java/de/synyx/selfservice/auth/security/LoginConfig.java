@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * Created by klem on 13.04.15.
  */
 @Configuration
-@Order(SecurityOrder.DEFAULT_OVERRIDE_ORDER)
+@Order(SecurityOrder.OVERRIDE_DEFAULT_ORDER)
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     @Value(value = "${ldap.hostUrl}")

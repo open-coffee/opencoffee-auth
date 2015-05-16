@@ -8,5 +8,8 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
  */
 public class SecurityOrder {
 
-    public static final int DEFAULT_OVERRIDE_ORDER = SecurityProperties.DEFAULT_FILTER_ORDER - 1;
+    public static final int OVERRIDE_DEFAULT_ORDER = SecurityProperties.DEFAULT_FILTER_ORDER - 1;
+
+    private SecurityOrder() {
+    }
 }
