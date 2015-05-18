@@ -23,7 +23,7 @@ public class ActuatorConfig extends WebSecurityConfigurerAdapter {
             .deleteCookies("JSESSIONID")
             .and()
             .requestMatchers()
-            .antMatchers("/jolokia")
+            .antMatchers("/jolokia/**")
             .and()
             .authorizeRequests()
             .anyRequest()
