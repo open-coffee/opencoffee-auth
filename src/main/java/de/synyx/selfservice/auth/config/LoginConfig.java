@@ -4,9 +4,12 @@ import de.synyx.selfservice.auth.security.SecurityOrder;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.annotation.Order;
+
+import org.springframework.ldap.core.support.LdapContextSource;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,21 +23,47 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Order(SecurityOrder.OVERRIDE_DEFAULT_ORDER)
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
-    @Value(value = "${ldap.hostUrl}")
-    private String ldapHostUrl;
+    @Value(value = "${ldap.url}")
+    private String ldapUrl;
+
+    @Value(value = "${ldap.base}")
+    private String ldapBase;
+
+    @Value(value = "${ldap.userSearchBase}")
+    private String ldapUserSearchBase;
+
+    @Value(value = "${ldap.groupSearchBase}")
+    private String ldapGroupSearchBase;
+
+    @Value(value = "${ldap.groupSearchFilter}")
+    private String ldapGroupSearchFilter;
+
+    @Value(value = "${ldap.userDnPatterns}")
+    private String ldapUserDnPatterns;
+
+    @Bean
+    public LdapContextSource contextSource() {
+
+        LdapContextSource contextSource = new LdapContextSource();
+
+        contextSource.setUrl(ldapUrl);
+        contextSource.setBase(ldapBase);
+        contextSource.setPooled(true);
+
+        return contextSource;
+    }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { // NOSONAR
 
         // auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
         auth.ldapAuthentication()
-            .contextSource()
-            .url(ldapHostUrl)
-            .and()
-            .userDnPatterns("uid={0},ou=people")
-            .groupSearchBase("ou=group")
-            .groupSearchFilter("memberUid={1}")
-            .userSearchBase("ou=people");
+            .contextSource(contextSource())
+            .userDnPatterns(ldapUserDnPatterns)
+            .groupSearchBase(ldapGroupSearchBase)
+            .groupSearchFilter(ldapGroupSearchFilter)
+            .userSearchBase(ldapUserSearchBase);
     }
 
 
