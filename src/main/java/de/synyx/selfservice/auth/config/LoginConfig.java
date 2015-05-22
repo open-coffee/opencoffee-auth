@@ -2,6 +2,7 @@ package de.synyx.selfservice.auth.config;
 
 import de.synyx.selfservice.auth.security.SecurityOrder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,10 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.annotation.Order;
 
+import org.springframework.ldap.core.ContextSource;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.pool.factory.PoolingContextSource;
+import org.springframework.ldap.pool.validation.DefaultDirContextValidator;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,25 +45,40 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${ldap.userDnPatterns}")
     private String ldapUserDnPatterns;
 
-    @Bean
-    public LdapContextSource contextSource() {
+    @Autowired
+    private LdapContextSource contextSource;
+
+    @Bean(name = "contextSourceTarget")
+    public LdapContextSource contextSourceTarget() {
 
         LdapContextSource contextSource = new LdapContextSource();
 
         contextSource.setUrl(ldapUrl);
         contextSource.setBase(ldapBase);
-        contextSource.setPooled(true);
 
         return contextSource;
+    }
+
+
+    public ContextSource contextSource() {
+
+        PoolingContextSource poolingContextSource = new PoolingContextSource();
+
+        poolingContextSource.setDirContextValidator(new DefaultDirContextValidator());
+        poolingContextSource.setContextSource(contextSourceTarget());
+        poolingContextSource.setTestOnBorrow(true);
+        poolingContextSource.setTestWhileIdle(true);
+
+        return poolingContextSource;
     }
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { // NOSONAR
 
-        // auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+        //auth.inMemoryAuthentication().withUser("klem").password("password").roles("USER");
         auth.ldapAuthentication()
-            .contextSource(contextSource())
+            .contextSource(contextSourceTarget())
             .userDnPatterns(ldapUserDnPatterns)
             .groupSearchBase(ldapGroupSearchBase)
             .groupSearchFilter(ldapGroupSearchFilter)
