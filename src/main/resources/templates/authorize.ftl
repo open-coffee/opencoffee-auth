@@ -39,10 +39,6 @@
                         <input type="hidden" id="authorize" name="authorize" value="Authorize">
                         <button class="btn btn-danger" type="submit">Nein</button>
                     </form>
-                    <form id="logoutForm" name="logoutForm" action="../logout" method="post">
-                        <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button class="btn btn-success" type="submit">Logout</button>
-                    </form>
                 </div>
             </div>
         </div>

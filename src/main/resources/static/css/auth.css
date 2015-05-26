@@ -9,6 +9,18 @@ div {
     display: block;
 }
 
+input.ng-invalid.ng-touched {
+    border: 3px solid #d9534f;
+}
+
+.form-control{
+    border-radius : 0px;
+}
+
+.btn{
+    border-radius : 0px;
+}
+
 .topic {
     position: relative;
     text-align: center;
