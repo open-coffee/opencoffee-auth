@@ -33,15 +33,6 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${ldap.base}")
     private String ldapBase;
 
-    @Value(value = "${ldap.userSearchBase}")
-    private String ldapUserSearchBase;
-
-    @Value(value = "${ldap.groupSearchBase}")
-    private String ldapGroupSearchBase;
-
-    @Value(value = "${ldap.groupSearchFilter}")
-    private String ldapGroupSearchFilter;
-
     @Value(value = "${ldap.userDnPatterns}")
     private String ldapUserDnPatterns;
 
@@ -76,13 +67,8 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { // NOSONAR
 
-        //auth.inMemoryAuthentication().withUser("klem").password("password").roles("USER");
-        auth.ldapAuthentication()
-            .contextSource(contextSourceTarget())
-            .userDnPatterns(ldapUserDnPatterns)
-            .groupSearchBase(ldapGroupSearchBase)
-            .groupSearchFilter(ldapGroupSearchFilter)
-            .userSearchBase(ldapUserSearchBase);
+        // auth.inMemoryAuthentication().withUser("klem").password("password").roles("USER");
+        auth.ldapAuthentication().contextSource(contextSourceTarget()).userDnPatterns(ldapUserDnPatterns);
     }
 
 
