@@ -27,8 +27,8 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:ssh://git@git.synyx.de:infrastructure/selfservice-auth.git</connection>
-        <developerConnection>scm:git:ssh://git@git.synyx.de:infrastructure/selfservice-auth.git</developerConnection>
+        <connection>scm:git:ssh://git@git.synyx.de/infrastructure/selfservice-auth.git</connection>
+        <developerConnection>scm:git:ssh://git@git.synyx.de/infrastructure/selfservice-auth.git</developerConnection>
     </scm>
 
     <properties>
