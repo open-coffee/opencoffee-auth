@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import javax.sql.DataSource;
@@ -26,6 +27,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     private TokenStore tokenStore;
 
     @Autowired
+    private ApprovalStore approvalStore;
+
+    @Autowired
     private DataSource dataSource;
 
     @Autowired
@@ -34,7 +38,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception { // NOSONAR
 
-        endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager);
+        endpoints.tokenStore(tokenStore).approvalStore(approvalStore).authenticationManager(authenticationManager);
     }
 
 
