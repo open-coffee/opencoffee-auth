@@ -33,8 +33,26 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${ldap.base}")
     private String ldapBase;
 
+    @Value(value = "${ldap.userSearchBase}")
+    private String ldapUserSearchBase;
+
+    @Value(value = "${ldap.userSearchFilter}")
+    private String ldapUserSearchFilter;
+
+    @Value(value = "${ldap.groupSearchBase}")
+    private String ldapGroupSearchBase;
+
+    @Value(value = "${ldap.groupSearchFilter}")
+    private String ldapGroupSearchFilter;
+
     @Value(value = "${ldap.userDnPatterns}")
     private String ldapUserDnPatterns;
+
+    @Value(value = "${ldap.rolePrefix}")
+    private String ldapRolePrefix;
+
+    @Value(value = "${ldap.groupRoleAttribute:cn}")
+    private String ldapGroupRoleAttribute;
 
     @Autowired
     private LdapContextSource contextSource;
@@ -68,7 +86,14 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { // NOSONAR
 
         // auth.inMemoryAuthentication().withUser("klem").password("password").roles("USER");
-        auth.ldapAuthentication().contextSource(contextSourceTarget()).userDnPatterns(ldapUserDnPatterns);
+        auth.ldapAuthentication()
+            .contextSource(contextSourceTarget())
+            .userDnPatterns(ldapUserDnPatterns)
+            .groupSearchBase(ldapGroupSearchBase)
+            .groupSearchFilter(ldapGroupSearchFilter)
+            .groupRoleAttribute(ldapGroupRoleAttribute)
+            .userSearchBase(ldapUserSearchBase)
+            .userSearchFilter(ldapUserSearchFilter);
     }
 
 
