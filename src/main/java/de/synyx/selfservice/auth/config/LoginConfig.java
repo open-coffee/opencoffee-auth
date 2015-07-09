@@ -45,17 +45,11 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${ldap.groupSearchFilter}")
     private String ldapGroupSearchFilter;
 
-    @Value(value = "${ldap.userDnPatterns}")
-    private String ldapUserDnPatterns;
-
-    @Value(value = "${ldap.rolePrefix}")
-    private String ldapRolePrefix;
-
-    @Value(value = "${ldap.groupRoleAttribute:cn}")
-    private String ldapGroupRoleAttribute;
-
     @Autowired
     private LdapContextSource contextSource;
+
+    @Autowired
+    private LdapContextSource contextSourceTarget;
 
     @Bean(name = "contextSourceTarget")
     public LdapContextSource contextSourceTarget() {
@@ -74,7 +68,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         PoolingContextSource poolingContextSource = new PoolingContextSource();
 
         poolingContextSource.setDirContextValidator(new DefaultDirContextValidator());
-        poolingContextSource.setContextSource(contextSourceTarget());
+        poolingContextSource.setContextSource(contextSourceTarget);
         poolingContextSource.setTestOnBorrow(true);
         poolingContextSource.setTestWhileIdle(true);
 
@@ -85,15 +79,13 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { // NOSONAR
 
-        // auth.inMemoryAuthentication().withUser("klem").password("password").roles("USER");
+        // auth.inMemoryAuthentication().withUser("klem").password("password").authorities("ROLE_TROLL");
         auth.ldapAuthentication()
-            .contextSource(contextSourceTarget())
-            .userDnPatterns(ldapUserDnPatterns)
+            .userSearchBase(ldapUserSearchBase)
+            .userSearchFilter(ldapUserSearchFilter)
             .groupSearchBase(ldapGroupSearchBase)
             .groupSearchFilter(ldapGroupSearchFilter)
-            .groupRoleAttribute(ldapGroupRoleAttribute)
-            .userSearchBase(ldapUserSearchBase)
-            .userSearchFilter(ldapUserSearchFilter);
+            .contextSource(contextSourceTarget);
     }
 
 
