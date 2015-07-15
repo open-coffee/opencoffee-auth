@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.controller;
+package de.synyx.selfservice.auth.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

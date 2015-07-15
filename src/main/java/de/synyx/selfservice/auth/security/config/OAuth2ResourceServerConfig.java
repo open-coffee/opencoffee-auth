@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.config;
+package de.synyx.selfservice.auth.security.config;
 
 import org.springframework.context.annotation.Configuration;
 

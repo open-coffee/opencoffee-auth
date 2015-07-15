@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.security;
+package de.synyx.selfservice.auth.security.util;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
