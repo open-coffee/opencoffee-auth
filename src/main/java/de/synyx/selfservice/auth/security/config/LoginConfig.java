@@ -1,6 +1,7 @@
 package de.synyx.selfservice.auth.security.config;
 
 import de.synyx.selfservice.auth.security.util.SecurityOrder;
+import de.synyx.selfservice.auth.user.userdetails.SynyxUserDetailsContextMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,10 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.annotation.Order;
 
-import org.springframework.ldap.core.ContextSource;
 import org.springframework.ldap.core.support.LdapContextSource;
-import org.springframework.ldap.pool.factory.PoolingContextSource;
-import org.springframework.ldap.pool.validation.DefaultDirContextValidator;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -49,10 +47,10 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     private LdapContextSource contextSource;
 
     @Autowired
-    private LdapContextSource contextSourceTarget;
+    private SynyxUserDetailsContextMapper synyxUserDetailsContextMapper;
 
-    @Bean(name = "contextSourceTarget")
-    public LdapContextSource contextSourceTarget() {
+    @Bean
+    public LdapContextSource contextSource() {
 
         LdapContextSource contextSource = new LdapContextSource();
 
@@ -60,19 +58,6 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         contextSource.setBase(ldapBase);
 
         return contextSource;
-    }
-
-
-    public ContextSource contextSource() {
-
-        PoolingContextSource poolingContextSource = new PoolingContextSource();
-
-        poolingContextSource.setDirContextValidator(new DefaultDirContextValidator());
-        poolingContextSource.setContextSource(contextSourceTarget);
-        poolingContextSource.setTestOnBorrow(true);
-        poolingContextSource.setTestWhileIdle(true);
-
-        return poolingContextSource;
     }
 
 
@@ -85,7 +70,8 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .userSearchFilter(ldapUserSearchFilter)
             .groupSearchBase(ldapGroupSearchBase)
             .groupSearchFilter(ldapGroupSearchFilter)
-            .contextSource(contextSourceTarget);
+            .contextSource(contextSource)
+            .userDetailsContextMapper(synyxUserDetailsContextMapper);
     }
 
 
