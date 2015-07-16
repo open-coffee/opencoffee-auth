@@ -1,9 +1,12 @@
 package de.synyx.selfservice.auth.user.userdetails;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 public class SynyxUserDetails implements LdapUserDetails {
@@ -45,9 +48,19 @@ public class SynyxUserDetails implements LdapUserDetails {
 
 
     @Override
+    @org.codehaus.jackson.annotate.JsonIgnore
+    @com.fasterxml.jackson.annotation.JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         return details.getAuthorities();
+    }
+
+
+    @org.codehaus.jackson.annotate.JsonProperty("authorities")
+    @com.fasterxml.jackson.annotation.JsonProperty("authorities")
+    private List<String> getAuthoritiesAsStrings() {
+
+        return new ArrayList<>(AuthorityUtils.authorityListToSet(details.getAuthorities()));
     }
 
 
