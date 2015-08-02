@@ -5,11 +5,11 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.4.RELEASE</version>
+        <version>1.2.5.RELEASE</version>
     </parent>
 
     <packaging>jar</packaging>
-    <artifactId>auth</artifactId>
+    <artifactId>selfservice-auth</artifactId>
     <groupId>de.synyx.selfservice</groupId>
     <version>0.1.4-SNAPSHOT</version>
 
