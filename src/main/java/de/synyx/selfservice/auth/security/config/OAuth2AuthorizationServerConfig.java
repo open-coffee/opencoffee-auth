@@ -1,12 +1,14 @@
 package de.synyx.selfservice.auth.security.config;
 
 import de.synyx.selfservice.auth.user.userdetails.SynyxUserDetails;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -19,9 +21,10 @@ import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticat
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -42,8 +45,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Autowired
     private AccessTokenConverter accessTokenConverter;
-
-    private UserDetailsService userDetailsService;
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception { // NOSONAR
