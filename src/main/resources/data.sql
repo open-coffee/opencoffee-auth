@@ -18,7 +18,7 @@ INSERT INTO oauth_client_details VALUES (
   'selfservicesecret',
   'openid',
   'authorization_code,password,refresh_token',
-  null,
+  'http://localhost:8080',
   null,
   null,
   NULL,
