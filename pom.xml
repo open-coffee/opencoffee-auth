@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <artifactId>selfservice-auth</artifactId>
     <groupId>de.synyx.selfservice</groupId>
-    <version>0.1.5-SNAPSHOT</version>
+    <version>0.1.7-SNAPSHOT</version>
 
     <distributionManagement>
         <repository>
