@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.context.annotation.Bean;
 
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+
 import java.sql.SQLException;
 
 
@@ -16,6 +18,7 @@ import java.sql.SQLException;
  * @author  Yannic Klem - klem@synyx.de
  */
 @SpringBootApplication // NOSONAR
+@EnableAuthorizationServer
 public class Authserver {
 
     public static void main(String[] args) { // NOSONAR
