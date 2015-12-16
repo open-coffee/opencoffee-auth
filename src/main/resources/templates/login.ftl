@@ -40,7 +40,7 @@
                         <h2>Willkommen bei synyx!</h2>
                         <p>Sie sind eingeloggt.</p>
                     </div>
-                    <form id="logoutForm" name="logoutForm" action="/uaa/logout" method="post">
+                    <form id="logoutForm" name="logoutForm" action="/auth/logout" method="post">
                         <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <button class="btn btn-success" type="submit">Logout</button>
                     </form>
