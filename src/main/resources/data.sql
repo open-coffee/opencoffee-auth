@@ -18,10 +18,10 @@ INSERT INTO oauth_client_details VALUES (
   'selfservicesecret',
   'openid',
   'authorization_code,password,refresh_token',
-  null
   null,
   null,
-  NULL,
+  null,
+  null,
   null,
   'true'
 );
@@ -32,10 +32,10 @@ INSERT INTO oauth_client_details VALUES (
   'buchungensecret',
   'openid',
   'authorization_code,password,refresh_token',
-  null
   null,
   null,
-  NULL,
+  null,
+  null,
   null,
   'true'
 );
