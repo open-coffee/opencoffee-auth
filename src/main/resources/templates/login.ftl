@@ -30,7 +30,8 @@
                             <input type="password" class="form-control" id="password" name="password"/>
                         </div>
                         <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button type="submit" class="btn btn-success glyphicon glyphicon-log-in">
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-log-in"></span>
                             Login
                         </button>
                     </form>

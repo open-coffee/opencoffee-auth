@@ -15,13 +15,9 @@
         <div class="white box">
             <div class="whiteContent">
                 <p class="lead">
-                    Soll der Anwendung "${authorizationRequest.clientId}" der Zugriff auf Ihre Ressourcen gestattet
+                    Soll der Anwendung "${authorizationRequest.clientId}" der Zugriff auf Ihre Benutzerdaten gestattet
                     werden?
                 </p>
-				<ul>
-					<li>URL: ${authorizationRequest.redirectUri}</li>
-                    <li>scope: ${authorizationRequest.scope?join(", ")}</li>
-                </ul>
 				<div class="form-container" align="right">
                     <form id="confirmationForm" name="confirmationForm"
                           action="../oauth/authorize" method="post">
