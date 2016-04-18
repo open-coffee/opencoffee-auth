@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <artifactId>selfservice-auth</artifactId>
     <groupId>de.synyx.selfservice</groupId>
-    <version>0.1.12-SNAPSHOT</version>
+    <version>0.1.12</version>
 
     <distributionManagement>
         <repository>
@@ -27,7 +27,7 @@
     <scm>
         <connection>scm:git:ssh://git@git.synyx.de/infrastructure/selfservice-auth.git</connection>
         <developerConnection>scm:git:ssh://git@git.synyx.de/infrastructure/selfservice-auth.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>selfservice-auth-0.1.12</tag>
   </scm>
 
     <properties>
