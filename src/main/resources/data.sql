@@ -3,7 +3,7 @@ INSERT INTO oauth_client_details VALUES (
   null,
   'selfservicesecret',
   'openid',
-  'authorization_code,password,refresh_token',
+  'authorization_code,password,refresh_token,client_credentials',
   null,
   null,
   null,
