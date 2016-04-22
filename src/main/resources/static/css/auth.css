@@ -1,77 +1,58 @@
+/* Basic overrides */
+
 body {
-    background-color: #efeae1;
-}
-.content{
-    padding-top: 75px;
+  background-color: #FFFFFF;
 }
 
-div {
-    display: block;
+@media (min-width: 768px) {
+  body {
+    background-color: #EFEAE1;
+  }
 }
 
-input.ng-invalid.ng-touched {
-    border: 3px solid #d9534f;
+.container {
+  padding: 0;
 }
 
-.form-control{
-    border-radius : 0px;
+/* Login module */
+
+.login {
+  /* OK */
 }
 
-.btn{
-    border-radius : 0px;
+@media (min-width: 768px) {
+  .login {
+    margin-top: 120px;
+  }
 }
 
-.topic {
-    position: relative;
-    text-align: center;
+.login--header {
+  background-color: #FFFFFF;
+  padding: 24px 18px;
 }
 
-.white {
-    background-color: #ffffff;
+.login--header > img {
+  display: inline-block;
 }
 
-.green {
-    background-color: #b2c900;
+.login--header > h2 {
+  margin: 0 0 0 12px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
 }
 
-.box {
-    padding: 20px;
-    margin-bottom: 10px;
+.login--form {
+  background-color: #FFFFFF;
+  padding: 0 18px 24px 18px;
 }
 
-.whiteContent {
-    border-bottom: 1px solid #D1D4CD;
-    border-top: 1px solid #D1D4CD;
-    padding-bottom: 10px;
+.login--form form {
+  margin: 0;
 }
 
-.greenCorner {
-    bottom: 0;
-    position: absolute;
-    right: -1px;
-}
-
-.logo {
-    padding-right: 10px;
-}
-
-.btn-success {
-    color: #000000;
-    background-color: #b2c900;
-    border-color: #b2c900;
-}
-
-.centered {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.alert {
-    margin-bottom: 10px;
-}
-
-.form-container form{
-    display: inline;
+.login--form button[type=submit] {
+  background-color: #B2C900;
+  border-color: #B2C900;
+  color: #FFFFFF;
 }
