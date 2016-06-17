@@ -17,11 +17,12 @@ import java.sql.SQLException;
 /**
  * @author  Yannic Klem - klem@synyx.de
  */
-@SpringBootApplication // NOSONAR
+@SpringBootApplication
 @EnableAuthorizationServer
 public class Authserver {
 
-    public static void main(String[] args) { // NOSONAR
+    @SuppressWarnings("checkstyle:uncommentedmain")
+    public static void main(String[] args) {
 
         SpringApplication.run(Authserver.class, args);
     }
