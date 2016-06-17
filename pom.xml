@@ -8,10 +8,11 @@
         <version>1.3.0.RELEASE</version>
     </parent>
 
-    <packaging>jar</packaging>
-    <artifactId>selfservice-auth</artifactId>
-    <groupId>de.synyx.selfservice</groupId>
+    <artifactId>auth</artifactId>
+    <groupId>coffee.synyx</groupId>
     <version>0.1.14-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
 
     <distributionManagement>
         <repository>
