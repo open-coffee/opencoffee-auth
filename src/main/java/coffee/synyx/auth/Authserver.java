@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth;
+package coffee.synyx.auth;
 
 import org.h2.tools.Server;
 

@@ -1,6 +1,6 @@
-package de.synyx.selfservice.auth.security.config;
+package coffee.synyx.auth.security.config;
 
-import de.synyx.selfservice.auth.security.util.SecurityOrder;
+import coffee.synyx.auth.security.util.SecurityOrder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

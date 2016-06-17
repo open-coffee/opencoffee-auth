@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.mvc;
+package coffee.synyx.auth.mvc;
 
 import org.springframework.context.annotation.Configuration;
 

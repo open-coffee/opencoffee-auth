@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.user.controller;
+package coffee.synyx.auth.user.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

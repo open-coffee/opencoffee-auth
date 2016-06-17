@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.user.userdetails;
+package coffee.synyx.auth.user.userdetails;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

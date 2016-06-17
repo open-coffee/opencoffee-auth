@@ -1,4 +1,4 @@
-package de.synyx.selfservice.auth.security.config;
+package coffee.synyx.auth.security.config;
 
 import org.springframework.beans.factory.annotation.Value;
 
