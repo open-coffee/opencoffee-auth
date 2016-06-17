@@ -25,8 +25,12 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:ssh://git@git.synyx.de/infrastructure/selfservice-auth.git</connection>
-        <developerConnection>scm:git:ssh://git@git.synyx.de/infrastructure/selfservice-auth.git</developerConnection>
+        <connection>
+            scm:git:ssh://git@gitlab-test.synyx.coffee:schneider/coffeenet-auth.git
+        </connection>
+        <developerConnection>
+            scm:git:ssh://git@gitlab-test.synyx.coffee:schneider/coffeenet-auth.git
+        </developerConnection>
       <tag>HEAD</tag>
   </scm>
 
