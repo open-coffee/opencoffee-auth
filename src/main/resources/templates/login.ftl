@@ -1,6 +1,7 @@
 <#import "/spring.ftl" as spring/>
 
-<html>
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
