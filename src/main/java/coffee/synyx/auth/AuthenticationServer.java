@@ -19,12 +19,12 @@ import java.sql.SQLException;
  */
 @SpringBootApplication
 @EnableAuthorizationServer
-public class Authserver {
+public class AuthenticationServer {
 
     @SuppressWarnings("checkstyle:uncommentedmain")
     public static void main(String[] args) {
 
-        SpringApplication.run(Authserver.class, args);
+        SpringApplication.run(AuthenticationServer.class, args);
     }
 
 
