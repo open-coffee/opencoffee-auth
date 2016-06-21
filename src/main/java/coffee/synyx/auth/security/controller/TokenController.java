@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 
 
 /**
- * Created by klem on 05.05.15.
+ * @author  Yannic Klem - klem@synyx.de
  */
 @RestController
 @EnableAuthorizationServer

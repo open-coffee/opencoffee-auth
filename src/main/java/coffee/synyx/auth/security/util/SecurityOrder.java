@@ -4,7 +4,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 
 /**
- * Created by klem on 16.05.15.
+ * @author  Yannic Klem - klem@synyx.de
  */
 public final class SecurityOrder {
 

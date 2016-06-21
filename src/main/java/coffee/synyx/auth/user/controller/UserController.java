@@ -7,7 +7,7 @@ import java.security.Principal;
 
 
 /**
- * Created by klem on 13.04.15.
+ * @author  Yannic Klem - klem@synyx.de
  */
 @RestController
 public class UserController {
