@@ -11,7 +11,7 @@
 
     <groupId>coffee.synyx</groupId>
     <artifactId>auth</artifactId>
-    <version>0.1.14-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>CoffeeNet Authentication Service</name>
     <description>
