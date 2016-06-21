@@ -12,6 +12,11 @@
     <groupId>coffee.synyx</groupId>
     <version>0.1.14-SNAPSHOT</version>
 
+    <name>CoffeeNet Authentication Service</name>
+    <description>
+        Authentication service for all services in the CoffeeNet based on single sign on with OAuth
+    </description>
+
     <packaging>jar</packaging>
 
     <distributionManagement>
