@@ -1,3 +1,5 @@
+<#import "/spring.ftl" as spring/>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -15,40 +17,38 @@
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
     <#if RequestParameters['error']??>
         <div class="alert alert-danger">
-            Login war nicht erfolgreich. Bitte beachten Sie die Groß- und Kleinschreibung.
+            <@spring.message "login.failure"/>
         </div>
     </#if>
         <div class="login--header">
             <img alt="synyx Logo" src="images/logo.png">
-            <h2>Login</h2>
+            <h2><@spring.message "login.name"/></h2>
         </div>
         <div class="login--form">
         <#if !RequestParameters['logout']??>
             <form role="form" action="login" method="post">
                 <div class="form-group">
-                    <label for="username" class="hidden">Benutzername:</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Benutzername"
-                           autofocus/>
+                    <input type="text" class="form-control" id="username" name="username"
+                           placeholder="<@spring.message "login.username"/>" autofocus/>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="hidden">Passwort:</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Passwort"/>
+                    <input type="password" class="form-control" id="password" name="password"
+                           placeholder="<@spring.message "login.password"/>"/>
                 </div>
+
                 <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-block btn-success">
                     <span class="glyphicon glyphicon-log-in"></span>
-                    Login
+                    <@spring.message "login.button.login"/>
                 </button>
             </form>
         </#if>
         <#if RequestParameters['logout']??>
-            <div>
-                <h2>Willkommen bei synyx!</h2>
-                <p>Sie sind eingeloggt.</p>
-            </div>
             <form id="logoutForm" name="logoutForm" action="logout" method="post">
                 <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button class="btn btn-success" type="submit">Logout</button>
+                <button class="btn btn-success" type="submit">
+                    <@spring.message "login.button.logout"/>
+                </button>
             </form>
             <script>
                 $('document').ready(function () {
