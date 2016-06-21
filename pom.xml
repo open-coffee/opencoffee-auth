@@ -48,14 +48,6 @@
     </properties>
 
     <dependencies>
-        <!-- Boilerplate -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.14.8</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Database -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
