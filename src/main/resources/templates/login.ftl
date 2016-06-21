@@ -12,22 +12,23 @@
 </head>
 <body>
 <div class="login container">
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-  <#if RequestParameters['error']??>
-    <div class="alert alert-danger">
-      Login war nicht erfolgreich. Bitte beachten Sie die Groß- und Kleinschreibung.
-    </div>
-  </#if>
-    <div class="login--header">
-        <img alt="synyx Logo" src="images/logo.png">
-        <h2>Login</h2>
-    </div>
-    <div class="login--form">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+    <#if RequestParameters['error']??>
+        <div class="alert alert-danger">
+            Login war nicht erfolgreich. Bitte beachten Sie die Groß- und Kleinschreibung.
+        </div>
+    </#if>
+        <div class="login--header">
+            <img alt="synyx Logo" src="images/logo.png">
+            <h2>Login</h2>
+        </div>
+        <div class="login--form">
         <#if !RequestParameters['logout']??>
             <form role="form" action="login" method="post">
                 <div class="form-group">
                     <label for="username" class="hidden">Benutzername:</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Benutzername" autofocus/>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Benutzername"
+                           autofocus/>
                 </div>
                 <div class="form-group">
                     <label for="password" class="hidden">Passwort:</label>
@@ -54,7 +55,7 @@
                     $logoutForm = $('#logoutForm');
                     var referrer = document.referrer;
                     var action = 'logout';
-                    if(referrer) {
+                    if (referrer) {
                         action += '?redirect=' + referrer;
                     }
                     $logoutForm.attr('action', action);
@@ -62,8 +63,8 @@
                 });
             </script>
         </#if>
+        </div>
     </div>
-  </div>
 </div>
 </body>
 </html>
