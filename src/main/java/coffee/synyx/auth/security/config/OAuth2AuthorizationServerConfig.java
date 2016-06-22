@@ -69,7 +69,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
 
     @Bean
-    public AccessTokenConverter accessTokenConverter() {
+    public AccessTokenConverter defaultAccessTokenConverter() {
 
         DefaultAccessTokenConverter defaultAccessTokenConverter = new DefaultAccessTokenConverter();
         defaultAccessTokenConverter.setUserTokenConverter(userAuthenticationConverter());
