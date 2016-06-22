@@ -23,19 +23,18 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
-        http.formLogin()
+        http.authorizeRequests()
+            .antMatchers("/webjars/**")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+            .and()
+            .formLogin()
             .loginPage("/login")
             .permitAll()
             .and()
             .logout()
             .logoutSuccessHandler(logoutSuccessHandler)
-            .deleteCookies("JSESSIONID")
-            .and()
-            .requestMatchers()
-            .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/logout")
-            .and()
-            .authorizeRequests()
-            .anyRequest()
-            .authenticated();
+            .deleteCookies("JSESSIONID");
     }
 }
