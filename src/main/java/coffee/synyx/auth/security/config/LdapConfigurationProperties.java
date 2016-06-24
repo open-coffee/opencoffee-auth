@@ -2,7 +2,10 @@ package coffee.synyx.auth.security.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+
 /**
+ * All properties that are required to configure an LDAP-based authentication.
+ *
  * @author  Yannic Klem - klem@synyx.de
  */
 @ConfigurationProperties(prefix = "ldap")

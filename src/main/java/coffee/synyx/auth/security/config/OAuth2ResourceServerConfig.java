@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * TODO.
+ * Configures OAuth2 security for resources.
+ *
+ * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {

@@ -16,7 +16,10 @@ import org.springframework.security.config.annotation.authentication.configurers
 
 
 /**
- * TODO.
+ * Configures an {@link org.springframework.security.authentication.AuthenticationManager authentication manager} to use
+ * ldap based on {@link LdapConfigurationProperties}.
+ *
+ * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
 @EnableConfigurationProperties(LdapConfigurationProperties.class)
