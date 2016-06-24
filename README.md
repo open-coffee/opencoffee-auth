@@ -4,6 +4,6 @@
 
 ## Authorisierungspfade
 
-* 
+* /auth/oauth/authorize
 
 ## Neuen Service einpflegen
