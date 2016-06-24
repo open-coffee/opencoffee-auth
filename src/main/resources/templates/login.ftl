@@ -20,11 +20,13 @@
             <@spring.message "login.failure"/>
         </div>
     </#if>
+
         <div class="login--header">
             <img alt="synyx Logo" src="images/logo.png">
             <h2><@spring.message "login.name"/></h2>
         </div>
         <div class="login--form">
+
         <#if !RequestParameters['logout']??>
             <form role="form" action="login" method="post">
                 <div class="form-group">
@@ -43,6 +45,7 @@
                 </button>
             </form>
         </#if>
+
         <#if RequestParameters['logout']??>
             <form id="logoutForm" name="logoutForm" action="logout" method="post">
                 <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -50,18 +53,6 @@
                     <@spring.message "login.button.logout"/>
                 </button>
             </form>
-            <script>
-                $('document').ready(function () {
-                    $logoutForm = $('#logoutForm');
-                    var referrer = document.referrer;
-                    var action = 'logout';
-                    if (referrer) {
-                        action += '?redirect=' + referrer;
-                    }
-                    $logoutForm.attr('action', action);
-                    $logoutForm.submit();
-                });
-            </script>
         </#if>
         </div>
     </div>
@@ -69,5 +60,17 @@
 
 <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+    $('#logoutForm').ready(function () {
+        $logoutForm = $('#logoutForm');
+        var referrer = document.referrer;
+        var action = 'logout';
+        if (referrer) {
+            action += '?redirect=' + referrer;
+        }
+        $logoutForm.attr('action', action);
+        $logoutForm.submit();
+    });
+</script>
 </body>
 </html>
