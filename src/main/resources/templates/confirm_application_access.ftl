@@ -21,18 +21,20 @@
         <div class="authorize--header">
             <img alt="synyx Logo" src="../images/logo.png">
             <h2>
-                <@spring.message "authorize.title"/>
+            <@spring.message "authorize.title"/>
             </h2>
         </div>
+
+    <#if authorizationRequest??>
         <div class="authorize--form">
             <p>
-            <@spring.message "authorize.text.first"/>
+                <@spring.message "authorize.text.first"/>
             </p>
             <p class="authorize--client-id">
             ${authorizationRequest.clientId}
             </p>
             <p>
-            <@spring.message "authorize.text.second"/>
+                <@spring.message "authorize.text.second"/>
             </p>
             <div class="row">
                 <div class="col-xs-6">
@@ -64,6 +66,11 @@
                 </div>
             </div>
         </div>
+    <#else>
+        <div class="authorize--form">
+            <@spring.message "authorize.no.request"/>
+        </div>
+    </#if>
     </div>
 </div>
 
