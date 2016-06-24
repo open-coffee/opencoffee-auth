@@ -1,10 +1,22 @@
 package coffee.synyx.auth.user.controller;
 
 import coffee.synyx.auth.user.SynyxAuthentication;
+
+import org.slf4j.Logger;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+
+import static org.slf4j.LoggerFactory.getLogger;
+
+import static java.lang.invoke.MethodHandles.lookup;
 
 
 /**
@@ -13,9 +25,24 @@ import java.security.Principal;
 @RestController
 public class UserController {
 
-    @RequestMapping("/user")
-    public SynyxAuthentication getUser(Principal user) {
+    private static Logger LOGGER = getLogger(lookup().lookupClass());
 
-        return new SynyxAuthentication(user.getName(), user.getName());
+    @RequestMapping("/user")
+    public ResponseEntity<SynyxAuthentication> getUser(Principal user) {
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        if ((user instanceof OAuth2Authentication) && ((OAuth2Authentication) user).isAuthenticated()) {
+            LOGGER.debug("Requested Authentication for '{}'", user.getName());
+
+            return new ResponseEntity<>(new SynyxAuthentication((OAuth2Authentication) user), HttpStatus.OK);
+        } else {
+            LOGGER.warn("Authentication of type {} was not expected. Expected: {}.", user.getClass().getName(),
+                OAuth2Authentication.class.getName());
+
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 }
