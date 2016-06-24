@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
 
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -23,7 +22,6 @@ import javax.sql.DataSource;
  * @author  Yannic Klem - klem@synyx.de
  */
 @RestController
-@EnableAuthorizationServer
 @RequestMapping(value = "/oauth/revoke")
 public class TokenController {
 
