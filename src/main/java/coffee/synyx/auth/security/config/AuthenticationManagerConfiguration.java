@@ -14,6 +14,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 
 
+/**
+ * TODO.
+ */
 @Configuration
 public class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
