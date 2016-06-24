@@ -3,9 +3,9 @@ package coffee.synyx.auth.security.config;
 import coffee.synyx.auth.user.userdetails.SynyxUserDetailsContextMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,13 +32,14 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
     public void init(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.ldapAuthentication()
-                .userSearchBase(ldapConfigurationProperties.getUserSearchBase())
-                .userSearchFilter(ldapConfigurationProperties.getUserSearchFilter())
-                .groupSearchBase(ldapConfigurationProperties.getGroupSearchBase())
-                .groupSearchFilter(ldapConfigurationProperties.getGroupSearchFilter())
-                .contextSource(contextSource())
-                .userDetailsContextMapper(synyxUserDetailsContextMapper);
+            .userSearchBase(ldapConfigurationProperties.getUserSearchBase())
+            .userSearchFilter(ldapConfigurationProperties.getUserSearchFilter())
+            .groupSearchBase(ldapConfigurationProperties.getGroupSearchBase())
+            .groupSearchFilter(ldapConfigurationProperties.getGroupSearchFilter())
+            .contextSource(contextSource())
+            .userDetailsContextMapper(synyxUserDetailsContextMapper);
     }
+
 
     @Bean
     public LdapContextSource contextSource() {
