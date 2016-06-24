@@ -7,6 +7,12 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import javax.validation.constraints.NotNull;
 
 
+/**
+ * Representation of an authentication. This Object will be returned as user information. It temporary extends
+ * {@link OAuth2Authentication} due to backwards compatibility. This will be removed in future releases.
+ *
+ * @author  Yannic Klem - klem@synyx.de
+ */
 public class SynyxAuthentication extends OAuth2Authentication {
 
     private final String id;
