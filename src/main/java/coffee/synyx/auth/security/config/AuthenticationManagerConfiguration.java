@@ -5,6 +5,7 @@ import coffee.synyx.auth.user.userdetails.SynyxUserDetailsContextMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,49 +16,34 @@ import org.springframework.security.config.annotation.authentication.configurers
 
 
 @Configuration
+@EnableConfigurationProperties(LdapConfigurationProperties.class)
 public class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
     private SynyxUserDetailsContextMapper synyxUserDetailsContextMapper;
 
-    @Value(value = "${ldap.userSearchBase}")
-    private String ldapUserSearchBase;
-
-    @Value(value = "${ldap.userSearchFilter}")
-    private String ldapUserSearchFilter;
-
-    @Value(value = "${ldap.groupSearchBase}")
-    private String ldapGroupSearchBase;
-
-    @Value(value = "${ldap.groupSearchFilter}")
-    private String ldapGroupSearchFilter;
-
-    @Value(value = "${ldap.url}")
-    private String ldapUrl;
-
-    @Value(value = "${ldap.base}")
-    private String ldapBase;
+    @Autowired
+    private LdapConfigurationProperties ldapConfigurationProperties;
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.ldapAuthentication()
-            .userSearchBase(ldapUserSearchBase)
-            .userSearchFilter(ldapUserSearchFilter)
-            .groupSearchBase(ldapGroupSearchBase)
-            .groupSearchFilter(ldapGroupSearchFilter)
-            .contextSource(contextSource())
-            .userDetailsContextMapper(synyxUserDetailsContextMapper);
+                .userSearchBase(ldapConfigurationProperties.getUserSearchBase())
+                .userSearchFilter(ldapConfigurationProperties.getUserSearchFilter())
+                .groupSearchBase(ldapConfigurationProperties.getGroupSearchBase())
+                .groupSearchFilter(ldapConfigurationProperties.getGroupSearchFilter())
+                .contextSource(contextSource())
+                .userDetailsContextMapper(synyxUserDetailsContextMapper);
     }
-
 
     @Bean
     public LdapContextSource contextSource() {
 
         LdapContextSource contextSource = new LdapContextSource();
 
-        contextSource.setUrl(ldapUrl);
-        contextSource.setBase(ldapBase);
+        contextSource.setUrl(ldapConfigurationProperties.getUrl());
+        contextSource.setBase(ldapConfigurationProperties.getBase());
 
         return contextSource;
     }
