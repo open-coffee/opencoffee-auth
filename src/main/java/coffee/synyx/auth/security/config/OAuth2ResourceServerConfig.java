@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * TODO.
+ */
 @Configuration
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 

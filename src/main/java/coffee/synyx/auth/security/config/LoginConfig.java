@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 
+/**
+ * TODO.
+ */
 @Configuration
 @Order(SecurityOrder.OVERRIDE_DEFAULT_ORDER)
 public class LoginConfig extends WebSecurityConfigurerAdapter {
