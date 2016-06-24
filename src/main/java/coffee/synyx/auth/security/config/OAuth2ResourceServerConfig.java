@@ -44,6 +44,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
                     filterChain.doFilter(request, response);
                 }
             }, AbstractPreAuthenticatedProcessingFilter.class);
-        http.authorizeRequests().anyRequest().authenticated();
+
+        http.authorizeRequests().antMatchers("/webjars/**").permitAll().anyRequest().authenticated();
     }
 }
