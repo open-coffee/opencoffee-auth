@@ -4,6 +4,9 @@ import coffee.synyx.auth.security.util.SecurityOrder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.annotation.Order;
@@ -18,10 +21,14 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  */
 @Configuration
 @Order(SecurityOrder.OVERRIDE_DEFAULT_ORDER)
+@EnableConfigurationProperties(ServerProperties.class)
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
+
+    @Autowired
+    private ServerProperties serverProperties;
 
     @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
@@ -35,7 +42,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .and()
             .logout()
             .logoutSuccessHandler(logoutSuccessHandler)
-            .deleteCookies("JSESSIONID")
+            .deleteCookies(serverProperties.getSession().getCookie().getName())
             .and()
             .authorizeRequests()
             .anyRequest()

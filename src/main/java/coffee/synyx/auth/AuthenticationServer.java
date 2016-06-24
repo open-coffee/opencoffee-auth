@@ -16,7 +16,12 @@ import java.sql.SQLException;
 
 
 /**
+ * The CoffeeNet Authentication Server.
+ *
+ * <p>OAuth2 based authentication against ldap</p>
+ *
  * @author  Yannic Klem - klem@synyx.de
+ * @author  Tobias Schneider - schneider@synyx.de
  */
 @SpringBootApplication
 @EnableAuthorizationServer
