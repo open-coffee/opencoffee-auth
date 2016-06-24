@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 
+/**
+ * TODO.
+ */
 @Configuration
 @Order(SecurityOrder.OVERRIDE_DEFAULT_ORDER)
 public class LoginConfig extends WebSecurityConfigurerAdapter {
@@ -23,16 +26,16 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
-        http.formLogin()
+        http.requestMatchers()
+            .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/logout")
+            .and()
+            .formLogin()
             .loginPage("/login")
             .permitAll()
             .and()
             .logout()
             .logoutSuccessHandler(logoutSuccessHandler)
             .deleteCookies("JSESSIONID")
-            .and()
-            .requestMatchers()
-            .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/logout")
             .and()
             .authorizeRequests()
             .anyRequest()

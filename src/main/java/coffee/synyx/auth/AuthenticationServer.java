@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import java.sql.SQLException;
 
@@ -19,6 +20,7 @@ import java.sql.SQLException;
  */
 @SpringBootApplication
 @EnableAuthorizationServer
+@EnableResourceServer
 public class AuthenticationServer {
 
     @SuppressWarnings("checkstyle:uncommentedmain")

@@ -33,10 +33,10 @@
 
     <scm>
         <connection>
-            scm:git:ssh://git@gitlab-test.synyx.coffee:schneider/coffeenet-auth.git
+            scm:git:ssh://git@gitlab-test.synyx.coffee:coffeenet/coffeenet-auth.git
         </connection>
         <developerConnection>
-            scm:git:ssh://git@gitlab-test.synyx.coffee:schneider/coffeenet-auth.git
+            scm:git:ssh://git@gitlab-test.synyx.coffee:coffeenet/coffeenet-auth.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
@@ -77,6 +77,16 @@
 
         <!-- Frontend -->
         <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>4.6.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -85,14 +95,17 @@
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
 
-        <!-- Monitoring -->
+        <!-- Developer Tools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+
+        <!-- Create Meta Data to provide autocompletion for configuration -->
         <dependency>
-            <groupId>org.jolokia</groupId>
-            <artifactId>jolokia-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

@@ -14,40 +14,39 @@ body {
     padding: 0;
 }
 
-/* Login module */
-
-.login {
+/* Login/authorize module */
+.login, .authorize {
     /* OK */
 }
 
 @media (min-width: 768px) {
-    .login {
+    .login, .authorize {
         margin-top: 120px;
     }
 }
 
-.login--header {
+.login--header, .authorize--header {
     background-color: #FFFFFF;
     padding: 24px 18px;
 }
 
-.login--header > img {
+.login--header > img, .authorize--header > img {
     display: inline-block;
 }
 
-.login--header > h2 {
+.login--header > h2, .authorize--header > h2 {
     margin: 0 0 0 12px;
     display: inline-block;
     vertical-align: middle;
     text-align: center;
 }
 
-.login--form {
+.login--form, .authorize--form {
     background-color: #FFFFFF;
     padding: 0 18px 24px 18px;
 }
 
-.login--form form {
+.login--form form, .authorize--form form {
     margin: 0;
 }
 
@@ -55,4 +54,17 @@ body {
     background-color: #B2C900;
     border-color: #B2C900;
     color: #FFFFFF;
+}
+
+.authorize--form button {
+    width: 100%;
+}
+
+.authorize--client-id {
+    font-size: 2em;
+    text-align: center;
+}
+
+.btn {
+    border-radius: 0;
 }

@@ -6,12 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no"/>
+    <title><@spring.message "login.title"/></title>
+
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/auth.css"/>
-    <title><@spring.message "title"/></title>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="login container">
@@ -21,11 +20,13 @@
             <@spring.message "login.failure"/>
         </div>
     </#if>
+
         <div class="login--header">
             <img alt="synyx Logo" src="images/logo.png">
             <h2><@spring.message "login.name"/></h2>
         </div>
         <div class="login--form">
+
         <#if !RequestParameters['logout']??>
             <form role="form" action="login" method="post">
                 <div class="form-group">
@@ -44,6 +45,7 @@
                 </button>
             </form>
         </#if>
+
         <#if RequestParameters['logout']??>
             <form id="logoutForm" name="logoutForm" action="logout" method="post">
                 <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -51,21 +53,24 @@
                     <@spring.message "login.button.logout"/>
                 </button>
             </form>
-            <script>
-                $('document').ready(function () {
-                    $logoutForm = $('#logoutForm');
-                    var referrer = document.referrer;
-                    var action = 'logout';
-                    if (referrer) {
-                        action += '?redirect=' + referrer;
-                    }
-                    $logoutForm.attr('action', action);
-                    $logoutForm.submit();
-                });
-            </script>
         </#if>
         </div>
     </div>
 </div>
+
+<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+    $('#logoutForm').ready(function () {
+        $logoutForm = $('#logoutForm');
+        var referrer = document.referrer;
+        var action = 'logout';
+        if (referrer) {
+            action += '?redirect=' + referrer;
+        }
+        $logoutForm.attr('action', action);
+        $logoutForm.submit();
+    });
+</script>
 </body>
 </html>

@@ -26,6 +26,9 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 
+/**
+ * TODO.
+ */
 @Configuration
 public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
@@ -78,6 +81,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     }
 
 
+    /**
+     * TODO.
+     *
+     * @return
+     */
     public UserAuthenticationConverter userAuthenticationConverter() {
 
         return new DefaultUserAuthenticationConverter() {

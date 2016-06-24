@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.authentication.BearerTokenExtractor;
 import org.springframework.security.oauth2.provider.authentication.TokenExtractor;
@@ -20,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * TODO.
+ */
 @Configuration
-@EnableResourceServer
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final TokenExtractor tokenExtractor = new BearerTokenExtractor();
@@ -44,6 +45,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
                     filterChain.doFilter(request, response);
                 }
             }, AbstractPreAuthenticatedProcessingFilter.class);
-        http.authorizeRequests().anyRequest().authenticated();
+
+        http.authorizeRequests().antMatchers("/webjars/**").permitAll().anyRequest().authenticated();
     }
 }
