@@ -20,6 +20,8 @@ import static java.lang.invoke.MethodHandles.lookup;
 
 
 /**
+ * Controller to provide OAuth2 user information.
+ *
  * @author  Yannic Klem - klem@synyx.de
  */
 @RestController
@@ -27,6 +29,14 @@ public class UserController {
 
     private static Logger LOGGER = getLogger(lookup().lookupClass());
 
+    /**
+     * Uses the current Principal to create a {@link SynyxAuthentication} and return this as representation of user
+     * information.
+     *
+     * @param  user  The current user.
+     *
+     * @return  A representation of user information with {@link HttpStatus#OK}.
+     */
     @RequestMapping("/user")
     public ResponseEntity<SynyxAuthentication> getUser(Principal user) {
 
