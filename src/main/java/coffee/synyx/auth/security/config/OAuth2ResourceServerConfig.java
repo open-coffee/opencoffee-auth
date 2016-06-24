@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @Configuration
-@EnableResourceServer
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final TokenExtractor tokenExtractor = new BearerTokenExtractor();
