@@ -5,7 +5,35 @@ Die Authentifizierung findet gegen den LDAP statt.
 
 ## Datenpersistenz
 
-Es wird eine MYSQL eingesetzt.
+Wird anhand von Properties unterschieden
+
+### H2
+
+Wird gerne für die lokale Entwicklung verwendet unter http://localhost:8083 ist die Konsole zu erreichen.
+
+```
+h2-console.port=8083
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.url=jdbc:h2:mem:tokenStore;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.testOnBorrow=true
+spring.datasource.validationQuery=SELECT 1
+```
+
+### MYSQL
+
+Wird für den produktiven Betrieb verwenden.
+
+```
+spring.datasource.initialize=false
+spring.datasource.url=jdbc:mysql://localhost:3306/${Database}
+spring.datasource.driverClassName=com.mysql.jdbc.Driver
+spring.datasource.username=${username}
+spring.datasource.password=${Password}
+spring.datasource.data=${PathTo-data.sql}
+```
 
 ## Logging
 
