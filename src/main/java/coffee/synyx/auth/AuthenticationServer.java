@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @SpringBootApplication
 @EnableAuthorizationServer
 @EnableResourceServer
+@SuppressWarnings("squid:HideUtilityClassConstructor")
 public class AuthenticationServer {
 
     @SuppressWarnings("checkstyle:uncommentedmain")
