@@ -27,7 +27,7 @@ import static java.lang.invoke.MethodHandles.lookup;
 @RestController
 public class UserController {
 
-    private static Logger LOGGER = getLogger(lookup().lookupClass());
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     /**
      * Uses the current Principal to create a {@link SynyxAuthentication} and return this as representation of user
