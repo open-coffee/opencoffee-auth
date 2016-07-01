@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 
 /**
- * TODO
+ * TODO.
  *
  * @author  Yannic Klem - klem@synyx.de
  */
