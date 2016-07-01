@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,7 +27,7 @@ public class LogoutRedirectSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-        throws IOException, ServletException {
+        throws IOException {
 
         String redirect = request.getParameter("redirect");
 
