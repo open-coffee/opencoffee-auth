@@ -39,19 +39,18 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
         http.requestMatchers()
-            .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/logout", "/h2-console/**", "/health")
+                .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/logout", "/h2-console/**", "/health")
             .and()
-            .formLogin()
-            .loginPage("/login")
-            .permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
             .and()
-            .logout()
-            .logoutSuccessHandler(logoutSuccessHandler)
-            .deleteCookies(serverProperties.getSession().getCookie().getName())
+                .logout()
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies(serverProperties.getSession().getCookie().getName())
             .and()
-            .authorizeRequests()
-            .antMatchers("/health").permitAll()
-            .anyRequest()
-            .authenticated();
+                .authorizeRequests()
+                .antMatchers("/health").permitAll()
+                .anyRequest().authenticated();
     }
 }
