@@ -48,7 +48,8 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
         http.requestMatchers()
-            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/h2-console/**")
+            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/h2-console/**",
+                    "/webjars/**")
             .and()
             .formLogin()
             .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
@@ -65,6 +66,8 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .authorizeRequests()
+            .antMatchers("/webjars/**")
+            .permitAll()
             .anyRequest()
             .authenticated()
             .and()
