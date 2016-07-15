@@ -8,9 +8,6 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 
 import org.springframework.http.HttpStatus;
 
-import org.springframework.stereotype.Controller;
-
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +25,6 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
  * @author  David Schilling - schilling@synyx.de
  * @author  Tobias Schneider - schneider@synyx.de
  */
-@Controller
-@RequestMapping("/error")
 public class ErrorController extends BasicErrorController {
 
     @Autowired
