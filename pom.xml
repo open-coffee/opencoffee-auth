@@ -95,6 +95,12 @@
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
 
+        <!-- Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- Create Meta Data to provide autocompletion for configuration -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
