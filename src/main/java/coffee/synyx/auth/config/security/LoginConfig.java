@@ -1,5 +1,6 @@
 package coffee.synyx.auth.config.security;
 
+import coffee.synyx.auth.config.AuthServerConfigurationProperties;
 import coffee.synyx.auth.oauth.config.OAuth2ResourceServerConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.annotation.Order;
+
+import org.springframework.http.HttpMethod;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,7 +30,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  */
 @Configuration
 @Order(SecurityProperties.DEFAULT_FILTER_ORDER - 2)
-@EnableConfigurationProperties(ServerProperties.class)
+@EnableConfigurationProperties({ ServerProperties.class, AuthServerConfigurationProperties.class })
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -36,22 +39,34 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ServerProperties serverProperties;
 
+    @Autowired
+    private AuthServerConfigurationProperties authServerConfigurationProperties;
+
     @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
         http.requestMatchers()
-            .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/logout", "/h2-console/**")
+            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", "/logout", "/h2-console/**")
             .and()
             .formLogin()
+            .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
             .loginPage("/login")
             .permitAll()
             .and()
             .logout()
+            .logoutUrl("/logout")
             .logoutSuccessHandler(logoutSuccessHandler)
             .deleteCookies(serverProperties.getSession().getCookie().getName())
             .and()
             .authorizeRequests()
+            .antMatchers(HttpMethod.GET, "/logout")
+            .permitAll()
+            .and()
+            .authorizeRequests()
             .anyRequest()
-            .authenticated();
+            .authenticated()
+            .and()
+            .exceptionHandling()
+            .accessDeniedHandler(new DefaultAccessDeniedHandler(authServerConfigurationProperties));
     }
 }
