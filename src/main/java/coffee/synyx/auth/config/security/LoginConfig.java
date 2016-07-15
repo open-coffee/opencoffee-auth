@@ -33,6 +33,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableConfigurationProperties({ ServerProperties.class, AuthServerConfigurationProperties.class })
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String LOGOUT = "/logout";
+
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
@@ -46,7 +48,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
         http.requestMatchers()
-            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", "/logout", "/h2-console/**")
+            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/h2-console/**")
             .and()
             .formLogin()
             .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
@@ -54,12 +56,12 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .logout()
-            .logoutUrl("/logout")
+            .logoutUrl(LOGOUT)
             .logoutSuccessHandler(logoutSuccessHandler)
             .deleteCookies(serverProperties.getSession().getCookie().getName())
             .and()
             .authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/logout")
+            .antMatchers(HttpMethod.GET, LOGOUT)
             .permitAll()
             .and()
             .authorizeRequests()
