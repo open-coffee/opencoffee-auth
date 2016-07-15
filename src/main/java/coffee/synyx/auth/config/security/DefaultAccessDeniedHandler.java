@@ -21,13 +21,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author  Yannic Klem - klem@synyx.de
  */
 @EnableConfigurationProperties(AuthServerConfigurationProperties.class)
-public class DefaultAccessDeniedHandler implements AccessDeniedHandler {
+class DefaultAccessDeniedHandler implements AccessDeniedHandler {
 
     private final HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
 
     private final AuthServerConfigurationProperties authServerConfigurationProperties;
 
-    public DefaultAccessDeniedHandler(AuthServerConfigurationProperties authServerConfigurationProperties) {
+    DefaultAccessDeniedHandler(AuthServerConfigurationProperties authServerConfigurationProperties) {
 
         this.authServerConfigurationProperties = authServerConfigurationProperties;
     }
