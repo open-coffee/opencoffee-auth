@@ -49,7 +49,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
 
         http.requestMatchers()
             .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/h2-console/**",
-                    "/webjars/**")
+                    "/webjars/**", "/health")
             .and()
             .formLogin()
             .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
@@ -66,7 +66,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .authorizeRequests()
-            .antMatchers("/webjars/**")
+            .antMatchers("/webjars/**", "/health")
             .permitAll()
             .anyRequest()
             .authenticated()
