@@ -1,6 +1,5 @@
 package coffee.synyx.auth.config.security;
 
-import coffee.synyx.auth.oauth.user.api.SynyxAuthentication;
 import coffee.synyx.auth.oauth.user.service.SynyxUserDetails;
 
 import org.junit.Test;
@@ -76,6 +75,6 @@ public class LogoutRedirectSuccessHandlerTest {
         OAuth2Request oAuthRequestMock = mock(OAuth2Request.class);
         when(oAuthRequestMock.isApproved()).thenReturn(true);
 
-        return new SynyxAuthentication(new OAuth2Authentication(oAuthRequestMock, userAuthenticationMock));
+        return new OAuth2Authentication(oAuthRequestMock, userAuthenticationMock);
     }
 }

@@ -8,21 +8,23 @@ import javax.validation.constraints.NotNull;
 
 
 /**
- * Representation of an authentication. This Object will be returned as user information. It temporary extends
- * {@link OAuth2Authentication} due to backwards compatibility. This will be removed in future releases.
+ * Representation of an authentication. This Object will be returned as user information.
  *
  * @author  Yannic Klem - klem@synyx.de
  */
-public class SynyxAuthentication extends OAuth2Authentication {
+public class SynyxAuthentication {
 
     private final String id;
     private final String name;
     private final boolean clientOnly;
+
+    /**
+     * This should either be a String (in case of clientOnly authentication) or an instance of {@link SynyxUserDetails}
+     * (in case of user authentication).
+     */
     private final Object principal;
 
     public SynyxAuthentication(@NotNull OAuth2Authentication oAuth2Authentication) {
-
-        super(oAuth2Authentication.getOAuth2Request(), oAuth2Authentication.getUserAuthentication());
 
         clientOnly = oAuth2Authentication.isClientOnly();
 
@@ -43,21 +45,18 @@ public class SynyxAuthentication extends OAuth2Authentication {
     }
 
 
-    @Override
     public String getName() {
 
         return name;
     }
 
 
-    @Override
     public Object getPrincipal() {
 
         return principal;
     }
 
 
-    @Override
     public boolean isClientOnly() {
 
         return clientOnly;
