@@ -1,5 +1,8 @@
 package coffee.synyx.auth.oauth.user.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;
@@ -41,6 +44,7 @@ public class SynyxUserDetails implements LdapUserDetails {
 
 
     @Override
+    @JsonIgnore
     public String getDn() {
 
         return details.getDn();
@@ -48,16 +52,14 @@ public class SynyxUserDetails implements LdapUserDetails {
 
 
     @Override
-    @org.codehaus.jackson.annotate.JsonIgnore
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         return details.getAuthorities();
     }
 
 
-    @org.codehaus.jackson.annotate.JsonProperty("authorities")
-    @com.fasterxml.jackson.annotation.JsonProperty("authorities")
+    @JsonProperty("authorities")
     private List<String> getAuthoritiesAsStrings() {
 
         return new ArrayList<>(AuthorityUtils.authorityListToSet(details.getAuthorities()));
@@ -65,6 +67,7 @@ public class SynyxUserDetails implements LdapUserDetails {
 
 
     @Override
+    @JsonIgnore
     public String getPassword() {
 
         return details.getPassword();
