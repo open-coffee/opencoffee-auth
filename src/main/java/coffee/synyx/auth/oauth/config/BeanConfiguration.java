@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -45,5 +46,12 @@ public class BeanConfiguration {
         defaultTokenServices.setTokenStore(tokenStore());
 
         return defaultTokenServices;
+    }
+
+
+    @Bean
+    public JdbcClientDetailsService JdbcClientDetailsService() {
+
+        return new JdbcClientDetailsService(dataSource);
     }
 }
