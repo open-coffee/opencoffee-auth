@@ -2,6 +2,8 @@ package coffee.synyx.auth.config.security;
 
 import coffee.synyx.auth.config.AuthServerConfigurationProperties;
 
+import org.slf4j.Logger;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import org.springframework.security.access.AccessDeniedException;
@@ -16,12 +18,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
+import static java.lang.invoke.MethodHandles.lookup;
+
 
 /**
  * @author  Yannic Klem - klem@synyx.de
  */
 @EnableConfigurationProperties(AuthServerConfigurationProperties.class)
 class DefaultAccessDeniedHandler implements AccessDeniedHandler {
+
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private final HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
 
@@ -45,6 +53,7 @@ class DefaultAccessDeniedHandler implements AccessDeniedHandler {
                 redirectUrl = savedRequest.getRedirectUrl();
             }
 
+            LOGGER.info("Handling CsrfException with redirect to {}.", redirectUrl);
             response.sendRedirect(redirectUrl);
         }
     }
