@@ -1,14 +1,12 @@
-<#import "/spring.ftl" as spring/>
-
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no"/>
-    <title><@spring.message "login.title"/></title>
+    <title th:text="#{login.title}"></title>
 
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/auth.css"/>
 </head>
@@ -18,15 +16,15 @@
 
         <div class="login--form">
             <div class="login--header">
-                <img alt="synyx Logo" src="/images/logo.png">
-                <h2><@spring.message "logout.name"/></h2>
+                <img alt="synyx Logo" src="/images/logo.png"/>
+                <h2 th:text="#{logout.name}"></h2>
             </div>
 
             <form id="logoutForm" name="logoutForm" action="/logout" method="post">
-                <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <button class="btn btn-block btn-danger" type="submit">
                     <span class="glyphicon glyphicon-log-out"></span>
-                    <@spring.message "login.button.logout"/>
+                    <span th:text="#{login.button.logout}"></span>
                 </button>
             </form>
         </div>
