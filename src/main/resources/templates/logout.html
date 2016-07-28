@@ -1,50 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout-plain">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no"/>
     <title th:text="#{login.title}"></title>
-
-    <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/auth.css"/>
 </head>
 <body>
-<div class="login container">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+<main layout:fragment="main">
+    <div class="login container">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+            <div class="login--form">
+                <div class="login--header">
+                    <img alt="synyx Logo" src="/images/logo.png"/>
+                    <h2 th:text="#{logout.name}"></h2>
+                </div>
 
-        <div class="login--form">
-            <div class="login--header">
-                <img alt="synyx Logo" src="/images/logo.png"/>
-                <h2 th:text="#{logout.name}"></h2>
+                <form id="logoutForm" name="logoutForm" action="/logout" method="post">
+                    <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button class="btn btn-block btn-danger" type="submit">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        <span th:text="#{login.button.logout}"></span>
+                    </button>
+                </form>
             </div>
-
-            <form id="logoutForm" name="logoutForm" action="/logout" method="post">
-                <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <button class="btn btn-block btn-danger" type="submit">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    <span th:text="#{login.button.logout}"></span>
-                </button>
-            </form>
         </div>
-
     </div>
-</div>
 
-<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script>
-    $('#logoutForm').ready(function () {
-        $logoutForm = $('#logoutForm');
-        var referrer = document.referrer;
-        var action = 'logout';
-        if (referrer) {
-            action += '?redirect=' + referrer;
-        }
-        $logoutForm.attr('action', action);
-        $logoutForm.submit();
-    });
-</script>
+    <script>
+        $('#logoutForm').ready(function () {
+            $logoutForm = $('#logoutForm');
+            var referrer = document.referrer;
+            var action = 'logout';
+            if (referrer) {
+                action += '?redirect=' + referrer;
+            }
+            $logoutForm.attr('action', action);
+            $logoutForm.submit();
+        });
+    </script>
+</main>
 </body>
 </html>
