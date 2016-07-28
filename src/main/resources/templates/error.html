@@ -1,36 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout-plain">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no"/>
     <title th:text="#{error.title}"></title>
-
-    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/auth.css"/>
 </head>
 
 <body>
-<div class="error container">
-
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-        <div class="error--header">
-            <img alt="synyx Logo" src="images/logo.png"/>
-            <h2 th:text="#{error.general}"></h2>
-        </div>
-        <div class="error--body">
-            <p th:text="#{error.general.messageA}"></p>
-            <p th:text="#{error.general.messageB}"></p>
-            <p class="small">
-                <span th:text="#{error.general.contactA}"></span>
-                <a th:text="#{error.general.contactB}" th:href="#{error.general.contactB.href}"></a>.
-            </p>
+<main layout:fragment="main">
+    <div class="error container">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+            <div class="error--header">
+                <img alt="synyx Logo" src="images/logo.png"/>
+                <h2 th:text="#{error.general}"></h2>
+            </div>
+            <div class="error--body">
+                <p th:text="#{error.general.messageA}"></p>
+                <p th:text="#{error.general.messageB}"></p>
+                <p class="small">
+                    <span th:text="#{error.general.contactA}"></span>
+                    <a th:text="#{error.general.contactB}" th:href="#{error.general.contactB.href}"></a>.
+                </p>
+            </div>
         </div>
     </div>
-</div>
-
-<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</main>
 </body>
 </html>

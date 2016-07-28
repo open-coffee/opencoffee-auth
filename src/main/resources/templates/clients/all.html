@@ -1,86 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no"/>
-    <title th:text="#{clients.all.title}"></title>
-
-    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon"/>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/auth.css}"/>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout">
 <body>
-<nav class="navbar navbar-default" id="app-header">
+
+<main layout:fragment="main">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#clients-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="/">
-                        <img class="navbar--synyx-logo" src="/images/logo_name.png"/>
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="clients-navbar-collapse">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="active">
-                            <a href="/clients" th:text="#{clients.all.title}"></a>
-                        </li>
-                        <li>
-                            <a href="/clients/new" th:text="#{clients.new.title}"></a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right navbar--user-info">
-                        <li>
-                            <span th:text="${#authentication.name}" id="navhbar--current-user"></span>
-                        </li>
-                        <li>
-                            <form action="/logout" method="post">
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit" id="navbar--logout-link"><span class="glyphicon glyphicon-log-out"></span>Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-            <div th:each="client  : ${clients}" class="panel panel-default">
-                <div sec:authorize="hasRole('ROLE_ADMIN')" class="panel-heading"> <!-- TODO - correct ROLE? -->
-                    <a th:href="@{/clients/{id}(id=${client.clientId})}" th:text="${client.clientId}"></a>
-                    <div class="pull-right">
-                        <a th:href="@{/clients/{id}/edit(id=${client.clientId})}" class="glyphicon glyphicon-cog"></a>
-                        <a th:href="@{/clients/{id}/delete(id=${client.clientId})}" class="glyphicon glyphicon-trash"></a>
+                <div th:each="client  : ${clients}" class="panel panel-default">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="panel-heading"> <!-- TODO - correct ROLE? -->
+                        <a th:href="@{/clients/{id}(id=${client.clientId})}" th:text="${client.clientId}"></a>
+                        <div class="pull-right">
+                            <a th:href="@{/clients/{id}/edit(id=${client.clientId})}"
+                               class="glyphicon glyphicon-cog"></a>
+                            <a th:href="@{/clients/{id}/delete(id=${client.clientId})}"
+                               class="glyphicon glyphicon-trash"></a>
+                        </div>
                     </div>
+                    <div class="panel-body" th:text="${client.registeredRedirectUri}"></div>
                 </div>
-                <div class="panel-body" th:text="${client.registeredRedirectUri}"></div>
             </div>
         </div>
     </div>
-</div>
-<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</main>
+
 <script>
-    $(function(){
-        $('.table tr[data-href]').each(function(){
-            $(this).css('cursor','pointer').hover(
-                    function(){
+    $(function () {
+        $('.table tr[data-href]').each(function () {
+            $(this).css('cursor', 'pointer').hover(
+                    function () {
                         $(this).addClass('active');
                     },
-                    function(){
+                    function () {
                         $(this).removeClass('active');
-                    }).click( function(){
+                    }).click(function () {
                         document.location = $(this).attr('data-href');
                     }
             );
