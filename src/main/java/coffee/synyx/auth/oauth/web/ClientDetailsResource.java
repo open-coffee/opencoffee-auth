@@ -1,10 +1,12 @@
 package coffee.synyx.auth.oauth.web;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,19 +18,30 @@ import java.util.stream.Collectors;
  */
 public class ClientDetailsResource {
 
+    @Length(min = 1)
     private String clientId;
+
+    @Length(min = 8)
     private String clientSecret;
+
     private String resourceIds;
     private String scope;
     private String authorizedGrantTypes;
+
+    @Length(min = 1)
     private String registeredRedirectUri;
+
     private String authorities;
     private Integer accessTokenValidity;
     private Integer refreshTokenValidity;
     private boolean autoApprove;
-    private Map<String, Object> additionalInformation;
+    private Map<String, Object> additionalInformation = new HashMap<>();
 
-    public ClientDetailsResource(ClientDetails clientDetails){
+    public ClientDetailsResource() {
+
+    }
+
+    public ClientDetailsResource(ClientDetails clientDetails) {
 
         this.clientId = clientDetails.getClientId();
         this.clientSecret = clientDetails.getClientSecret();
