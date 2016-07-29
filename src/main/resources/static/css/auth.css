@@ -69,6 +69,16 @@ body {
     border-radius: 0;
 }
 
+.btn-success {
+    background-color: #B2C900;
+    border-color: #B2C900;
+}
+
+.btn-success:hover {
+    background-color: #9baf02;
+    border-color: #9baf02;
+}
+
 .navbar-default {
     border-top: 2px solid #B2C900;
 }
@@ -116,6 +126,11 @@ body {
     font-weight: bold;
 }
 
+.panel-heading span{
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
 .panel-heading a:hover{
     color: #777c82;
     text-decoration: none;
@@ -123,4 +138,9 @@ body {
 
 .alert-global {
     margin-top: -20px;
+}
+
+.form-error {
+    color: darkred;
+    font-weight: bold;
 }
