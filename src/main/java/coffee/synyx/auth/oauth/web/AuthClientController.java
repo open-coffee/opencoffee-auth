@@ -44,7 +44,7 @@ public class AuthClientController {
     @ExceptionHandler(value = NoSuchClientException.class)
     public String handleNotFoundException(){
 
-        return "/not_found";
+        return "not_found";
     }
 
     @InitBinder
@@ -82,7 +82,7 @@ public class AuthClientController {
 
         if(binding.hasErrors()) {
 
-            return "/clients/" + authClientId + "/edit";
+            return "clients/" + authClientId + "/edit";
         }
 
         clientDetailsResource.setClientId(authClientId);
@@ -111,7 +111,7 @@ public class AuthClientController {
 
         if(binding.hasErrors()) {
 
-            return "/clients/new";
+            return "clients/new";
         }
 
         clientDetailsResource.setAutoApprove(true);
