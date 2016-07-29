@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{clients.edit.title}"></title>
+</head>
+<body>
+<!--/*@thymesVar id="client" type="coffee.synyx.auth.oauth.web.ClientDetailsResource"*/-->
+<main layout:fragment="main">
+    <div class="text-center alert alert-global alert-success" th:if="${successMessage != null}" th:text="#{${successMessage}}"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span th:text="#{clients.new.title}"></span>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" th:action="@{/clients/{id}(id=${client.clientId})}" th:object="${client}" th:method="put">
+                            <div class="form-group">
+                                <label for="clientId" class="control-label" th:text="#{client.id.header}"></label>
+                                <input disabled="disabled" id="clientId" th:field="*{clientId}" class="form-control" type="text" name="clientId" placeholder="myApp"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}">clientId error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="clientSecret" class="control-label" th:text="#{client.secret.header}"></label>
+                                <input id="clientSecret" th:field="*{clientSecret}" class="form-control" type="text" name="clientSecret" placeholder="gEhEimGEheim"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('clientSecret')}" th:errors="*{clientSecret}">clientSecret error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="registeredRedirectUri" class="control-label" th:text="#{client.redirect.header}"></label>
+                                <input id="registeredRedirectUri" th:field="*{registeredRedirectUri}" class="form-control" type="text" name="registeredRedirectUri" placeholder="http://myApp.synyx.coffee,https://myApp.synyx.coffee,..."/>
+                                <span class="form-error" th:if="${#fields.hasErrors('registeredRedirectUri')}" th:errors="*{registeredRedirectUri}">registeredRedirectUri error</span>
+                            </div>
+
+                            <button type="submit" class="btn btn-success" th:text="#{client.edit.submit}"></button>
+                            <button type="reset"  class="btn btn-default" th:text="#{client.edit.reset}"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

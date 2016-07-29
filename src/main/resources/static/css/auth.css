@@ -110,6 +110,7 @@ body {
 #navhbar--current-user {
     font-weight: bold;
     color: #B2C900 !important;
+    padding-right: 20px;
 }
 
 .navbar--user-info {
@@ -142,5 +143,9 @@ body {
 
 .form-error {
     color: darkred;
+    font-weight: bold;
+}
+
+.details--header {
     font-weight: bold;
 }
