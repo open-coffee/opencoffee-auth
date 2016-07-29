@@ -56,7 +56,7 @@ body {
     color: #FFFFFF;
 }
 
-.authorize--form button {
+.authorize--form .btn {
     width: 100%;
 }
 
@@ -119,4 +119,8 @@ body {
 .panel-heading a:hover{
     color: #777c82;
     text-decoration: none;
+}
+
+.alert-global {
+    margin-top: -20px;
 }

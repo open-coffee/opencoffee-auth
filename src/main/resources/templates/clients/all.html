@@ -3,12 +3,14 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       layout:decorator="layout">
 <body>
-
+<!--/*@thymesVar id="clients" type="java.util.List<coffee.synyx.auth.oauth.web.ClientDetailsResource>"*/-->
 <main layout:fragment="main">
+    <div class="text-center alert alert-global alert-success" th:if="${successMessage != null}" th:text="#{${successMessage}}"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-                <div th:each="client  : ${clients}" class="panel panel-default">
+
+                <div th:each="client : ${clients}" class="panel panel-default">
                     <div class="panel-heading">
                         <a th:href="@{/clients/{id}(id=${client.clientId})}" th:text="${client.clientId}"></a>
                         <div sec:authorize="hasRole('ROLE_SYSADMIN')" class="pull-right"><!-- TODO - correct ROLE? -->

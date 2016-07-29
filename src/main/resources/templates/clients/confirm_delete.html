@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout-plain">
+<!--/*@thymesVar id="client" type="coffee.synyx.auth.oauth.web.ClientDetailsResource"*/-->
+<head>
+    <title th:text="#{authorize.title}"></title>
+    <link rel="stylesheet" href="/webjars/font-awesome/4.6.3/css/font-awesome.min.css"/>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <div class="authorize container">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+
+            <div class="authorize--header">
+                <img alt="synyx Logo" src="/images/logo.png"/>
+                <h2 th:text="#{client.delete.confirm.title}"></h2>
+            </div>
+
+            <div th:if="${client != null}" class="authorize--form">
+                <p th:text="#{client.delete.text.first}"></p>
+                <p class="authorize--client-id" th:text="${client.clientId}"></p>
+                <p th:text="#{client.delete.text.second}"></p>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <form role="form" th:action="@{/clients/{id}/(id=${client.clientId})}" th:method="delete">
+                            <div class="form-group">
+
+                                <button class="btn btn-success" type="submit">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <a class="btn btn-danger" href="/clients">
+                            <i class="fa fa-thumbs-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
