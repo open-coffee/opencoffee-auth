@@ -67,7 +67,7 @@ public class AuthClientController {
 
     @RequestMapping(method = POST)
     public String createNewClient(@Valid @ModelAttribute(value = "client") ClientDetailsResource clientDetailsResource,
-                                  BindingResult binding){
+                                  BindingResult binding, RedirectAttributes attr){
 
         if(binding.hasErrors()) {
 
@@ -79,6 +79,7 @@ public class AuthClientController {
         clientDetailsResource.setScope("openid");
 
         jdbcClientDetailsService.addClientDetails(clientDetailsResource.toEntity());
+        attr.addFlashAttribute("successMessage", "client.create.success.text");
 
         return "redirect:/clients";
     }
