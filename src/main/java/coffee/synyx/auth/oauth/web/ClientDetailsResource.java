@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
  */
 public class ClientDetailsResource {
 
-    @Length(min = 1)
+    @Length(min = 1, max = 200)
     private String clientId;
 
-    @Length(min = 8)
+    @Length(min = 8, max = 256)
     private String clientSecret;
 
     private String resourceIds;
     private String scope;
     private String authorizedGrantTypes;
 
-    @Length(min = 1)
+    @Length(min = 1, max = 256)
     private String registeredRedirectUri;
 
     private String authorities;
