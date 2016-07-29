@@ -34,7 +34,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     private static final String LOGOUT = "/logout";
-    private static final String ADMIN_ROLE = "ROLE_COFFEENET_ADMIN";
+    private static final String ADMIN_ROLE = "ROLE_COFFEENET-ADMIN";
 
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
