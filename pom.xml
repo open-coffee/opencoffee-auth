@@ -33,10 +33,10 @@
 
     <scm>
         <connection>
-            scm:git:ssh://git@gitlab-test.synyx.coffee:coffeenet/coffeenet-auth.git
+            scm:git:ssh://git@gitlab-test.synyx.coffee/coffeenet/coffeenet-auth.git
         </connection>
         <developerConnection>
-            scm:git:ssh://git@gitlab-test.synyx.coffee:coffeenet/coffeenet-auth.git
+            scm:git:ssh://git@gitlab-test.synyx.coffee/coffeenet/coffeenet-auth.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
