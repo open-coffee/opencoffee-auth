@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 
 /**
@@ -55,6 +56,37 @@ public class AuthClientController {
         model.addAttribute("clients", clientDetails);
 
         return "clients/all";
+    }
+
+    @RequestMapping(value = "/{authClientId}/edit", method = GET)
+    public String getEditView(@PathVariable("authClientId") String authClientId, Model model) {
+
+        ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
+        model.addAttribute("client", new ClientDetailsResource(clientDetails));
+
+        return "clients/edit";
+    }
+
+    @RequestMapping(value = "/{authClientId}", method = PUT)
+    public String updateClient(@PathVariable(value = "authClientId") String authClientId,
+                               @Valid @ModelAttribute(value = "client") ClientDetailsResource clientDetailsResource,
+                                  BindingResult binding, RedirectAttributes attr){
+
+        if(binding.hasErrors()) {
+
+            return "/clients/" + authClientId + "/edit";
+        }
+
+        clientDetailsResource.setClientId(authClientId);
+        clientDetailsResource.setAutoApprove(true);
+        clientDetailsResource.setAuthorizedGrantTypes("authorization_code,password,refresh_token,client_credentials");
+        clientDetailsResource.setScope("openid");
+
+        jdbcClientDetailsService.updateClientDetails(clientDetailsResource.toEntity());
+        jdbcClientDetailsService.updateClientSecret(authClientId, clientDetailsResource.getClientSecret());
+        attr.addFlashAttribute("successMessage", "client.update.success.text");
+
+        return "redirect:/clients";
     }
 
     @RequestMapping(value = "/new", method = GET)
@@ -103,6 +135,7 @@ public class AuthClientController {
 
         return "clients/confirm_delete";
     }
+
 
     @RequestMapping(value = "/{authClientId}", method = DELETE)
     public String deleteClient(@PathVariable("authClientId") String authClientId, RedirectAttributes attributes) {

@@ -24,7 +24,13 @@
                                class="glyphicon glyphicon-trash"></a>
                         </div>
                     </div>
-                    <div class="panel-body" th:text="${client.registeredRedirectUri}"></div>
+                    <div class="panel-body">
+                        <ul>
+                            <li th:each="url : ${#strings.arraySplit(client.getRegisteredRedirectUri(), ',')}">
+                                <a th:text="${url}" th:href="${url}"></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

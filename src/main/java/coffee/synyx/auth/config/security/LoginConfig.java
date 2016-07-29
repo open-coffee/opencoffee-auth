@@ -71,7 +71,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .authorizeRequests()
-            .antMatchers("/clients/new")
+            .antMatchers("/clients/new", "/clients/edit", "/clients/delete")
             .hasAuthority(ADMIN_ROLE)
             .and()
             .authorizeRequests()
