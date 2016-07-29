@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{clients.new.title}"></title>
+</head>
+<body>
+<!--/*@thymesVar id="client" type="coffee.synyx.auth.oauth.web.ClientDetailsResource"*/-->
+<main layout:fragment="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span th:text="${client.clientId}"></span>
+                        <div sec:authorize="hasRole('ROLE_COFFEENET-ADMIN')" class="pull-right"><!-- TODO - correct ROLE? -->
+                            <a th:href="@{/clients/{id}/edit(id=${client.clientId})}"
+                               class="glyphicon glyphicon-cog"></a>
+                            <a th:href="@{/clients/{id}/delete(id=${client.clientId})}"
+                               class="glyphicon glyphicon-trash"></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <p class="details--header" th:text="#{client.id.header}"></p>
+                            <p th:text="${client.clientId}"></p>
+                        </div>
+                        <div sec:authorize="hasRole('ROLE_COFFEENET-ADMIN')">
+                            <p class="details--header" th:text="#{client.secret.header}"></p>
+                            <p th:text="${client.clientSecret}"></p>
+                        </div>
+                        <div>
+                            <span class="details--header" th:text="#{client.redirect.header}"></span>
+                            <ul>
+                                <li th:each="url : ${#strings.arraySplit(client.getRegisteredRedirectUri(), ',')}">
+                                    <a th:text="${url}" th:href="${url}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
