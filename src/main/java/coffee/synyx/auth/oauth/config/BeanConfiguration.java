@@ -31,23 +31,11 @@ public class BeanConfiguration {
         return new JdbcTokenStore(dataSource);
     }
 
-
     @Bean
     public ApprovalStore approvalStore() {
 
         return new JdbcApprovalStore(dataSource);
     }
-
-
-    @Bean
-    public ConsumerTokenServices tokenServices() {
-
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
-
-        return defaultTokenServices;
-    }
-
 
     @Bean
     public JdbcClientDetailsService JdbcClientDetailsService() {
