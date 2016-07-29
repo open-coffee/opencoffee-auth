@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout-plain">
 <head>
-    <title th:text="#{error.title}"></title>
+    <title th:text="#{error.notfound.title}"></title>
 </head>
 
 <body>
@@ -11,10 +11,10 @@
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
             <div class="error--header">
                 <img alt="synyx Logo" src="/images/logo.png"/>
-                <h2 th:text="#{error.general}"></h2>
+                <h2 th:text="#{error.notfound}"></h2>
             </div>
             <div class="error--body">
-                <p th:text="#{error.general.messageA}"></p>
+                <p th:text="#{error.notfound.messageA}"></p>
                 <p th:text="#{error.general.messageB}"></p>
                 <p class="small">
                     <span th:text="#{error.general.contactA}"></span>

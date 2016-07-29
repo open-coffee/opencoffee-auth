@@ -56,7 +56,7 @@ body {
     color: #FFFFFF;
 }
 
-.authorize--form button {
+.authorize--form .btn {
     width: 100%;
 }
 
@@ -67,4 +67,85 @@ body {
 
 .btn {
     border-radius: 0;
+}
+
+.btn-success {
+    background-color: #B2C900;
+    border-color: #B2C900;
+}
+
+.btn-success:hover {
+    background-color: #9baf02;
+    border-color: #9baf02;
+}
+
+.navbar-default {
+    border-top: 2px solid #B2C900;
+}
+
+.navbar-nav > .active > a {
+    background-color: transparent !important;
+    color: #B2C900 !important;
+}
+
+.navbar-nav > li > a {
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.navbar--synyx-logo{
+    margin: 0 0 0 0;
+    width: 90px;
+    height: 46px;
+    float: left;
+}
+
+#navbar--logout-link {
+    background: none;
+    border: none;
+    font-weight: bold;
+    padding: 0;
+}
+
+#navhbar--current-user {
+    font-weight: bold;
+    color: #B2C900 !important;
+    padding-right: 20px;
+}
+
+.navbar--user-info {
+    line-height: 50px;
+}
+
+.panel-default>.panel-heading {
+
+    background-color: #B2C900;
+}
+
+.panel-heading a{
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.panel-heading span{
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.panel-heading a:hover{
+    color: #777c82;
+    text-decoration: none;
+}
+
+.alert-global {
+    margin-top: -20px;
+}
+
+.form-error {
+    color: darkred;
+    font-weight: bold;
+}
+
+.details--header {
+    font-weight: bold;
 }

@@ -34,6 +34,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     private static final String LOGOUT = "/logout";
+    private static final String ADMIN_ROLE = "ROLE_COFFEENET-ADMIN";
 
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
@@ -49,7 +50,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
 
         http.requestMatchers()
             .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/h2-console/**",
-                    "/webjars/**", "/health")
+                    "/webjars/**", "/health", "/clients/**")
             .and()
             .formLogin()
             .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
@@ -68,6 +69,16 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/webjars/**", "/health")
             .permitAll()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/clients/new", "/clients/edit", "/clients/delete")
+            .hasAuthority(ADMIN_ROLE)
+            .and()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.GET, "/clients/**")
+            .authenticated()
+            .antMatchers("/clients/**")
+            .hasAuthority(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
             .and()
