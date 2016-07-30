@@ -44,6 +44,7 @@ public class SynyxUserDetails implements LdapUserDetails {
 
 
     @Override
+    @JsonIgnore
     public String getDn() {
 
         return details.getDn();
@@ -66,6 +67,7 @@ public class SynyxUserDetails implements LdapUserDetails {
 
 
     @Override
+    @JsonIgnore
     public String getPassword() {
 
         return details.getPassword();
