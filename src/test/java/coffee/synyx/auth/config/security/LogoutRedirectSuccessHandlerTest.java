@@ -8,13 +8,14 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
@@ -31,8 +32,8 @@ import static org.mockito.Mockito.when;
  *
  * @author  Tobias Schneider
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = LogoutRedirectSuccessHandler.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = LogoutRedirectSuccessHandler.class)
 public class LogoutRedirectSuccessHandlerTest {
 
     @Autowired
@@ -60,7 +61,7 @@ public class LogoutRedirectSuccessHandlerTest {
         sut.onLogoutSuccess(requestMock, responseMock, getOAuth2Authentication());
 
         verify(requestMock).getParameter("redirect");
-        verify(responseMock).sendRedirect("${synyx.security.default.redirectUri}");
+        verify(responseMock).sendRedirect("/logout");
     }
 
 
