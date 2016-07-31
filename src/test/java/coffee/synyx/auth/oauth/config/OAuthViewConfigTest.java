@@ -53,7 +53,7 @@ public class OAuthViewConfigTest {
 
         ResultActions resultActions = mockMvc.perform(get("/oauth/confirm_access"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("confirm_application_access"));
+        resultActions.andExpect(view().name("oauth/confirm_application_access"));
         resultActions.andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 }

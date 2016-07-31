@@ -1,12 +1,17 @@
 package coffee.synyx.auth.oauth.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -15,9 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -42,16 +48,18 @@ public class AuthClientController {
     }
 
     @ExceptionHandler(value = NoSuchClientException.class)
-    public String handleNotFoundException(){
+    public String handleNotFoundException() {
 
-        return "not_found";
+        return "clients/not_found";
     }
+
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
 
         binder.addValidators(new ClientDetailsResourceValidator());
     }
+
 
     @RequestMapping(method = GET)
     public String getAllClientsView(Model model) {
@@ -66,6 +74,7 @@ public class AuthClientController {
         return "clients/all";
     }
 
+
     @RequestMapping(value = "/{authClientId}/edit", method = GET)
     public String getEditView(@PathVariable("authClientId") String authClientId, Model model) {
 
@@ -75,13 +84,14 @@ public class AuthClientController {
         return "clients/edit";
     }
 
+
     @RequestMapping(value = "/{authClientId}", method = PUT)
     public String updateClient(@PathVariable(value = "authClientId") String authClientId,
-                               @Valid @ModelAttribute(value = "client") ClientDetailsResource clientDetailsResource,
-                                  BindingResult binding, RedirectAttributes attr){
+        @Valid
+        @ModelAttribute(value = "client")
+        ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
-        if(binding.hasErrors()) {
-
+        if (binding.hasErrors()) {
             return "clients/" + authClientId + "/edit";
         }
 
@@ -97,6 +107,7 @@ public class AuthClientController {
         return "redirect:/clients";
     }
 
+
     @RequestMapping(value = "/new", method = GET)
     public String getNewClientView(Model model) {
 
@@ -105,12 +116,13 @@ public class AuthClientController {
         return "clients/new";
     }
 
+
     @RequestMapping(method = POST)
-    public String createNewClient(@Valid @ModelAttribute(value = "client") ClientDetailsResource clientDetailsResource,
-                                  BindingResult binding, RedirectAttributes attr){
+    public String createNewClient(@Valid
+        @ModelAttribute(value = "client")
+        ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
-        if(binding.hasErrors()) {
-
+        if (binding.hasErrors()) {
             return "clients/new";
         }
 
@@ -128,12 +140,12 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}", method = GET)
     public String getById(@PathVariable("authClientId") String authClientId, Model model) {
 
-
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute("client", new ClientDetailsResource(clientDetails));
 
         return "clients/specific";
     }
+
 
     @RequestMapping(value = "/{authClientId}/delete", method = GET)
     public String getDeleteConfirmationView(@PathVariable("authClientId") String authClientId, Model model) {
