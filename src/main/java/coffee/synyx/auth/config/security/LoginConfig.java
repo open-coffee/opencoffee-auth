@@ -36,14 +36,18 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT = "/logout";
     private static final String ADMIN_ROLE = "ROLE_COFFEENET-ADMIN";
 
-    @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
-
-    @Autowired
     private ServerProperties serverProperties;
+    private AuthServerConfigurationProperties authServerConfigurationProperties;
 
     @Autowired
-    private AuthServerConfigurationProperties authServerConfigurationProperties;
+    public LoginConfig(LogoutSuccessHandler logoutSuccessHandler, ServerProperties serverProperties,
+        AuthServerConfigurationProperties authServerConfigurationProperties) {
+
+        this.logoutSuccessHandler = logoutSuccessHandler;
+        this.serverProperties = serverProperties;
+        this.authServerConfigurationProperties = authServerConfigurationProperties;
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
