@@ -6,12 +6,13 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.ldap.core.DirContextAdapter;
 
 import org.springframework.security.ldap.userdetails.LdapAuthority;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
@@ -31,8 +32,8 @@ import static java.util.Collections.singletonList;
  *
  * @author  Tobias Schneider
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SynyxUserDetailsContextMapper.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SynyxUserDetailsContextMapper.class)
 public class SynyxUserDetailsContextMapperTest {
 
     @Autowired
