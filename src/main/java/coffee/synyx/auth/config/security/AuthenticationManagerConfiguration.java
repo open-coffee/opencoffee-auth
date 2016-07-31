@@ -26,11 +26,16 @@ import org.springframework.security.config.annotation.authentication.configurers
 @EnableConfigurationProperties(LdapConfigurationProperties.class)
 public class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
-    @Autowired
     private SynyxUserDetailsContextMapper synyxUserDetailsContextMapper;
+    private LdapConfigurationProperties ldapConfigurationProperties;
 
     @Autowired
-    private LdapConfigurationProperties ldapConfigurationProperties;
+    public AuthenticationManagerConfiguration(SynyxUserDetailsContextMapper synyxUserDetailsContextMapper,
+        LdapConfigurationProperties ldapConfigurationProperties) {
+
+        this.synyxUserDetailsContextMapper = synyxUserDetailsContextMapper;
+        this.ldapConfigurationProperties = ldapConfigurationProperties;
+    }
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
