@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.junit.Assert.*;
+import javax.servlet.Filter;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
@@ -39,12 +39,16 @@ public class RootControllerTest {
     @Autowired
     private WebApplicationContext webContext;
 
+    @Autowired
+    private Filter springSecurityFilterChain;
+
     private MockMvc mockMvc;
 
     @Before
     public void setupMockMvc() {
 
-        mockMvc = MockMvcBuilders.webAppContextSetup(webContext).apply(springSecurity()).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webContext).apply(springSecurity(springSecurityFilterChain))
+            .build();
     }
 
 
