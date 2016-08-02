@@ -1,9 +1,11 @@
 package coffee.synyx.auth.oauth.web;
 
 import org.hibernate.validator.constraints.Length;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
+
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -11,8 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
 /**
- * Dto of the {@link ClientDetails}
+ * Dto of the {@link ClientDetails}.
  *
  * @author  Yannic Klem - klem@synyx.de
  */
@@ -38,8 +41,8 @@ public class ClientDetailsResource {
     private Map<String, Object> additionalInformation = new HashMap<>();
 
     public ClientDetailsResource() {
-
     }
+
 
     public ClientDetailsResource(ClientDetails clientDetails) {
 
@@ -47,8 +50,10 @@ public class ClientDetailsResource {
         this.clientSecret = clientDetails.getClientSecret();
         this.resourceIds = StringUtils.collectionToCommaDelimitedString(clientDetails.getResourceIds());
         this.scope = StringUtils.collectionToCommaDelimitedString(clientDetails.getScope());
-        this.authorizedGrantTypes = StringUtils.collectionToCommaDelimitedString(clientDetails.getAuthorizedGrantTypes());
-        this.registeredRedirectUri = StringUtils.collectionToCommaDelimitedString(clientDetails.getRegisteredRedirectUri());
+        this.authorizedGrantTypes = StringUtils.collectionToCommaDelimitedString(
+                clientDetails.getAuthorizedGrantTypes());
+        this.registeredRedirectUri = StringUtils.collectionToCommaDelimitedString(
+                clientDetails.getRegisteredRedirectUri());
         this.authorities = StringUtils.collectionToCommaDelimitedString(clientDetails.getAuthorities());
         this.accessTokenValidity = clientDetails.getAccessTokenValiditySeconds();
         this.refreshTokenValidity = clientDetails.getRefreshTokenValiditySeconds();
@@ -79,6 +84,7 @@ public class ClientDetailsResource {
 
         return authClient;
     }
+
 
     public String getClientId() {
 
@@ -148,7 +154,26 @@ public class ClientDetailsResource {
 
     public void setRegisteredRedirectUri(String registeredRedirectUri) {
 
-        this.registeredRedirectUri = registeredRedirectUri;
+        this.registeredRedirectUri = beautifyRedirectUriString(registeredRedirectUri);
+    }
+
+
+    private String beautifyRedirectUriString(String registeredRedirectUri) {
+
+        registeredRedirectUri = registeredRedirectUri.replaceAll("\\s+", "");
+
+        int startIndex = 0;
+        int endIndex = registeredRedirectUri.length() - 1;
+
+        while (registeredRedirectUri.charAt(startIndex) == ',') {
+            startIndex++;
+        }
+
+        while (registeredRedirectUri.charAt(endIndex) == ',') {
+            endIndex--;
+        }
+
+        return registeredRedirectUri.substring(startIndex, endIndex + 1);
     }
 
 
@@ -165,34 +190,49 @@ public class ClientDetailsResource {
 
 
     public Integer getAccessTokenValidity() {
+
         return accessTokenValidity;
     }
 
+
     public void setAccessTokenValidity(Integer accessTokenValidity) {
+
         this.accessTokenValidity = accessTokenValidity;
     }
 
+
     public Integer getRefreshTokenValidity() {
+
         return refreshTokenValidity;
     }
 
+
     public void setRefreshTokenValidity(Integer refreshTokenValidity) {
+
         this.refreshTokenValidity = refreshTokenValidity;
     }
 
+
     public boolean isAutoApprove() {
+
         return autoApprove;
     }
 
+
     public void setAutoApprove(boolean autoApprove) {
+
         this.autoApprove = autoApprove;
     }
 
+
     public Map<String, Object> getAdditionalInformation() {
+
         return additionalInformation;
     }
 
+
     public void setAdditionalInformation(Map<String, Object> additionalInformation) {
+
         this.additionalInformation = additionalInformation;
     }
 }
