@@ -50,7 +50,7 @@ public class AuthClientController {
     @ExceptionHandler(value = NoSuchClientException.class)
     public String handleNotFoundException() {
 
-        return "not_found";
+        return "clients/not_found";
     }
 
 

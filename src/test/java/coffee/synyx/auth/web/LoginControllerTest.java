@@ -59,7 +59,7 @@ public class LoginControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/login"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("login"));
+        resultActions.andExpect(view().name("auth/login"));
     }
 
 
