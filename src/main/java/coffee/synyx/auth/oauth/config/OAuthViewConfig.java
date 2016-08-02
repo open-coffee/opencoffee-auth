@@ -15,6 +15,6 @@ public class OAuthViewConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 
-        registry.addViewController("/oauth/confirm_access").setViewName("confirm_application_access");
+        registry.addViewController("/oauth/confirm_access").setViewName("oauth/confirm_application_access");
     }
 }
