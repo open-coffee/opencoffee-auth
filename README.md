@@ -5,21 +5,27 @@ Die Authentifizierung findet gegen den LDAP statt.
 
 ## Datenpersistenz
 
-Wird anhand von Properties unterschieden
+Es werden zwei verschiedene Persistenztechnologien eingesetzt. Einmal eine die H2 In-Memory Datenbank für die lokale
+Entwicklung und im produktiven Betrieb eine MySQL Datenbank.
 
 ### H2
 
-Wird gerne für die lokale Entwicklung verwendet unter http://localhost:8083 ist die Konsole zu erreichen.
+Wird für die lokale Entwicklung verwendet und stellt eine [H2-Webkonsole](http://localhost:9999/h2-console/) bereit.
 
 ```
-h2-console.port=8083
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
-spring.datasource.url=jdbc:h2:mem:tokenStore;DB_CLOSE_ON_EXIT=FALSE
-spring.datasource.testOnBorrow=true
-spring.datasource.validationQuery=SELECT 1
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:auth;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: username
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: validate
 ```
 
 ### MYSQL
@@ -72,13 +78,16 @@ Dabei sind folgende Felder relevant:
  * `additional_information`: Kann leer bleiben
  * `autoapprove`: true
 
+
 #### Ein Beispiel
+
+Dieses Beispiel ist als default in allen Applikationen die an das CoffeeNet angeschlossen sind als default konfiguriert.
 
 ```
 INSERT INTO oauth_client_details VALUES (
-  'client_id',
+  'pseudoClientId',
   null,
-  'client_secret',
+  'pseudoClientSecret',
   'openid',
   'authorization_code,password,refresh_token',
   'http://servicename, https://servicename, http://servicename.synyx.coffee, https://servicename.synyx.coffee, http://servicename.synyx.de, https://servicename.synyx.de',
