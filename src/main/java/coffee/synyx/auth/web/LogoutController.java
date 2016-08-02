@@ -33,7 +33,7 @@ public class LogoutController {
     @RequestMapping(value = "logout", method = GET)
     public String getLogoutView(Principal principal) {
 
-        String view = "oauth/logout";
+        String view = "auth/logout";
 
         if (principal == null) {
             view = "redirect:" + authServerConfigurationProperties.getDefaultRedirectUrl();
