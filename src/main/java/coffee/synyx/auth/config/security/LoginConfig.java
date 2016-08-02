@@ -16,9 +16,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 
 /**
@@ -51,11 +51,18 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+
+        web.ignoring().antMatchers("/h2-console/**");
+    }
+
+
+    @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
         http.requestMatchers()
-            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/h2-console/**",
-                    "/webjars/**", "/health", "/clients/**")
+            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/webjars/**", "/health",
+                    "/clients/**")
             .and()
             .formLogin()
             .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
@@ -71,17 +78,6 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, LOGOUT)
             .permitAll()
             .and()
-            .authorizeRequests()
-            .antMatchers("/h2-console/**")
-            .permitAll()
-            .and()
-            .headers()
-            .addHeaderWriter(new StaticHeadersWriter("X-Content-Security-Policy", "script-src 'self'"))
-            .frameOptions()
-            .disable()
-            .and()
-            .csrf()
-            .disable()
             .authorizeRequests()
             .antMatchers("/webjars/**", "/health")
             .permitAll()
