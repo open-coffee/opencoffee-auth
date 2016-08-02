@@ -154,7 +154,26 @@ public class ClientDetailsResource {
 
     public void setRegisteredRedirectUri(String registeredRedirectUri) {
 
-        this.registeredRedirectUri = registeredRedirectUri;
+        this.registeredRedirectUri = beautifyRedirectUriString(registeredRedirectUri);
+    }
+
+
+    private String beautifyRedirectUriString(String registeredRedirectUri) {
+
+        registeredRedirectUri = registeredRedirectUri.replaceAll("\\s+", "");
+
+        int startIndex = 0;
+        int endIndex = registeredRedirectUri.length() - 1;
+
+        while (registeredRedirectUri.charAt(startIndex) == ',') {
+            startIndex++;
+        }
+
+        while (registeredRedirectUri.charAt(endIndex) == ',') {
+            endIndex--;
+        }
+
+        return registeredRedirectUri.substring(startIndex, endIndex + 1);
     }
 
 
