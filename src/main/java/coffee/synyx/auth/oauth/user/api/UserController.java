@@ -14,6 +14,9 @@ import java.security.Principal;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+
 import static java.lang.invoke.MethodHandles.lookup;
 
 
@@ -28,7 +31,7 @@ public class UserController {
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     /**
-     * Uses the current Principal to create a {@link SynyxAuthentication} and return this as representation of user
+     * Uses the current Principal to create a {@link CoffeeAuthentication} and return this as representation of user
      * information.
      *
      * @param  user  The current user.
@@ -36,21 +39,25 @@ public class UserController {
      * @return  A representation of user information with {@link HttpStatus#OK}.
      */
     @RequestMapping("/user")
-    public ResponseEntity<SynyxAuthentication> getUser(Principal user) {
+    public ResponseEntity<CoffeeAuthentication> getUser(Principal user) {
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(UNAUTHORIZED);
         }
+
+        ResponseEntity<CoffeeAuthentication> responseEntity;
 
         if ((user instanceof OAuth2Authentication) && ((OAuth2Authentication) user).isAuthenticated()) {
             LOGGER.debug("Requested Authentication for '{}'", user.getName());
 
-            return new ResponseEntity<>(new SynyxAuthentication((OAuth2Authentication) user), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(new CoffeeAuthentication((OAuth2Authentication) user), OK);
         } else {
             LOGGER.warn("Authentication of type {} was not expected. Expected: {}.", user.getClass().getName(),
                 OAuth2Authentication.class.getName());
 
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            responseEntity = new ResponseEntity<>(UNAUTHORIZED);
         }
+
+        return responseEntity;
     }
 }
