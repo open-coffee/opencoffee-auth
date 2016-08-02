@@ -18,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 
 /**
@@ -36,14 +37,18 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT = "/logout";
     private static final String ADMIN_ROLE = "ROLE_COFFEENET-ADMIN";
 
-    @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
-
-    @Autowired
     private ServerProperties serverProperties;
+    private AuthServerConfigurationProperties authServerConfigurationProperties;
 
     @Autowired
-    private AuthServerConfigurationProperties authServerConfigurationProperties;
+    public LoginConfig(LogoutSuccessHandler logoutSuccessHandler, ServerProperties serverProperties,
+        AuthServerConfigurationProperties authServerConfigurationProperties) {
+
+        this.logoutSuccessHandler = logoutSuccessHandler;
+        this.serverProperties = serverProperties;
+        this.authServerConfigurationProperties = authServerConfigurationProperties;
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
@@ -66,6 +71,17 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, LOGOUT)
             .permitAll()
             .and()
+            .authorizeRequests()
+            .antMatchers("/h2-console/**")
+            .permitAll()
+            .and()
+            .headers()
+            .addHeaderWriter(new StaticHeadersWriter("X-Content-Security-Policy", "script-src 'self'"))
+            .frameOptions()
+            .disable()
+            .and()
+            .csrf()
+            .disable()
             .authorizeRequests()
             .antMatchers("/webjars/**", "/health")
             .permitAll()

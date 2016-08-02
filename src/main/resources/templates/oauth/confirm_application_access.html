@@ -25,11 +25,9 @@
                 <p th:text="#{authorize.text.second}"></p>
                 <div class="row">
                     <div class="col-xs-6">
-                        <form role="form" action="/oauth/authorize" method="post">
+                        <form role="form" th:action="@{/oauth/authorize}" th:method="post">
                             <div class="form-group">
                                 <input name="user_oauth_approval" value="true" type="hidden"/>
-                                <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}"
-                                       th:value="${_csrf.token}"/>
                                 <input type="hidden" id="scope.openid" name="scope.openid" value="true"/>
                                 <input type="hidden" id="authorize" name="authorize" value="Authorize"/>
                                 <button class="btn btn-success" type="submit">
@@ -40,11 +38,9 @@
                     </div>
 
                     <div class="col-xs-6">
-                        <form role="form" action="/oauth/authorize" method="post">
+                        <form role="form" th:action="@{/oauth/authorize}" th:method="post">
                             <div class="form-group">
                                 <input name="user_oauth_approval" value="true" type="hidden"/>
-                                <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}"
-                                       th:value="${_csrf.token}"/>
                                 <input type="hidden" id="scope.openid" name="scope.openid" value="false"/>
                                 <input type="hidden" id="authorize" name="authorize" value="Authorize"/>
                                 <button class="btn btn-danger" type="submit">
