@@ -33,7 +33,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = GET)
     public String getLoginView(Principal principal) {
 
-        String view = "oauth/login";
+        String view = "auth/login";
 
         if (principal != null) {
             view = "redirect:" + authServerConfigurationProperties.getDefaultRedirectUrl();

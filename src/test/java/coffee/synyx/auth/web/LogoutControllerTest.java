@@ -54,7 +54,7 @@ public class LogoutControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/logout"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("oauth/logout"));
+        resultActions.andExpect(view().name("auth/logout"));
     }
 
 
