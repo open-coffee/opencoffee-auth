@@ -67,7 +67,7 @@ public class LogoutRedirectSuccessHandlerTest {
 
     private OAuth2Authentication getOAuth2Authentication() {
 
-        SynyxUserDetails synyxUserDetails = new SynyxUserDetails(mock(LdapUserDetails.class));
+        SynyxUserDetails synyxUserDetails = new SynyxUserDetails(mock(LdapUserDetails.class), "test@synyx.de");
 
         Authentication userAuthenticationMock = mock(Authentication.class);
         when(userAuthenticationMock.isAuthenticated()).thenReturn(true);
