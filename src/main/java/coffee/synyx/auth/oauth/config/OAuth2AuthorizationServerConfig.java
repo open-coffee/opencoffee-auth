@@ -35,17 +35,20 @@ import javax.sql.DataSource;
 @Configuration
 public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private DataSource dataSource;
-
-    @Autowired
     private TokenStore tokenStore;
+    private ApprovalStore approvalStore;
 
     @Autowired
-    private ApprovalStore approvalStore;
+    public OAuth2AuthorizationServerConfig(AuthenticationManager authenticationManager, DataSource dataSource,
+        TokenStore tokenStore, ApprovalStore approvalStore) {
+
+        this.authenticationManager = authenticationManager;
+        this.dataSource = dataSource;
+        this.tokenStore = tokenStore;
+        this.approvalStore = approvalStore;
+    }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception { // NOSONAR
