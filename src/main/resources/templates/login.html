@@ -17,7 +17,7 @@
                     <h2 th:text="#{login.name}"></h2>
                 </div>
 
-                <form role="form" action="/login" method="post">
+                <form role="form" th:action="@{/login}" th:method="post">
                     <div class="form-group">
                         <input type="text" class="form-control" id="username" name="username"
                                th:placeholder="#{login.username}" autofocus="autofocus"/>
@@ -26,7 +26,6 @@
                         <input type="password" class="form-control" id="password" name="password"
                                th:placeholder="#{login.password}"/>
                     </div>
-                    <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-block btn-success">
                         <span class="glyphicon glyphicon-log-in"></span>
                         <span th:text="#{login.button.login}"></span>

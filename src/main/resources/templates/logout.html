@@ -14,8 +14,7 @@
                     <h2 th:text="#{logout.name}"></h2>
                 </div>
 
-                <form id="logoutForm" name="logoutForm" action="/logout" method="post">
-                    <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <form id="logoutForm" name="logoutForm" th:action="@{/logout}" th:method="post">
                     <button class="btn btn-block btn-danger" type="submit">
                         <span class="glyphicon glyphicon-log-out"></span>
                         <span th:text="#{login.button.logout}"></span>

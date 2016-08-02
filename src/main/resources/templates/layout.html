@@ -45,8 +45,7 @@
                             <span th:text="${#authentication.name}" id="navhbar--current-user"></span>
                         </li>
                         <li>
-                            <form action="/logout" method="post">
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <form th:action="@{/logout}" th:method="post">
                                 <button type="submit" id="navbar--logout-link"><span
                                         class="glyphicon glyphicon-log-out"></span>Logout
                                 </button>
