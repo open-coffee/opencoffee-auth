@@ -1,5 +1,7 @@
 package coffee.synyx.auth.oauth.web;
 
+import org.apache.commons.validator.routines.UrlValidator;
+
 import org.springframework.util.StringUtils;
 
 import org.springframework.validation.Errors;
@@ -12,6 +14,8 @@ import java.util.Set;
  * @author  Yannic Klem - yann.klem@gmail.com
  */
 public class ClientDetailsResourceValidator implements Validator {
+
+    private static final UrlValidator URL_VALIDATOR = new UrlValidator(new String[] { "http", "https" });
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -34,7 +38,7 @@ public class ClientDetailsResourceValidator implements Validator {
         Set<String> urls = StringUtils.commaDelimitedListToSet(registeredRedirectUri);
 
         for (String url : urls) {
-            if (!url.matches("^(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]")) {
+            if (!URL_VALIDATOR.isValid(url)) {
                 errors.rejectValue("registeredRedirectUri", "error.validation.clientdetails.uri");
 
                 return;
