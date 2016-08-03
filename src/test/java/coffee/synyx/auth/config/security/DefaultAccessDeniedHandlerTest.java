@@ -22,9 +22,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static org.mockito.Matchers.any;
-
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 
@@ -56,7 +53,7 @@ public class DefaultAccessDeniedHandlerTest {
 
         sut.handle(request, response, new AccessDeniedException("Test"));
 
-        verify(response, never()).sendRedirect(any(String.class));
+        verify(response).sendRedirect("/forbidden");
     }
 
 
