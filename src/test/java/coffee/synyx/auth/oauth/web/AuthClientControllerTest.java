@@ -21,13 +21,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import org.springframework.validation.BindingResult;
+
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 
 import javax.servlet.Filter;
 
+import static org.mockito.Matchers.any;
+
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,6 +41,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -210,9 +216,84 @@ public class AuthClientControllerTest {
 
 
     @Test
-    public void updateClient() throws Exception {
+    public void updateClientRedirectsToLoginIfNotLoggedIn() throws Exception {
 
-        // TODO
+        ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("http://localhost/login"));
+    }
+
+
+    @Test
+    @WithMockUser(roles = "EMPLOYEE")
+    public void updateClientRedirectsToForbiddenIfLoggedInAsEmployee() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("/forbidden"));
+    }
+
+
+    @Test
+    @WithMockUser(roles = "COFFEENET-ADMIN")
+    public void updateClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientIdDoesntMatchPathVariable()
+        throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
+                .param("clientId", "myOtherApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(view().name("clients/edit"));
+        resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
+
+        verify(jdbcClientDetailsServiceMock, never()).updateClientDetails(any(ClientDetails.class));
+        verify(jdbcClientDetailsServiceMock, never()).updateClientSecret("myApp", "myAppSecret");
+    }
+
+
+    @Test
+    @WithMockUser(roles = "COFFEENET-ADMIN")
+    public void updateClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientDetailsAreInvalid()
+        throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://.synyx.coffee"));
+
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(view().name("clients/edit"));
+        resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
+
+        verify(jdbcClientDetailsServiceMock, never()).updateClientDetails(any(ClientDetails.class));
+        verify(jdbcClientDetailsServiceMock, never()).updateClientSecret("myApp", "myAppSecret");
+    }
+
+
+    @Test
+    @WithMockUser(roles = "COFFEENET-ADMIN")
+    public void updateClientUpdatesClientIfLoggedInAsCoffeenetAdminAndClientDetailsAreValid() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("/clients"));
+
+        verify(jdbcClientDetailsServiceMock).updateClientDetails(any(ClientDetails.class));
+        verify(jdbcClientDetailsServiceMock).updateClientSecret("myApp", "myAppSecret");
     }
 
 
