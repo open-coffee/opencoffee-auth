@@ -15,7 +15,8 @@ import java.util.Set;
  */
 public class ClientDetailsResourceValidator implements Validator {
 
-    private static final UrlValidator URL_VALIDATOR = new UrlValidator(new String[] { "http", "https" });
+    private static final UrlValidator URL_VALIDATOR = new UrlValidator(new String[] { "http", "https" },
+            UrlValidator.ALLOW_LOCAL_URLS);
 
     @Override
     public boolean supports(Class<?> aClass) {

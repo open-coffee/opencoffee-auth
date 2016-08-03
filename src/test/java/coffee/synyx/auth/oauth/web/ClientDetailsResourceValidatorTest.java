@@ -79,6 +79,17 @@ public class ClientDetailsResourceValidatorTest {
 
 
     @Test
+    public void validateSucceedsIfUriIsLocal() {
+
+        clientDetailsResource.setRegisteredRedirectUri("http://localhost:9000");
+
+        sut.validate(clientDetailsResource, bindingResult);
+
+        assertThat(bindingResult.hasFieldErrors(), is(false));
+    }
+
+
+    @Test
     public void validateSucceedsIfUriStartsWithHttp() {
 
         clientDetailsResource.setRegisteredRedirectUri("http://test.synyx.de");
