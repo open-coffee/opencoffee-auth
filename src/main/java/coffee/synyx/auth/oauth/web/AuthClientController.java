@@ -1,17 +1,12 @@
 package coffee.synyx.auth.oauth.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
-
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,10 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -95,10 +89,11 @@ public class AuthClientController {
             return "clients/" + authClientId + "/edit";
         }
 
-        clientDetailsResource.setClientId(authClientId);
-        clientDetailsResource.setAutoApprove(true);
-        clientDetailsResource.setAuthorizedGrantTypes("authorization_code,password,refresh_token,client_credentials");
-        clientDetailsResource.setScope("openid");
+        if (!authClientId.equals(clientDetailsResource.getClientId())) {
+            binding.rejectValue("clientId", "error.validation.clientdetails.id.changed");
+
+            return "clients/" + authClientId + "/edit";
+        }
 
         jdbcClientDetailsService.updateClientDetails(clientDetailsResource.toEntity());
         jdbcClientDetailsService.updateClientSecret(authClientId, clientDetailsResource.getClientSecret());
@@ -126,10 +121,6 @@ public class AuthClientController {
             return "clients/new";
         }
 
-        clientDetailsResource.setAutoApprove(true);
-        clientDetailsResource.setAuthorizedGrantTypes("authorization_code,password,refresh_token,client_credentials");
-        clientDetailsResource.setScope("openid");
-
         jdbcClientDetailsService.addClientDetails(clientDetailsResource.toEntity());
         attr.addFlashAttribute("successMessage", "client.create.success.text");
 
@@ -138,7 +129,7 @@ public class AuthClientController {
 
 
     @RequestMapping(value = "/{authClientId}", method = GET)
-    public String getById(@PathVariable("authClientId") String authClientId, Model model) {
+    public String getClientView(@PathVariable("authClientId") String authClientId, Model model) {
 
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute("client", new ClientDetailsResource(clientDetails));
