@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -30,13 +31,26 @@ public class LogoutController {
         this.authServerConfigurationProperties = authServerConfigurationProperties;
     }
 
+    /**
+     * @param  principal  The current principal.
+     * @param  referrer  The value of the "referer"-Header. This is not misspelled by accident.
+     *
+     * @return  The name of the view.
+     *
+     * @see  <a href="https://en.wikipedia.org/wiki/HTTP_referer">Wikipedia</a> for reason of mispelling.
+     */
     @RequestMapping(value = "logout", method = GET)
-    public String getLogoutView(Principal principal) {
+    public String getLogoutView(Principal principal,
+        @RequestHeader(value = "referer", required = false) String referrer) {
 
         String view = "logout";
 
         if (principal == null) {
-            view = "redirect:" + authServerConfigurationProperties.getDefaultRedirectUrl();
+            if (referrer == null) {
+                view = "redirect:" + authServerConfigurationProperties.getDefaultRedirectUrl();
+            } else {
+                view = "redirect:" + referrer;
+            }
         }
 
         return view;

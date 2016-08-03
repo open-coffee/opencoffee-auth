@@ -60,10 +60,19 @@ public class LogoutControllerTest {
 
 
     @Test
-    public void redirectsToDefaultRedirectUriIfNotLoggedIn() throws Exception {
+    public void redirectsToDefaultRedirectUriIfNotLoggedInAndNoReferrerHeaderExists() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(get("/logout"));
         resultActions.andExpect(status().isFound());
         resultActions.andExpect(redirectedUrl("https://synyx.coffee"));
+    }
+
+
+    @Test
+    public void redirectsToReferrerHeaderIfNotLoggedInAndReferrerHeaderExists() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(get("/logout").header("referer", "https://myApp.coffee"));
+        resultActions.andExpect(status().isFound());
+        resultActions.andExpect(redirectedUrl("https://myApp.coffee"));
     }
 }
