@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -31,6 +32,7 @@ import javax.servlet.Filter;
 
 import static org.mockito.Matchers.any;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -41,6 +43,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -255,6 +258,8 @@ public class AuthClientControllerTest {
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(view().name("clients/edit"));
         resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
+        resultActions.andExpect(model().attributeHasFieldErrorCode("client", "clientId",
+                "error.validation.clientdetails.id.changed"));
 
         verify(jdbcClientDetailsServiceMock, never()).updateClientDetails(any(ClientDetails.class));
         verify(jdbcClientDetailsServiceMock, never()).updateClientSecret("myApp", "myAppSecret");
@@ -274,6 +279,8 @@ public class AuthClientControllerTest {
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(view().name("clients/edit"));
         resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
+        resultActions.andExpect(model().attributeHasFieldErrorCode("client", "registeredRedirectUri",
+                "error.validation.clientdetails.uri"));
 
         verify(jdbcClientDetailsServiceMock, never()).updateClientDetails(any(ClientDetails.class));
         verify(jdbcClientDetailsServiceMock, never()).updateClientSecret("myApp", "myAppSecret");
@@ -301,6 +308,94 @@ public class AuthClientControllerTest {
     public void createNewClient() throws Exception {
 
         // TODO
+    }
+
+
+    @Test
+    public void createNewClientRedirectsToLoginIfNotLoggedIn() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("http://localhost/login"));
+    }
+
+
+    @Test
+    @WithMockUser(roles = "EMPLOYEE")
+    public void createNewClientRedirectsToForbiddenIfLoggedInAsEmployee() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("/forbidden"));
+    }
+
+
+    @Test
+    @WithMockUser(roles = "COFFEENET-ADMIN")
+    public void createNewClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientDetailsAreInvalid()
+        throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://.synyx.coffee"));
+
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(view().name("clients/new"));
+        resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
+        resultActions.andExpect(model().attributeHasFieldErrors("client", "registeredRedirectUri"));
+        resultActions.andExpect(model().attributeHasFieldErrorCode("client", "registeredRedirectUri",
+                "error.validation.clientdetails.uri"));
+
+        verify(jdbcClientDetailsServiceMock, never()).addClientDetails(any(ClientDetails.class));
+    }
+
+
+    @Test
+    @WithMockUser(roles = "COFFEENET-ADMIN")
+    public void createNewClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientIdAlreadyExists()
+        throws Exception {
+
+        doThrow(new ClientAlreadyExistsException("myApp already exists")).when(jdbcClientDetailsServiceMock)
+            .addClientDetails(any(ClientDetails.class));
+
+        ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(view().name("clients/new"));
+        resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
+        resultActions.andExpect(model().attributeHasFieldErrors("client", "clientId"));
+        resultActions.andExpect(model().attributeHasFieldErrorCode("client", "clientId",
+                "error.client.creation.id.alreadyexists"));
+
+        verify(jdbcClientDetailsServiceMock).addClientDetails(any(ClientDetails.class));
+    }
+
+
+    @Test
+    @WithMockUser(roles = "COFFEENET-ADMIN")
+    public void createNewClientCreatesClientAndRedirectsToClientsIfLoggedInAsCoffeenetAdmin() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
+                .param("clientId", "myApp")
+                .param("clientSecret", "myAppSecret")
+                .param("registeredRedirectUri", "https://synyx.coffee"));
+
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("/clients"));
+
+        verify(jdbcClientDetailsServiceMock).addClientDetails(any(ClientDetails.class));
     }
 
 

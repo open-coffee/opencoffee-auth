@@ -1,17 +1,13 @@
 package coffee.synyx.auth.oauth.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
-
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,10 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -138,10 +133,20 @@ public class AuthClientController {
             return "clients/new";
         }
 
-        jdbcClientDetailsService.addClientDetails(clientDetailsResource.toEntity());
-        attr.addFlashAttribute("successMessage", "client.create.success.text");
+        try {
+            jdbcClientDetailsService.addClientDetails(clientDetailsResource.toEntity());
 
-        return "redirect:/clients";
+            attr.addFlashAttribute("successMessage", "client.create.success.text");
+
+            return "redirect:/clients";
+        } catch (ClientAlreadyExistsException e) {
+            binding.rejectValue("clientId", "error.client.creation.id.alreadyexists");
+
+            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
+            attr.addFlashAttribute("client", clientDetailsResource);
+
+            return "clients/new";
+        }
     }
 
 
