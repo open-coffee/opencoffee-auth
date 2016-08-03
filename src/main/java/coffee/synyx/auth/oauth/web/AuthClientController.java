@@ -1,13 +1,18 @@
 package coffee.synyx.auth.oauth.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -16,9 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -86,14 +92,13 @@ public class AuthClientController {
         @ModelAttribute(value = "client")
         ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
+        clientDetailsResource.setClientId(authClientId);
+
         if (binding.hasErrors()) {
-            return getEditErrorView(clientDetailsResource, binding, attr);
-        }
+            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
+            attr.addFlashAttribute("client", clientDetailsResource);
 
-        if (!authClientId.equals(clientDetailsResource.getClientId())) {
-            binding.rejectValue("clientId", "error.validation.clientdetails.id.changed");
-
-            return getEditErrorView(clientDetailsResource, binding, attr);
+            return "clients/edit";
         }
 
         jdbcClientDetailsService.updateClientDetails(clientDetailsResource.toEntity());
@@ -101,17 +106,6 @@ public class AuthClientController {
         attr.addFlashAttribute("successMessage", "client.update.success.text");
 
         return "redirect:/clients";
-    }
-
-
-    private String getEditErrorView(@Valid
-        @ModelAttribute(value = "client")
-        ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
-
-        attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
-        attr.addFlashAttribute("client", clientDetailsResource);
-
-        return "clients/edit";
     }
 
 

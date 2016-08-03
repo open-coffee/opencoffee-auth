@@ -247,27 +247,6 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = "COFFEENET-ADMIN")
-    public void updateClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientIdDoesntMatchPathVariable()
-        throws Exception {
-
-        ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
-                .param("clientId", "myOtherApp")
-                .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
-
-        resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/edit"));
-        resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
-        resultActions.andExpect(model().attributeHasFieldErrorCode("client", "clientId",
-                "error.validation.clientdetails.id.changed"));
-
-        verify(jdbcClientDetailsServiceMock, never()).updateClientDetails(any(ClientDetails.class));
-        verify(jdbcClientDetailsServiceMock, never()).updateClientSecret("myApp", "myAppSecret");
-    }
-
-
-    @Test
-    @WithMockUser(roles = "COFFEENET-ADMIN")
     public void updateClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientDetailsAreInvalid()
         throws Exception {
 
