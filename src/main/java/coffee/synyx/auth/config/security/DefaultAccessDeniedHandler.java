@@ -53,6 +53,8 @@ class DefaultAccessDeniedHandler implements AccessDeniedHandler {
 
             LOGGER.info("Handling CsrfException with redirect to {}.", redirectUrl);
             response.sendRedirect(redirectUrl);
+        } else {
+            response.sendRedirect("/forbidden");
         }
     }
 }
