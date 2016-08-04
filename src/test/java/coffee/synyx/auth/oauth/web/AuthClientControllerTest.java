@@ -284,13 +284,6 @@ public class AuthClientControllerTest {
 
 
     @Test
-    public void createNewClient() throws Exception {
-
-        // TODO
-    }
-
-
-    @Test
     public void createNewClientRedirectsToLoginIfNotLoggedIn() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
