@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.web;
+package coffee.synyx.auth.oauth.client.web;
 
 import org.junit.Before;
 import org.junit.Test;
