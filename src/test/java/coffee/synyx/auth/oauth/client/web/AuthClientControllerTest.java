@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.web;
+package coffee.synyx.auth.oauth.client.web;
 
 import coffee.synyx.auth.AuthenticationServer;
 
@@ -94,7 +94,7 @@ public class AuthClientControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/clients"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/all"));
+        resultActions.andExpect(view().name("oauth/clients/all"));
         resultActions.andExpect(model().attributeExists("clients"));
         resultActions.andExpect(model().attribute("clients", new ArrayList<>()));
     }
@@ -129,7 +129,7 @@ public class AuthClientControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/clients/myApp/edit"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/edit"));
+        resultActions.andExpect(view().name("oauth/clients/edit"));
         resultActions.andExpect(model().attributeExists("client"));
     }
 
@@ -161,7 +161,7 @@ public class AuthClientControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/clients/myApp/delete"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/confirm_delete"));
+        resultActions.andExpect(view().name("oauth/clients/confirm_delete"));
         resultActions.andExpect(model().attributeExists("client"));
     }
 
@@ -191,7 +191,7 @@ public class AuthClientControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/clients/new"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/new"));
+        resultActions.andExpect(view().name("oauth/clients/new"));
         resultActions.andExpect(model().attributeExists("client"));
     }
 
@@ -213,7 +213,7 @@ public class AuthClientControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/clients/myApp"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/specific"));
+        resultActions.andExpect(view().name("oauth/clients/specific"));
         resultActions.andExpect(model().attributeExists("client"));
     }
 
@@ -256,7 +256,7 @@ public class AuthClientControllerTest {
                 .param("registeredRedirectUri", "https://.synyx.coffee"));
 
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/edit"));
+        resultActions.andExpect(view().name("oauth/clients/edit"));
         resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
         resultActions.andExpect(model().attributeHasFieldErrorCode("client", "registeredRedirectUri",
                 "error.validation.clientdetails.uri"));
@@ -321,7 +321,7 @@ public class AuthClientControllerTest {
                 .param("registeredRedirectUri", "https://.synyx.coffee"));
 
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/new"));
+        resultActions.andExpect(view().name("oauth/clients/new"));
         resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
         resultActions.andExpect(model().attributeHasFieldErrors("client", "registeredRedirectUri"));
         resultActions.andExpect(model().attributeHasFieldErrorCode("client", "registeredRedirectUri",
@@ -345,7 +345,7 @@ public class AuthClientControllerTest {
                 .param("registeredRedirectUri", "https://synyx.coffee"));
 
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("clients/new"));
+        resultActions.andExpect(view().name("oauth/clients/new"));
         resultActions.andExpect(model().attributeExists(BindingResult.MODEL_KEY_PREFIX + "client"));
         resultActions.andExpect(model().attributeHasFieldErrors("client", "clientId"));
         resultActions.andExpect(model().attributeHasFieldErrorCode("client", "clientId",

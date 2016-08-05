@@ -51,7 +51,7 @@ public class AuthClientController {
     @ExceptionHandler(value = NoSuchClientException.class)
     public String handleNotFoundException() {
 
-        return "clients/not_found";
+        return "oauth/clients/not_found";
     }
 
 
@@ -72,7 +72,7 @@ public class AuthClientController {
 
         model.addAttribute("clients", clientDetails);
 
-        return "clients/all";
+        return "oauth/clients/all";
     }
 
 
@@ -82,7 +82,7 @@ public class AuthClientController {
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute("client", new ClientDetailsResource(clientDetails));
 
-        return "clients/edit";
+        return "oauth/clients/edit";
     }
 
 
@@ -98,7 +98,7 @@ public class AuthClientController {
             attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
             attr.addFlashAttribute("client", clientDetailsResource);
 
-            return "clients/edit";
+            return "oauth/clients/edit";
         }
 
         jdbcClientDetailsService.updateClientDetails(clientDetailsResource.toEntity());
@@ -114,7 +114,7 @@ public class AuthClientController {
 
         model.addAttribute("client", new ClientDetailsResource());
 
-        return "clients/new";
+        return "oauth/clients/new";
     }
 
 
@@ -124,7 +124,7 @@ public class AuthClientController {
         ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
         if (binding.hasErrors()) {
-            return "clients/new";
+            return "oauth/clients/new";
         }
 
         try {
@@ -139,7 +139,7 @@ public class AuthClientController {
             attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
             attr.addFlashAttribute("client", clientDetailsResource);
 
-            return "clients/new";
+            return "oauth/clients/new";
         }
     }
 
@@ -150,7 +150,7 @@ public class AuthClientController {
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute("client", new ClientDetailsResource(clientDetails));
 
-        return "clients/specific";
+        return "oauth/clients/specific";
     }
 
 
@@ -160,7 +160,7 @@ public class AuthClientController {
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute("client", new ClientDetailsResource(clientDetails));
 
-        return "clients/confirm_delete";
+        return "oauth/clients/confirm_delete";
     }
 
 
