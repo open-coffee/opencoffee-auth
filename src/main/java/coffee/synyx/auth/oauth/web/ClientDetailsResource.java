@@ -27,24 +27,31 @@ public class ClientDetailsResource {
     @Length(min = 8, max = 256)
     private String clientSecret;
 
-    private String resourceIds;
-    private String scope;
-    private String authorizedGrantTypes;
-
     @Length(min = 1, max = 256)
     private String registeredRedirectUri;
 
-    private String authorities;
-    private Integer accessTokenValidity;
-    private Integer refreshTokenValidity;
-    private boolean autoApprove;
-    private Map<String, Object> additionalInformation = new HashMap<>();
+    private final String resourceIds;
+    private final String scope;
+    private final String authorizedGrantTypes;
+    private final String authorities;
+    private final Integer accessTokenValidity;
+    private final Integer refreshTokenValidity;
+    private final boolean autoApprove = true;
+    private final Map<String, Object> additionalInformation;
 
-    public ClientDetailsResource() {
+    ClientDetailsResource() {
+
+        this.scope = "openid";
+        this.authorizedGrantTypes = "authorization_code,password,refresh_token,client_credentials";
+        this.authorities = "";
+        this.resourceIds = null;
+        this.accessTokenValidity = null;
+        this.refreshTokenValidity = null;
+        this.additionalInformation = new HashMap<>();
     }
 
 
-    public ClientDetailsResource(ClientDetails clientDetails) {
+    ClientDetailsResource(ClientDetails clientDetails) {
 
         this.clientId = clientDetails.getClientId();
         this.clientSecret = clientDetails.getClientSecret();
@@ -52,15 +59,15 @@ public class ClientDetailsResource {
         this.scope = StringUtils.collectionToCommaDelimitedString(clientDetails.getScope());
         this.authorizedGrantTypes = StringUtils.collectionToCommaDelimitedString(
                 clientDetails.getAuthorizedGrantTypes());
-        this.registeredRedirectUri = StringUtils.collectionToCommaDelimitedString(
-                clientDetails.getRegisteredRedirectUri());
+        setRegisteredRedirectUri(StringUtils.collectionToCommaDelimitedString(
+                clientDetails.getRegisteredRedirectUri()));
         this.authorities = StringUtils.collectionToCommaDelimitedString(clientDetails.getAuthorities());
         this.accessTokenValidity = clientDetails.getAccessTokenValiditySeconds();
         this.refreshTokenValidity = clientDetails.getRefreshTokenValiditySeconds();
         this.additionalInformation = clientDetails.getAdditionalInformation();
     }
 
-    public ClientDetails toEntity() {
+    ClientDetails toEntity() {
 
         AuthClient authClient = new AuthClient();
         authClient.setClientId(clientId);
@@ -86,12 +93,38 @@ public class ClientDetailsResource {
     }
 
 
+    private String beautifyRedirectUriString(String registeredRedirectUri) {
+
+        registeredRedirectUri = registeredRedirectUri.replaceAll("\\s+", "");
+
+        int length = registeredRedirectUri.length();
+        int startIndex = 0;
+        int endIndex = length - 1;
+
+        while (startIndex < length && registeredRedirectUri.charAt(startIndex) == ',') {
+            startIndex++;
+        }
+
+        while (endIndex >= 0 && registeredRedirectUri.charAt(endIndex) == ',') {
+            endIndex--;
+        }
+
+        return registeredRedirectUri.substring(startIndex, endIndex + 1);
+    }
+
+
     public String getClientId() {
 
         return clientId;
     }
 
 
+    /**
+     * Needs to be public for deserialization purposes.
+     *
+     * @param  clientId  This could be any UTF-8 String that identifies the client with a maximum length of 200
+     *                   characters.
+     */
     public void setClientId(String clientId) {
 
         this.clientId = clientId;
@@ -104,45 +137,15 @@ public class ClientDetailsResource {
     }
 
 
+    /**
+     * Needs to be public for deserialization purposes.
+     *
+     * @param  clientSecret  This could be any UTF-8 String. This is the secret for this client. The secret has a
+     *                       maximum length of 256 characters.
+     */
     public void setClientSecret(String clientSecret) {
 
         this.clientSecret = clientSecret;
-    }
-
-
-    public String getResourceIds() {
-
-        return resourceIds;
-    }
-
-
-    public void setResourceIds(String resourceIds) {
-
-        this.resourceIds = resourceIds;
-    }
-
-
-    public String getScope() {
-
-        return scope;
-    }
-
-
-    public void setScope(String scope) {
-
-        this.scope = scope;
-    }
-
-
-    public String getAuthorizedGrantTypes() {
-
-        return authorizedGrantTypes;
-    }
-
-
-    public void setAuthorizedGrantTypes(String authorizedGrantTypes) {
-
-        this.authorizedGrantTypes = authorizedGrantTypes;
     }
 
 
@@ -152,87 +155,15 @@ public class ClientDetailsResource {
     }
 
 
+    /**
+     * Needs to be public for deserialization purposes.
+     *
+     * @param  registeredRedirectUri  This is a comma separated list of uris where the client can be accessed with a
+     *                                maximum length of 256 characters. I.e.
+     *                                "https://myApp.synyx.coffee,http://myApp.synyx.coffee"
+     */
     public void setRegisteredRedirectUri(String registeredRedirectUri) {
 
         this.registeredRedirectUri = beautifyRedirectUriString(registeredRedirectUri);
-    }
-
-
-    private String beautifyRedirectUriString(String registeredRedirectUri) {
-
-        registeredRedirectUri = registeredRedirectUri.replaceAll("\\s+", "");
-
-        int startIndex = 0;
-        int endIndex = registeredRedirectUri.length() - 1;
-
-        while (registeredRedirectUri.charAt(startIndex) == ',') {
-            startIndex++;
-        }
-
-        while (registeredRedirectUri.charAt(endIndex) == ',') {
-            endIndex--;
-        }
-
-        return registeredRedirectUri.substring(startIndex, endIndex + 1);
-    }
-
-
-    public String getAuthorities() {
-
-        return authorities;
-    }
-
-
-    public void setAuthorities(String authorities) {
-
-        this.authorities = authorities;
-    }
-
-
-    public Integer getAccessTokenValidity() {
-
-        return accessTokenValidity;
-    }
-
-
-    public void setAccessTokenValidity(Integer accessTokenValidity) {
-
-        this.accessTokenValidity = accessTokenValidity;
-    }
-
-
-    public Integer getRefreshTokenValidity() {
-
-        return refreshTokenValidity;
-    }
-
-
-    public void setRefreshTokenValidity(Integer refreshTokenValidity) {
-
-        this.refreshTokenValidity = refreshTokenValidity;
-    }
-
-
-    public boolean isAutoApprove() {
-
-        return autoApprove;
-    }
-
-
-    public void setAutoApprove(boolean autoApprove) {
-
-        this.autoApprove = autoApprove;
-    }
-
-
-    public Map<String, Object> getAdditionalInformation() {
-
-        return additionalInformation;
-    }
-
-
-    public void setAdditionalInformation(Map<String, Object> additionalInformation) {
-
-        this.additionalInformation = additionalInformation;
     }
 }
