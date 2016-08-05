@@ -4,10 +4,10 @@
       layout:decorator="layout">
 <head>
     <meta charset="UTF-8"/>
-    <title th:text="#{clients.new.title}"></title>
+    <title th:text="#{clients.edit.title}"></title>
 </head>
 <body>
-<!--/*@thymesVar id="client" type="coffee.synyx.auth.oauth.web.ClientDetailsResource"*/-->
+<!--/*@thymesVar id="client" type="coffee.synyx.auth.oauth.client.web.ClientDetailsResource"*/-->
 <main layout:fragment="main">
     <div class="text-center alert alert-global alert-success" th:if="${successMessage != null}" th:text="#{${successMessage}}"></div>
     <div class="container-fluid">
@@ -19,10 +19,10 @@
                         <span th:text="#{clients.new.title}"></span>
                     </div>
                     <div class="panel-body">
-                        <form role="form" th:action="@{/clients}" th:object="${client}" th:method="post">
+                        <form role="form" th:action="@{/clients/{id}(id=${client.clientId})}" th:object="${client}" th:method="put">
                             <div class="form-group">
                                 <label for="clientId" class="control-label" th:text="#{client.id.header}"></label>
-                                <input id="clientId" th:field="*{clientId}" class="form-control" type="text" name="clientId" placeholder="myApp"/>
+                                <input disabled="disabled" id="clientId" th:field="*{clientId}" class="form-control" type="text" name="clientId" placeholder="myApp"/>
                                 <span class="form-error" th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}">clientId error</span>
                             </div>
                             <div class="form-group">
@@ -36,8 +36,8 @@
                                 <span class="form-error" th:if="${#fields.hasErrors('registeredRedirectUri')}" th:errors="*{registeredRedirectUri}">registeredRedirectUri error</span>
                             </div>
 
-                            <button type="submit" class="btn btn-success" th:text="#{client.new.submit}"></button>
-                            <button type="reset"  class="btn btn-default" th:text="#{client.new.reset}"></button>
+                            <button type="submit" class="btn btn-success" th:text="#{client.edit.submit}"></button>
+                            <button type="reset"  class="btn btn-default" th:text="#{client.edit.reset}"></button>
                         </form>
                     </div>
                 </div>
