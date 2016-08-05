@@ -32,11 +32,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * @author  Yannic Klem - klem@synyx.de
- * @author  Tobias Schneider - schneider@synyx.de
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AuthenticationServer.class)
-public class LogoutControllerTest {
+public class AccessDeniedControllerTest {
 
     @Autowired
     private WebApplicationContext webContext;
@@ -55,29 +54,20 @@ public class LogoutControllerTest {
 
 
     @Test
+    public void getForbiddenViewRedirectsToLoginIfNotLoggedIn() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(get("/forbidden"));
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("http://localhost/login"));
+    }
+
+
+    @Test
     @WithMockUser
-    public void returnsLogoutPageIfLoggedIn() throws Exception {
+    public void getForbiddenViewReturns403IfLoggedIn() throws Exception {
 
-        ResultActions resultActions = mockMvc.perform(get("/logout"));
-        resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("auth/logout"));
-    }
-
-
-    @Test
-    public void redirectsToDefaultRedirectUriIfNotLoggedInAndNoReferrerHeaderExists() throws Exception {
-
-        ResultActions resultActions = mockMvc.perform(get("/logout"));
-        resultActions.andExpect(status().isFound());
-        resultActions.andExpect(redirectedUrl("https://synyx.coffee"));
-    }
-
-
-    @Test
-    public void redirectsToReferrerHeaderIfNotLoggedInAndReferrerHeaderExists() throws Exception {
-
-        ResultActions resultActions = mockMvc.perform(get("/logout").header("referer", "https://myApp.coffee"));
-        resultActions.andExpect(status().isFound());
-        resultActions.andExpect(redirectedUrl("https://myApp.coffee"));
+        ResultActions resultActions = mockMvc.perform(get("/forbidden"));
+        resultActions.andExpect(status().isForbidden());
+        resultActions.andExpect(view().name("access_denied"));
     }
 }

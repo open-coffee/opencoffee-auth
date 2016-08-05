@@ -2,6 +2,7 @@ package coffee.synyx.auth.oauth.client.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
@@ -91,14 +92,14 @@ public class AuthClientController {
         @ModelAttribute(value = "client")
         ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
-        if (binding.hasErrors()) {
-            return "clients/" + authClientId + "/edit";
-        }
-
         clientDetailsResource.setClientId(authClientId);
-        clientDetailsResource.setAutoApprove(true);
-        clientDetailsResource.setAuthorizedGrantTypes("authorization_code,password,refresh_token,client_credentials");
-        clientDetailsResource.setScope("openid");
+
+        if (binding.hasErrors()) {
+            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
+            attr.addFlashAttribute("client", clientDetailsResource);
+
+            return "clients/edit";
+        }
 
         jdbcClientDetailsService.updateClientDetails(clientDetailsResource.toEntity());
         jdbcClientDetailsService.updateClientSecret(authClientId, clientDetailsResource.getClientSecret());
@@ -126,19 +127,25 @@ public class AuthClientController {
             return "clients/new";
         }
 
-        clientDetailsResource.setAutoApprove(true);
-        clientDetailsResource.setAuthorizedGrantTypes("authorization_code,password,refresh_token,client_credentials");
-        clientDetailsResource.setScope("openid");
+        try {
+            jdbcClientDetailsService.addClientDetails(clientDetailsResource.toEntity());
 
-        jdbcClientDetailsService.addClientDetails(clientDetailsResource.toEntity());
-        attr.addFlashAttribute("successMessage", "client.create.success.text");
+            attr.addFlashAttribute("successMessage", "client.create.success.text");
 
-        return "redirect:/clients";
+            return "redirect:/clients";
+        } catch (ClientAlreadyExistsException e) {
+            binding.rejectValue("clientId", "error.client.creation.id.alreadyexists");
+
+            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
+            attr.addFlashAttribute("client", clientDetailsResource);
+
+            return "clients/new";
+        }
     }
 
 
     @RequestMapping(value = "/{authClientId}", method = GET)
-    public String getById(@PathVariable("authClientId") String authClientId, Model model) {
+    public String getClientView(@PathVariable("authClientId") String authClientId, Model model) {
 
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute("client", new ClientDetailsResource(clientDetails));
