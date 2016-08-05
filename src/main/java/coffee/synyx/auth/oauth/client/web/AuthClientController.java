@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.web;
+package coffee.synyx.auth.oauth.client.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
