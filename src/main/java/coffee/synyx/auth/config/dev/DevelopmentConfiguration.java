@@ -1,6 +1,6 @@
 package coffee.synyx.auth.config.dev;
 
-import coffee.synyx.auth.oauth.web.AuthClient;
+import coffee.synyx.auth.oauth.client.web.AuthClient;
 
 import org.slf4j.Logger;
 
@@ -32,12 +32,12 @@ public class DevelopmentConfiguration {
 
     private final JdbcClientDetailsService jdbcClientDetailsService;
 
+    private boolean development;
+
     public DevelopmentConfiguration(JdbcClientDetailsService jdbcClientDetailsService) {
 
         this.jdbcClientDetailsService = jdbcClientDetailsService;
     }
-
-    private boolean development;
 
     public boolean isDevelopment() {
 
