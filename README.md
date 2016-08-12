@@ -64,7 +64,8 @@ Die Anwendung muss folgende OAuth-Pfade bedienen können:
 
 ### Neuen Service im Auth Server einpflegen
 
-Aktuell muss in der Datenbank ein neuer Eintrag angelegt werden. 
+Als Mitarbeiter mit der Rolle `COFFEENET-ADMIN` ist es möglich unter http(s)://$host/clients/new einen neuen Client anzulegen.
+Alternativ kann in der Datenbank ein neuer Eintrag angelegt werden. 
 Dabei sind folgende Felder relevant:
  * `client_id`: Die Id des Clients, bspw. Name des Service
  * `resource_ids`: Kann leer bleiben
@@ -98,3 +99,16 @@ INSERT INTO oauth_client_details VALUES (
   'true'
 );
 ```
+
+## Entwicklermodus
+
+Der Auth-Server kann im Entwicklermodus gestartet werden indem die property `coffeenet.development` auf true gesetzt wird.
+Dadurch wird beim starten des Auth-Servers ein Client angelegt, der verwendet werden kann, um eine Anwendung lokal integrativ zu testen.
+Der Client hat folgende Zugangsdaten:
+
+```
+clientId: testClient
+clientSecret: testClientSecret
+```
+
+Damit eine Anwendung den Auth-Server nun zur Authentifizierung verwenden kann, muss die Anwendung [entsprechend Konfiguriert werden](https://gitlab.synyx.de/coffeenet/coffeenet-starter-sso#verbindungsinformationen).
