@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.ldap.core.support.DefaultTlsDirContextAuthenticationStrategy;
 import org.springframework.ldap.core.support.LdapContextSource;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -57,6 +58,7 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
 
         contextSource.setUrl(ldapConfigurationProperties.getUrl());
         contextSource.setBase(ldapConfigurationProperties.getBase());
+        contextSource.setAuthenticationStrategy(new DefaultTlsDirContextAuthenticationStrategy());
 
         return contextSource;
     }
