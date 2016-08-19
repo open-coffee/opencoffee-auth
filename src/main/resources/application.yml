@@ -12,7 +12,6 @@ ldap:
   groupSearchBase: ou=roles,ou=groups
   groupSearchFilter: member={0}
 
-
 spring:
   h2:
     console:
@@ -26,6 +25,5 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: validate
-
 coffeenet:
   development: true
