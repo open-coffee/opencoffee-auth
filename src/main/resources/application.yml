@@ -1,3 +1,6 @@
+coffeenet:
+  development: true
+
 server:
   port: 9999
   session:
@@ -25,5 +28,3 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: validate
-coffeenet:
-  development: true
