@@ -1,5 +1,7 @@
 package coffee.synyx.auth.oauth.client.web;
 
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
@@ -26,10 +28,14 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
+import static java.lang.invoke.MethodHandles.lookup;
 
 
 /**
@@ -39,6 +45,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @Controller
 @RequestMapping("/clients")
 public class AuthClientController {
+
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private static final String SUCCESS_MESSAGE = "successMessage";
     private static final String REDIRECT_CLIENTS = "redirect:/clients";
@@ -138,6 +146,8 @@ public class AuthClientController {
 
             return REDIRECT_CLIENTS;
         } catch (ClientAlreadyExistsException e) {
+            LOGGER.debug("Client already exists", e);
+
             binding.rejectValue("clientId", "error.client.creation.id.alreadyexists");
 
             attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
