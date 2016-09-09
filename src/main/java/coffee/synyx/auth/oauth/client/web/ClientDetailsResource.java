@@ -96,21 +96,21 @@ public class ClientDetailsResource {
 
     private String beautifyRedirectUriString(String registeredRedirectUri) {
 
-        registeredRedirectUri = registeredRedirectUri.replaceAll("\\s+", "");
+        String beautifiedRegisteredRedirectUri = registeredRedirectUri.replaceAll("\\s+", "");
 
-        int length = registeredRedirectUri.length();
+        int length = beautifiedRegisteredRedirectUri.length();
         int startIndex = 0;
         int endIndex = length - 1;
 
-        while (startIndex < length && registeredRedirectUri.charAt(startIndex) == ',') {
+        while (startIndex < length && beautifiedRegisteredRedirectUri.charAt(startIndex) == ',') {
             startIndex++;
         }
 
-        while (endIndex >= 0 && registeredRedirectUri.charAt(endIndex) == ',') {
+        while (endIndex >= 0 && beautifiedRegisteredRedirectUri.charAt(endIndex) == ',') {
             endIndex--;
         }
 
-        return registeredRedirectUri.substring(startIndex, endIndex + 1);
+        return beautifiedRegisteredRedirectUri.substring(startIndex, endIndex + 1);
     }
 
 
