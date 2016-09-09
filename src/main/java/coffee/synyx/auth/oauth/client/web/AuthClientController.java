@@ -40,6 +40,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RequestMapping("/clients")
 public class AuthClientController {
 
+    private static final String SUCCESS_MESSAGE = "successMessage";
+    private static final String REDIRECT_CLIENTS = "redirect:/clients";
+    private static final String OAUTH_CLIENTS_NEW = "oauth/clients/new";
+
     private JdbcClientDetailsService jdbcClientDetailsService;
 
     @Autowired
@@ -103,9 +107,9 @@ public class AuthClientController {
 
         jdbcClientDetailsService.updateClientDetails(clientDetailsResource.toEntity());
         jdbcClientDetailsService.updateClientSecret(authClientId, clientDetailsResource.getClientSecret());
-        attr.addFlashAttribute("successMessage", "client.update.success.text");
+        attr.addFlashAttribute(SUCCESS_MESSAGE, "client.update.success.text");
 
-        return "redirect:/clients";
+        return REDIRECT_CLIENTS;
     }
 
 
@@ -114,7 +118,7 @@ public class AuthClientController {
 
         model.addAttribute("client", new ClientDetailsResource());
 
-        return "oauth/clients/new";
+        return OAUTH_CLIENTS_NEW;
     }
 
 
@@ -124,22 +128,22 @@ public class AuthClientController {
         ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
         if (binding.hasErrors()) {
-            return "oauth/clients/new";
+            return OAUTH_CLIENTS_NEW;
         }
 
         try {
             jdbcClientDetailsService.addClientDetails(clientDetailsResource.toEntity());
 
-            attr.addFlashAttribute("successMessage", "client.create.success.text");
+            attr.addFlashAttribute(SUCCESS_MESSAGE, "client.create.success.text");
 
-            return "redirect:/clients";
+            return REDIRECT_CLIENTS;
         } catch (ClientAlreadyExistsException e) {
             binding.rejectValue("clientId", "error.client.creation.id.alreadyexists");
 
             attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
             attr.addFlashAttribute("client", clientDetailsResource);
 
-            return "oauth/clients/new";
+            return OAUTH_CLIENTS_NEW;
         }
     }
 
@@ -168,8 +172,8 @@ public class AuthClientController {
     public String deleteClient(@PathVariable("authClientId") String authClientId, RedirectAttributes attributes) {
 
         jdbcClientDetailsService.removeClientDetails(authClientId);
-        attributes.addFlashAttribute("successMessage", "client.delete.success.text");
+        attributes.addFlashAttribute(SUCCESS_MESSAGE, "client.delete.success.text");
 
-        return "redirect:/clients";
+        return REDIRECT_CLIENTS;
     }
 }
