@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
  */
 public class ClientDetailsResource {
 
+    private static final boolean AUTO_APPROVE = true;
+
     @Length(min = 1, max = 200)
     private String clientId;
 
@@ -36,7 +38,6 @@ public class ClientDetailsResource {
     private final String authorities;
     private final Integer accessTokenValidity;
     private final Integer refreshTokenValidity;
-    private final boolean autoApprove = true;
     private final Map<String, Object> additionalInformation;
 
     ClientDetailsResource() {
@@ -86,7 +87,7 @@ public class ClientDetailsResource {
 
         authClient.setAccessTokenValiditySeconds(accessTokenValidity);
         authClient.setRefreshTokenValiditySeconds(refreshTokenValidity);
-        authClient.setAutoApprove(autoApprove);
+        authClient.setAutoApprove(AUTO_APPROVE);
         authClient.setAdditionalInformation(additionalInformation);
 
         return authClient;
