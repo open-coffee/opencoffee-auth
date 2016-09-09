@@ -78,12 +78,12 @@ public class ClientDetailsResource {
         authClient.setAuthorizedGrantTypes(StringUtils.commaDelimitedListToSet(authorizedGrantTypes));
         authClient.setRegisteredRedirectUri(StringUtils.commaDelimitedListToSet(registeredRedirectUri));
 
-        List<GrantedAuthority> authorities = StringUtils.commaDelimitedListToSet(this.authorities)
+        List<GrantedAuthority> grantedAuthorities = StringUtils.commaDelimitedListToSet(this.authorities)
                 .stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        authClient.setAuthorities(authorities);
+        authClient.setAuthorities(grantedAuthorities);
 
         authClient.setAccessTokenValiditySeconds(accessTokenValidity);
         authClient.setRefreshTokenValiditySeconds(refreshTokenValidity);
