@@ -34,7 +34,7 @@ public class ClientDetailsResourceValidator implements Validator {
     }
 
 
-    private void validateUrls(String registeredRedirectUri, Errors errors) {
+    private static void validateUrls(String registeredRedirectUri, Errors errors) {
 
         Set<String> urls = StringUtils.commaDelimitedListToSet(registeredRedirectUri);
 

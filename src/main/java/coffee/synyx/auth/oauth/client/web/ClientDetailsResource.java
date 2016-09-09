@@ -94,7 +94,7 @@ public class ClientDetailsResource {
     }
 
 
-    private String beautifyRedirectUriString(String registeredRedirectUri) {
+    private static String beautifyRedirectUriString(String registeredRedirectUri) {
 
         String beautifiedRegisteredRedirectUri = registeredRedirectUri.replaceAll("\\s+", "");
 
