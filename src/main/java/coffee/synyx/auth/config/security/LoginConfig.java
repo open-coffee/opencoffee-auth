@@ -36,6 +36,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     private static final String LOGOUT = "/logout";
     private static final String ADMIN_ROLE = "ROLE_COFFEENET-ADMIN";
+    private static final String CLIENTS = "/clients/**";
 
     private LogoutSuccessHandler logoutSuccessHandler;
     private ServerProperties serverProperties;
@@ -62,7 +63,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
 
         http.requestMatchers()
             .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/webjars/**", "/health",
-                    "/clients/**", "/forbidden")
+                    CLIENTS, "/forbidden")
             .and()
             .formLogin()
             .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
@@ -87,9 +88,9 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .hasAuthority(ADMIN_ROLE)
             .and()
             .authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/clients/**")
+            .antMatchers(HttpMethod.GET, CLIENTS)
             .authenticated()
-            .antMatchers("/clients/**")
+            .antMatchers(CLIENTS)
             .hasAuthority(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
