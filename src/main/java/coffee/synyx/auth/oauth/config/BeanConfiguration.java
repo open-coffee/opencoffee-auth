@@ -43,7 +43,7 @@ public class BeanConfiguration {
 
 
     @Bean
-    public JdbcClientDetailsService JdbcClientDetailsService() {
+    public JdbcClientDetailsService jdbcClientDetailsService() {
 
         return new JdbcClientDetailsService(dataSource);
     }
