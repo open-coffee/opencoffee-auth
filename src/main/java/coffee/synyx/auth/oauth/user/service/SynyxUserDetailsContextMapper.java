@@ -26,9 +26,6 @@ public class SynyxUserDetailsContextMapper extends LdapUserDetailsMapper {
 
         UserDetails details = super.mapUserFromContext(ctx, username, authorities);
 
-        SynyxUserDetails synyxUserDetails = new SynyxUserDetails((LdapUserDetails) details,
-                ctx.getStringAttribute("mail"));
-
-        return synyxUserDetails;
+        return new SynyxUserDetails((LdapUserDetails) details, ctx.getStringAttribute("mail"));
     }
 }
