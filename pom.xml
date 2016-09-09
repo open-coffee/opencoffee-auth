@@ -169,6 +169,7 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>1.4.3</version>
                 <configuration>
+                    <failOnError>false</failOnError>
                     <format>XML</format>
                     <outputDirectory>${dependency.check.report.dir}</outputDirectory>
                 </configuration>
