@@ -93,7 +93,7 @@ body {
     font-weight: bold;
 }
 
-.navbar--synyx-logo{
+.navbar--synyx-logo {
     margin: 0 0 0 0;
     width: 90px;
     height: 46px;
@@ -117,22 +117,22 @@ body {
     line-height: 50px;
 }
 
-.panel-default>.panel-heading {
+.panel-default > .panel-heading {
 
     background-color: #B2C900;
 }
 
-.panel-heading a{
+.panel-heading a {
     color: #FFFFFF;
     font-weight: bold;
 }
 
-.panel-heading span{
+.panel-heading span {
     color: #FFFFFF;
     font-weight: bold;
 }
 
-.panel-heading a:hover{
+.panel-heading a:hover {
     color: #777c82;
     text-decoration: none;
 }
@@ -148,4 +148,14 @@ body {
 
 .details--header {
     font-weight: bold;
+}
+
+.hidden-label {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
 }
