@@ -58,7 +58,6 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
 
         contextSource.setUrl(ldapConfigurationProperties.getUrl());
         contextSource.setBase(ldapConfigurationProperties.getBase());
-        contextSource.setAuthenticationStrategy(new DefaultTlsDirContextAuthenticationStrategy());
 
         return contextSource;
     }
