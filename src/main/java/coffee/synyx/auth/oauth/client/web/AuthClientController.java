@@ -51,6 +51,7 @@ public class AuthClientController {
     private static final String SUCCESS_MESSAGE = "successMessage";
     private static final String REDIRECT_CLIENTS = "redirect:/clients";
     private static final String OAUTH_CLIENTS_NEW = "oauth/clients/new";
+    private static final String CLIENT = "client";
 
     private JdbcClientDetailsService jdbcClientDetailsService;
 
@@ -92,7 +93,7 @@ public class AuthClientController {
     public String getEditView(@PathVariable("authClientId") String authClientId, Model model) {
 
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
-        model.addAttribute("client", new ClientDetailsResource(clientDetails));
+        model.addAttribute(CLIENT, new ClientDetailsResource(clientDetails));
 
         return "oauth/clients/edit";
     }
@@ -101,14 +102,14 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}", method = PUT)
     public String updateClient(@PathVariable(value = "authClientId") String authClientId,
         @Valid
-        @ModelAttribute(value = "client")
+        @ModelAttribute(value = CLIENT)
         ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
         clientDetailsResource.setClientId(authClientId);
 
         if (binding.hasErrors()) {
-            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
-            attr.addFlashAttribute("client", clientDetailsResource);
+            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + CLIENT, binding);
+            attr.addFlashAttribute(CLIENT, clientDetailsResource);
 
             return "oauth/clients/edit";
         }
@@ -124,7 +125,7 @@ public class AuthClientController {
     @RequestMapping(value = "/new", method = GET)
     public String getNewClientView(Model model) {
 
-        model.addAttribute("client", new ClientDetailsResource());
+        model.addAttribute(CLIENT, new ClientDetailsResource());
 
         return OAUTH_CLIENTS_NEW;
     }
@@ -132,7 +133,7 @@ public class AuthClientController {
 
     @RequestMapping(method = POST)
     public String createNewClient(@Valid
-        @ModelAttribute(value = "client")
+        @ModelAttribute(value = CLIENT)
         ClientDetailsResource clientDetailsResource, BindingResult binding, RedirectAttributes attr) {
 
         if (binding.hasErrors()) {
@@ -150,8 +151,8 @@ public class AuthClientController {
 
             binding.rejectValue("clientId", "error.client.creation.id.alreadyexists");
 
-            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "client", binding);
-            attr.addFlashAttribute("client", clientDetailsResource);
+            attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + CLIENT, binding);
+            attr.addFlashAttribute(CLIENT, clientDetailsResource);
 
             return OAUTH_CLIENTS_NEW;
         }
@@ -162,7 +163,7 @@ public class AuthClientController {
     public String getClientView(@PathVariable("authClientId") String authClientId, Model model) {
 
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
-        model.addAttribute("client", new ClientDetailsResource(clientDetails));
+        model.addAttribute(CLIENT, new ClientDetailsResource(clientDetails));
 
         return "oauth/clients/specific";
     }
@@ -172,7 +173,7 @@ public class AuthClientController {
     public String getDeleteConfirmationView(@PathVariable("authClientId") String authClientId, Model model) {
 
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
-        model.addAttribute("client", new ClientDetailsResource(clientDetails));
+        model.addAttribute(CLIENT, new ClientDetailsResource(clientDetails));
 
         return "oauth/clients/confirm_delete";
     }
