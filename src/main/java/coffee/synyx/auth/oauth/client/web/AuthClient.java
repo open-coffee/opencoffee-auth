@@ -15,26 +15,18 @@ import java.util.Set;
  */
 public class AuthClient implements ClientDetails {
 
+    private static final long serialVersionUID = -2640708223216764662L;
+
     private String clientId;
-
     private String clientSecret;
-
     private Set<String> resourceIds = new HashSet<>();
-
     private Set<String> scope = new HashSet<>();
-
     private Set<String> authorizedGrantTypes = new HashSet<>();
-
     private Set<String> registeredRedirectUri = new HashSet<>();
-
     private Collection<GrantedAuthority> authorities = new HashSet<>();
-
     private Integer accessTokenValiditySeconds;
-
     private Integer refreshTokenValiditySeconds;
-
     private boolean autoApprove;
-
     private Map<String, Object> additionalInformation = new HashMap<>();
 
     @Override
