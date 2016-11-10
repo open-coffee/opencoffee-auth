@@ -20,6 +20,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableResourceServer
 public class AuthenticationServer {
 
+    private AuthenticationServer() {
+
+        // hide implicit public constructor
+    }
+
     @SuppressWarnings("checkstyle:uncommentedmain")
     public static void main(String[] args) {
 
