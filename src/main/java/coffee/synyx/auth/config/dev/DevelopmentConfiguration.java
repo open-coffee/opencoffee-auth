@@ -54,12 +54,12 @@ public class DevelopmentConfiguration {
     @PostConstruct
     void createDefaultClient() {
 
-        LOGGER.info("Adding default OAuth Client: testClient/testClientSecret");
+        LOGGER.info("Adding default OAuth Client: coffeeNetClient/coffeeNetClientSecret");
 
         AuthClient authClient = new AuthClient();
         authClient.setAutoApprove(true);
-        authClient.setClientId("testClient");
-        authClient.setClientSecret("testClientSecret");
+        authClient.setClientId("coffeeNetClient");
+        authClient.setClientSecret("coffeeNetClientSecret");
         authClient.getScope().add("openid");
         jdbcClientDetailsService.addClientDetails(authClient);
     }
