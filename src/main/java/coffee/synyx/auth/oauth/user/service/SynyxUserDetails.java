@@ -8,6 +8,8 @@ import java.util.Collection;
 
 public final class SynyxUserDetails implements LdapUserDetails {
 
+    private static final long serialVersionUID = 8870805981125727355L;
+
     private final String mail;
     private final String dn;
     private final boolean enabled;
