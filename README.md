@@ -107,8 +107,8 @@ Dadurch wird beim starten des Auth-Servers ein Client angelegt, der verwendet we
 Der Client hat folgende Zugangsdaten:
 
 ```
-clientId: testClient
-clientSecret: testClientSecret
+clientId: coffeeNetClient
+clientSecret: coffeeNetClientSecret
 ```
 
 Damit eine Anwendung den Auth-Server nun zur Authentifizierung verwenden kann, muss die Anwendung [entsprechend Konfiguriert werden](https://gitlab.synyx.de/coffeenet/coffeenet-starter-sso#verbindungsinformationen).
