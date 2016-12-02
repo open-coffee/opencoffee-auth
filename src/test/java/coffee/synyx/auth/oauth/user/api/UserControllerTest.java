@@ -32,7 +32,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -101,6 +100,5 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.principal.password").doesNotExist());
         resultActions.andExpect(jsonPath("$.principal.authorities").exists());
         resultActions.andExpect(jsonPath("$.password").doesNotExist());
-        resultActions.andDo(print());
     }
 }
