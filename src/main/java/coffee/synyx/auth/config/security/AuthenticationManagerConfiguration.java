@@ -1,5 +1,6 @@
 package coffee.synyx.auth.config.security;
 
+import coffee.synyx.auth.config.security.ldap.CoffeeDefaultTlsDirContextAuthenticationStrategy;
 import coffee.synyx.auth.config.security.ldap.LdapConfigurationProperties;
 import coffee.synyx.auth.oauth.user.service.SynyxUserDetailsContextMapper;
 
@@ -54,9 +55,9 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
     public LdapContextSource contextSource() {
 
         LdapContextSource contextSource = new LdapContextSource();
-
         contextSource.setUrl(ldapConfigurationProperties.getUrl());
         contextSource.setBase(ldapConfigurationProperties.getBase());
+        contextSource.setAuthenticationStrategy(new CoffeeDefaultTlsDirContextAuthenticationStrategy());
 
         return contextSource;
     }
