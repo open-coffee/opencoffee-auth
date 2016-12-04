@@ -1,5 +1,8 @@
 package coffee.synyx.auth.config;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
@@ -14,7 +17,9 @@ public class AuthServerConfigurationProperties {
 
     private boolean development = true;
 
-    private String defaultRedirectUrl = "localhost:8080";
+    @URL
+    @NotBlank
+    private String defaultRedirectUrl = "http://localhost:8080";
 
     public boolean isDevelopment() {
 

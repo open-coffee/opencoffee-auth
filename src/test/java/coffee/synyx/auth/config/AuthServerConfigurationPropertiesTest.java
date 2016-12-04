@@ -17,7 +17,7 @@ public class AuthServerConfigurationPropertiesTest {
 
         AuthServerConfigurationProperties sut = new AuthServerConfigurationProperties();
 
-        assertThat(sut.getDefaultRedirectUrl(), is("localhost:8080"));
+        assertThat(sut.getDefaultRedirectUrl(), is("http://localhost:8080"));
         assertThat(sut.isDevelopment(), is(true));
     }
 }
