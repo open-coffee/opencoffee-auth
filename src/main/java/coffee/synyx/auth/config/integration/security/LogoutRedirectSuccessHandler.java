@@ -1,6 +1,6 @@
-package coffee.synyx.auth.config.security;
+package coffee.synyx.auth.config.integration.security;
 
-import coffee.synyx.auth.config.AuthServerConfigurationProperties;
+import coffee.synyx.auth.config.AuthConfigurationProperties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,16 +23,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author  David Schilling - schilling@synyx.de
  */
-@EnableConfigurationProperties(AuthServerConfigurationProperties.class)
 @Component
+@EnableConfigurationProperties(AuthConfigurationProperties.class)
 public class LogoutRedirectSuccessHandler implements LogoutSuccessHandler {
 
     private String defaultRedirectUri;
 
     @Autowired
-    public LogoutRedirectSuccessHandler(AuthServerConfigurationProperties authServerConfigurationProperties) {
+    public LogoutRedirectSuccessHandler(AuthConfigurationProperties authConfigurationProperties) {
 
-        defaultRedirectUri = authServerConfigurationProperties.getDefaultRedirectUrl();
+        defaultRedirectUri = authConfigurationProperties.getDefaultRedirectUrl();
     }
 
     @Override
