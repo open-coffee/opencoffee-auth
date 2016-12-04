@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "auth")
 public class AuthServerConfigurationProperties {
 
-    private boolean development;
+    private boolean development = true;
 
     private String defaultRedirectUrl = "localhost:8080";
 
