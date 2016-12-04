@@ -15,7 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 
 /**
- * TODO.
+ * This controller handles all actions with oauth tokens.
  *
  * @author  Yannic Klem - klem@synyx.de
  */
