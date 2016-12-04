@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author  Yannic Klem - klem@synyx.de
  */
 @ConfigurationProperties(prefix = "auth")
-public class AuthServerConfigurationProperties {
+public class AuthConfigurationProperties {
 
     private boolean development = true;
 

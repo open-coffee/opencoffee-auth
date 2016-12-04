@@ -1,4 +1,4 @@
-package coffee.synyx.auth.config.dev;
+package coffee.synyx.auth.config.development.authclient;
 
 import coffee.synyx.auth.oauth.client.web.AuthClient;
 

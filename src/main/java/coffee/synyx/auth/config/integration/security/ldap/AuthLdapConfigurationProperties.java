@@ -1,4 +1,4 @@
-package coffee.synyx.auth.config.security.ldap;
+package coffee.synyx.auth.config.integration.security.ldap;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author  Yannic Klem - klem@synyx.de
  */
 @ConfigurationProperties(prefix = "auth.ldap")
-public class LdapConfigurationProperties {
+public class AuthLdapConfigurationProperties {
 
     private String userSearchBase = "ou=accounts";
     private String userSearchFilter = "uid={0}";

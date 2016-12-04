@@ -1,6 +1,6 @@
 package coffee.synyx.auth.web;
 
-import coffee.synyx.auth.config.AuthServerConfigurationProperties;
+import coffee.synyx.auth.config.AuthConfigurationProperties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,20 +19,20 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  * @author  Yannic Klem - klem@synyx.de
  */
 @Controller
-@EnableConfigurationProperties(AuthServerConfigurationProperties.class)
+@EnableConfigurationProperties(AuthConfigurationProperties.class)
 public class RootController {
 
-    private final AuthServerConfigurationProperties authServerConfigurationProperties;
+    private final AuthConfigurationProperties authConfigurationProperties;
 
     @Autowired
-    public RootController(AuthServerConfigurationProperties authServerConfigurationProperties) {
+    public RootController(AuthConfigurationProperties authConfigurationProperties) {
 
-        this.authServerConfigurationProperties = authServerConfigurationProperties;
+        this.authConfigurationProperties = authConfigurationProperties;
     }
 
     @RequestMapping(value = "/", method = GET)
     public String redirectToRoot() {
 
-        return "redirect:" + authServerConfigurationProperties.getDefaultRedirectUrl();
+        return "redirect:" + authConfigurationProperties.getDefaultRedirectUrl();
     }
 }

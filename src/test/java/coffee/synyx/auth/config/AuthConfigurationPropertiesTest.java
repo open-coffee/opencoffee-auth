@@ -10,12 +10,12 @@ import static org.hamcrest.Matchers.is;
 /**
  * @author  Tobias Schneider
  */
-public class AuthServerConfigurationPropertiesTest {
+public class AuthConfigurationPropertiesTest {
 
     @Test
     public void defaultValues() {
 
-        AuthServerConfigurationProperties sut = new AuthServerConfigurationProperties();
+        AuthConfigurationProperties sut = new AuthConfigurationProperties();
 
         assertThat(sut.getDefaultRedirectUrl(), is("http://localhost:8080"));
         assertThat(sut.isDevelopment(), is(true));

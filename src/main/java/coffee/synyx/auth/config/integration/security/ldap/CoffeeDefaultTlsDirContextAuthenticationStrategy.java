@@ -1,4 +1,4 @@
-package coffee.synyx.auth.config.security.ldap;
+package coffee.synyx.auth.config.integration.security.ldap;
 
 import org.springframework.ldap.core.support.AbstractTlsDirContextAuthenticationStrategy;
 
