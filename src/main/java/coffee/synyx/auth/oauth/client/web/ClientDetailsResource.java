@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.springframework.util.StringUtils.collectionToCommaDelimitedString;
+
 
 /**
  * Dto of the {@link ClientDetails}.
@@ -56,13 +58,13 @@ public class ClientDetailsResource {
 
         this.clientId = clientDetails.getClientId();
         this.clientSecret = clientDetails.getClientSecret();
-        this.resourceIds = StringUtils.collectionToCommaDelimitedString(clientDetails.getResourceIds());
-        this.scope = StringUtils.collectionToCommaDelimitedString(clientDetails.getScope());
-        this.authorizedGrantTypes = StringUtils.collectionToCommaDelimitedString(
-                clientDetails.getAuthorizedGrantTypes());
-        setRegisteredRedirectUri(StringUtils.collectionToCommaDelimitedString(
-                clientDetails.getRegisteredRedirectUri()));
-        this.authorities = StringUtils.collectionToCommaDelimitedString(clientDetails.getAuthorities());
+        this.resourceIds = collectionToCommaDelimitedString(clientDetails.getResourceIds());
+        this.scope = collectionToCommaDelimitedString(clientDetails.getScope());
+        this.authorizedGrantTypes = collectionToCommaDelimitedString(clientDetails.getAuthorizedGrantTypes());
+
+        setRegisteredRedirectUri(collectionToCommaDelimitedString(clientDetails.getRegisteredRedirectUri()));
+
+        this.authorities = collectionToCommaDelimitedString(clientDetails.getAuthorities());
         this.accessTokenValidity = clientDetails.getAccessTokenValiditySeconds();
         this.refreshTokenValidity = clientDetails.getRefreshTokenValiditySeconds();
         this.additionalInformation = clientDetails.getAdditionalInformation();
@@ -79,9 +81,9 @@ public class ClientDetailsResource {
         authClient.setRegisteredRedirectUri(StringUtils.commaDelimitedListToSet(registeredRedirectUri));
 
         List<GrantedAuthority> grantedAuthorities = StringUtils.commaDelimitedListToSet(this.authorities)
-                .stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+            .stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
 
         authClient.setAuthorities(grantedAuthorities);
 
