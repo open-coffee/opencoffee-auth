@@ -16,10 +16,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class AccessDeniedController {
 
+    private static final String ACCESS_DENIED = "access_denied";
+
     @RequestMapping(value = "/forbidden", method = GET)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public String getForbiddenView() {
 
-        return "access_denied";
+        return ACCESS_DENIED;
     }
 }
