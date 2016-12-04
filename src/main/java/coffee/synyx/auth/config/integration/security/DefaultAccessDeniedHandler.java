@@ -30,6 +30,7 @@ import static java.lang.invoke.MethodHandles.lookup;
 class DefaultAccessDeniedHandler implements AccessDeniedHandler {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
+
     private final HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
     private final AuthConfigurationProperties authConfigurationProperties;
 
