@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author  David Schilling - schilling@synyx.de
  */
-@EnableConfigurationProperties(AuthServerConfigurationProperties.class)
 @Component
+@EnableConfigurationProperties(AuthServerConfigurationProperties.class)
 public class LogoutRedirectSuccessHandler implements LogoutSuccessHandler {
 
     private String defaultRedirectUri;
