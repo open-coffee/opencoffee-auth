@@ -69,6 +69,6 @@ public class LoginControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/login"));
         resultActions.andExpect(status().isFound());
-        resultActions.andExpect(redirectedUrl("https://synyx.coffee"));
+        resultActions.andExpect(redirectedUrl("http://localhost:8080"));
     }
 }

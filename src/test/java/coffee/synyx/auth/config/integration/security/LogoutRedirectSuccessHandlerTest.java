@@ -61,7 +61,7 @@ public class LogoutRedirectSuccessHandlerTest {
         sut.onLogoutSuccess(requestMock, responseMock, getOAuth2Authentication());
 
         verify(requestMock).getParameter("redirect");
-        verify(responseMock).sendRedirect("https://synyx.coffee");
+        verify(responseMock).sendRedirect("http://localhost:8080");
     }
 
 
