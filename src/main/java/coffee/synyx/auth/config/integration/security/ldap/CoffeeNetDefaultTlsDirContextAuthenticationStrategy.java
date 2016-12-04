@@ -10,7 +10,7 @@ import javax.naming.ldap.LdapContext;
 /**
  * @author  Tobias Schneider - schneider@synyx.de
  */
-public class CoffeeDefaultTlsDirContextAuthenticationStrategy extends AbstractTlsDirContextAuthenticationStrategy {
+public class CoffeeNetDefaultTlsDirContextAuthenticationStrategy extends AbstractTlsDirContextAuthenticationStrategy {
 
     private static final String SIMPLE_AUTHENTICATION = "simple";
 

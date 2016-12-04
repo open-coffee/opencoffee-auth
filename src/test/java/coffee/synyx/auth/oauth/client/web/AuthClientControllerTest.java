@@ -123,7 +123,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = { "COFFEENET-ADMIN" })
-    public void getEditViewReturnsEditViewIfLoggedInAsCoffeenetAdmin() throws Exception {
+    public void getEditViewReturnsEditViewIfLoggedInAsCoffeeNetAdmin() throws Exception {
 
         when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(mock(ClientDetails.class));
 
@@ -155,7 +155,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = { "COFFEENET-ADMIN" })
-    public void getDeleteConfirmationViewReturnsDeleteConfirmationViewIfLoggedInAsCoffeenetAdmin() throws Exception {
+    public void getDeleteConfirmationViewReturnsDeleteConfirmationViewIfLoggedInAsCoffeeNetAdmin() throws Exception {
 
         when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(mock(ClientDetails.class));
 
@@ -187,7 +187,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = { "COFFEENET-ADMIN" })
-    public void getNewClientViewReturnsNewClientViewIfLoggedInAsCoffeenetAdmin() throws Exception {
+    public void getNewClientViewReturnsNewClientViewIfLoggedInAsCoffeeNetAdmin() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(get("/clients/new"));
         resultActions.andExpect(status().isOk());
@@ -247,7 +247,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = "COFFEENET-ADMIN")
-    public void updateClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientDetailsAreInvalid()
+    public void updateClientReturnsBindingErrorsIfLoggedInAsCoffeeNetAdminAndClientDetailsAreInvalid()
         throws Exception {
 
         ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
@@ -268,7 +268,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = "COFFEENET-ADMIN")
-    public void updateClientUpdatesClientIfLoggedInAsCoffeenetAdminAndClientDetailsAreValid() throws Exception {
+    public void updateClientUpdatesClientIfLoggedInAsCoffeeNetAdminAndClientDetailsAreValid() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
                 .param("clientId", "myApp")
@@ -312,7 +312,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = "COFFEENET-ADMIN")
-    public void createNewClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientDetailsAreInvalid()
+    public void createNewClientReturnsBindingErrorsIfLoggedInAsCoffeeNetAdminAndClientDetailsAreInvalid()
         throws Exception {
 
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
@@ -333,7 +333,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = "COFFEENET-ADMIN")
-    public void createNewClientReturnsBindingErrorsIfLoggedInAsCoffeenetAdminAndClientIdAlreadyExists()
+    public void createNewClientReturnsBindingErrorsIfLoggedInAsCoffeeNetAdminAndClientIdAlreadyExists()
         throws Exception {
 
         doThrow(new ClientAlreadyExistsException("myApp already exists")).when(jdbcClientDetailsServiceMock)
@@ -357,7 +357,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = "COFFEENET-ADMIN")
-    public void createNewClientCreatesClientAndRedirectsToClientsIfLoggedInAsCoffeenetAdmin() throws Exception {
+    public void createNewClientCreatesClientAndRedirectsToClientsIfLoggedInAsCoffeeNetAdmin() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
                 .param("clientId", "myApp")
@@ -392,7 +392,7 @@ public class AuthClientControllerTest {
 
     @Test
     @WithMockUser(roles = { "COFFEENET-ADMIN" })
-    public void deleteClientDeletesClientAndReturnsClientsViewIfLoggedInAsCoffeenetAdmin() throws Exception {
+    public void deleteClientDeletesClientAndReturnsClientsViewIfLoggedInAsCoffeeNetAdmin() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(delete("/clients/myApp").with(csrf()));
         resultActions.andExpect(status().is3xxRedirection());

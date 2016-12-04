@@ -11,13 +11,13 @@ import static org.springframework.security.core.authority.AuthorityUtils.authori
 /**
  * @author  Yannic Klem - klem@synyx.de
  */
-class CoffeeAuthenticationDetails {
+class CoffeeNetAuthenticationDetails {
 
     private final String mail;
     private final Set<String> authorities;
     private final String username;
 
-    CoffeeAuthenticationDetails(String mail, Collection<? extends GrantedAuthority> authorities, String username) {
+    CoffeeNetAuthenticationDetails(String mail, Collection<? extends GrantedAuthority> authorities, String username) {
 
         this.mail = mail;
         this.authorities = authorityListToSet(authorities);
