@@ -31,7 +31,7 @@ public class UserController {
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     /**
-     * Uses the current Principal to create a {@link CoffeeAuthentication} and return this as representation of user
+     * Uses the current Principal to create a {@link CoffeeNetAuthentication} and return this as representation of user
      * information.
      *
      * @param  user  The current user.
@@ -39,18 +39,18 @@ public class UserController {
      * @return  A representation of user information with {@link HttpStatus#OK}.
      */
     @RequestMapping("/user")
-    public ResponseEntity<CoffeeAuthentication> getUser(Principal user) {
+    public ResponseEntity<CoffeeNetAuthentication> getUser(Principal user) {
 
         if (user == null) {
             return new ResponseEntity<>(UNAUTHORIZED);
         }
 
-        ResponseEntity<CoffeeAuthentication> responseEntity;
+        ResponseEntity<CoffeeNetAuthentication> responseEntity;
 
         if ((user instanceof OAuth2Authentication) && ((OAuth2Authentication) user).isAuthenticated()) {
             LOGGER.debug("Requested Authentication for '{}'", user.getName());
 
-            responseEntity = new ResponseEntity<>(new CoffeeAuthentication((OAuth2Authentication) user), OK);
+            responseEntity = new ResponseEntity<>(new CoffeeNetAuthentication((OAuth2Authentication) user), OK);
         } else {
             LOGGER.warn("Authentication of type {} was not expected. Expected: {}.", user.getClass().getName(),
                 OAuth2Authentication.class.getName());

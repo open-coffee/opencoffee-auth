@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author  Yannic Klem - klem@synyx.de
  */
-final class CoffeeAuthentication {
+final class CoffeeNetAuthentication {
 
     private final String id;
     private final String name;
@@ -24,7 +24,7 @@ final class CoffeeAuthentication {
      */
     private final Object principal;
 
-    CoffeeAuthentication(@NotNull OAuth2Authentication oAuth2Authentication) {
+    CoffeeNetAuthentication(@NotNull OAuth2Authentication oAuth2Authentication) {
 
         clientOnly = oAuth2Authentication.isClientOnly();
 
@@ -36,7 +36,7 @@ final class CoffeeAuthentication {
             SynyxUserDetails synyxUserDetails = (SynyxUserDetails) oAuth2Authentication.getPrincipal();
             String username = synyxUserDetails.getUsername();
 
-            this.principal = new CoffeeAuthenticationDetails(synyxUserDetails.getMail(),
+            this.principal = new CoffeeNetAuthenticationDetails(synyxUserDetails.getMail(),
                     synyxUserDetails.getAuthorities(), username);
             this.id = username;
             this.name = username;
