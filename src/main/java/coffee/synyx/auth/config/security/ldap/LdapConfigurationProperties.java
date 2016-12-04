@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author  Yannic Klem - klem@synyx.de
  */
-@ConfigurationProperties(prefix = "ldap")
+@ConfigurationProperties(prefix = "auth.ldap")
 public class LdapConfigurationProperties {
 
     private String userSearchBase = "ou=accounts";

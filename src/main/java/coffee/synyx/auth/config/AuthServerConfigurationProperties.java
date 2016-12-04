@@ -4,12 +4,29 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
 /**
+ * Configuration properties of the {@code AuthenticationServer}.
+ *
+ * @author  Tobias Schneider - schneider@synyx.de
  * @author  Yannic Klem - klem@synyx.de
  */
 @ConfigurationProperties(prefix = "auth")
 public class AuthServerConfigurationProperties {
 
+    private boolean development;
+
     private String defaultRedirectUrl = "https://synyx.coffee";
+
+    public boolean isDevelopment() {
+
+        return development;
+    }
+
+
+    public void setDevelopment(boolean development) {
+
+        this.development = development;
+    }
+
 
     public String getDefaultRedirectUrl() {
 
