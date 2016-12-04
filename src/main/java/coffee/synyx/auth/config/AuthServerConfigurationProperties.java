@@ -14,7 +14,7 @@ public class AuthServerConfigurationProperties {
 
     private boolean development;
 
-    private String defaultRedirectUrl = "https://synyx.coffee";
+    private String defaultRedirectUrl = "localhost:8080";
 
     public boolean isDevelopment() {
 
