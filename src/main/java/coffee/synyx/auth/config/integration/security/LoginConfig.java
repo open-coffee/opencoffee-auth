@@ -1,6 +1,6 @@
-package coffee.synyx.auth.config.security;
+package coffee.synyx.auth.config.integration.security;
 
-import coffee.synyx.auth.config.AuthServerConfigurationProperties;
+import coffee.synyx.auth.config.AuthConfigurationProperties;
 import coffee.synyx.auth.oauth.config.OAuth2ResourceServerConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  */
 @Configuration
 @Order(SecurityProperties.DEFAULT_FILTER_ORDER - 2)
-@EnableConfigurationProperties({ ServerProperties.class, AuthServerConfigurationProperties.class })
+@EnableConfigurationProperties({ ServerProperties.class, AuthConfigurationProperties.class })
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     private static final String LOGOUT = "/logout";
@@ -40,15 +40,15 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     private LogoutSuccessHandler logoutSuccessHandler;
     private ServerProperties serverProperties;
-    private AuthServerConfigurationProperties authServerConfigurationProperties;
+    private AuthConfigurationProperties authConfigurationProperties;
 
     @Autowired
     public LoginConfig(LogoutSuccessHandler logoutSuccessHandler, ServerProperties serverProperties,
-        AuthServerConfigurationProperties authServerConfigurationProperties) {
+        AuthConfigurationProperties authConfigurationProperties) {
 
         this.logoutSuccessHandler = logoutSuccessHandler;
         this.serverProperties = serverProperties;
-        this.authServerConfigurationProperties = authServerConfigurationProperties;
+        this.authConfigurationProperties = authConfigurationProperties;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
                     CLIENTS, "/forbidden")
             .and()
             .formLogin()
-            .defaultSuccessUrl(authServerConfigurationProperties.getDefaultRedirectUrl())
+            .defaultSuccessUrl(authConfigurationProperties.getDefaultRedirectUrl())
             .loginPage("/login")
             .permitAll()
             .and()
@@ -96,6 +96,6 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and()
             .exceptionHandling()
-            .accessDeniedHandler(new DefaultAccessDeniedHandler(authServerConfigurationProperties));
+            .accessDeniedHandler(new DefaultAccessDeniedHandler(authConfigurationProperties));
     }
 }

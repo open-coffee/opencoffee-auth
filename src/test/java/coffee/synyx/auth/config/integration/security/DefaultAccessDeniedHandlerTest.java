@@ -1,6 +1,6 @@
-package coffee.synyx.auth.config.security;
+package coffee.synyx.auth.config.integration.security;
 
-import coffee.synyx.auth.config.AuthServerConfigurationProperties;
+import coffee.synyx.auth.config.AuthConfigurationProperties;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,9 +42,9 @@ public class DefaultAccessDeniedHandlerTest {
     @Before
     public void setup() {
 
-        AuthServerConfigurationProperties authServerConfigurationProperties = new AuthServerConfigurationProperties();
-        authServerConfigurationProperties.setDefaultRedirectUrl("https://synyx.coffee");
-        sut = new DefaultAccessDeniedHandler(authServerConfigurationProperties);
+        AuthConfigurationProperties authConfigurationProperties = new AuthConfigurationProperties();
+        authConfigurationProperties.setDefaultRedirectUrl("https://synyx.coffee");
+        sut = new DefaultAccessDeniedHandler(authConfigurationProperties);
     }
 
 

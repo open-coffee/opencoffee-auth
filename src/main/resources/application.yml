@@ -1,19 +1,18 @@
-coffeenet:
+auth:
   development: true
+  ldap:
+    url: ldap://ldap-slave.synyx.coffee:389
+    base: dc=synyx,dc=coffee
+    userSearchBase: ou=accounts
+    userSearchFilter: uid={0}
+    groupSearchBase: ou=roles,ou=groups
+    groupSearchFilter: member={0}
 
 server:
   port: 9999
   session:
     cookie:
       name: coffee-cookie
-
-ldap:
-  url: ldap://ldap-slave.synyx.coffee:389
-  base: dc=synyx,dc=coffee
-  userSearchBase: ou=accounts
-  userSearchFilter: uid={0}
-  groupSearchBase: ou=roles,ou=groups
-  groupSearchFilter: member={0}
 
 spring:
   h2:

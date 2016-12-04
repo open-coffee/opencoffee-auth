@@ -1,19 +1,26 @@
-package coffee.synyx.auth.config.security;
+package coffee.synyx.auth.config.integration.security;
 
 import coffee.synyx.auth.oauth.user.service.SynyxUserDetails;
+
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
+
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -54,7 +61,7 @@ public class LogoutRedirectSuccessHandlerTest {
         sut.onLogoutSuccess(requestMock, responseMock, getOAuth2Authentication());
 
         verify(requestMock).getParameter("redirect");
-        verify(responseMock).sendRedirect("https://synyx.coffee");
+        verify(responseMock).sendRedirect("http://localhost:8080");
     }
 
 

@@ -1,6 +1,6 @@
-package coffee.synyx.auth.config.security;
+package coffee.synyx.auth.config.integration.security;
 
-import coffee.synyx.auth.config.AuthServerConfigurationProperties;
+import coffee.synyx.auth.config.AuthConfigurationProperties;
 
 import org.slf4j.Logger;
 
@@ -26,16 +26,17 @@ import static java.lang.invoke.MethodHandles.lookup;
 /**
  * @author  Yannic Klem - klem@synyx.de
  */
-@EnableConfigurationProperties(AuthServerConfigurationProperties.class)
+@EnableConfigurationProperties(AuthConfigurationProperties.class)
 class DefaultAccessDeniedHandler implements AccessDeniedHandler {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
+
     private final HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
-    private final AuthServerConfigurationProperties authServerConfigurationProperties;
+    private final AuthConfigurationProperties authConfigurationProperties;
 
-    DefaultAccessDeniedHandler(AuthServerConfigurationProperties authServerConfigurationProperties) {
+    DefaultAccessDeniedHandler(AuthConfigurationProperties authConfigurationProperties) {
 
-        this.authServerConfigurationProperties = authServerConfigurationProperties;
+        this.authConfigurationProperties = authConfigurationProperties;
     }
 
     @Override
@@ -43,7 +44,7 @@ class DefaultAccessDeniedHandler implements AccessDeniedHandler {
         AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
         if (accessDeniedException instanceof CsrfException) {
-            String redirectUrl = authServerConfigurationProperties.getDefaultRedirectUrl();
+            String redirectUrl = authConfigurationProperties.getDefaultRedirectUrl();
 
             SavedRequest savedRequest = httpSessionRequestCache.getRequest(request, response);
 
