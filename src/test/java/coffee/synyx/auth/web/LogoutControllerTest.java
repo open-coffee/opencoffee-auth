@@ -69,7 +69,7 @@ public class LogoutControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/logout"));
         resultActions.andExpect(status().isFound());
-        resultActions.andExpect(redirectedUrl("https://synyx.coffee"));
+        resultActions.andExpect(redirectedUrl("http://localhost:8080"));
     }
 
 

@@ -67,6 +67,6 @@ public class RootControllerTest {
 
         ResultActions resultActions = mockMvc.perform(get("/"));
         resultActions.andExpect(status().is3xxRedirection());
-        resultActions.andExpect(redirectedUrl("https://synyx.coffee"));
+        resultActions.andExpect(redirectedUrl("http://localhost:8080"));
     }
 }
