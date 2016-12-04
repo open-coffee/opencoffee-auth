@@ -19,18 +19,21 @@ import static java.lang.invoke.MethodHandles.lookup;
 
 
 /**
+ * Creates a mock auth client with secret (coffeeNetClient/coffeeNetClientSecret) in development mode.
+ *
+ * @author  Tobias Schneider - schneider@synyx.de
  * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
 @DependsOn("liquibase")
 @ConditionalOnProperty(prefix = "coffeenet", name = "development", havingValue = "true", matchIfMissing = true)
-public class LiquibaseConfiguration {
+public class DevelopmentAuthClientConfiguration {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private final JdbcClientDetailsService jdbcClientDetailsService;
 
-    public LiquibaseConfiguration(JdbcClientDetailsService jdbcClientDetailsService) {
+    public DevelopmentAuthClientConfiguration(JdbcClientDetailsService jdbcClientDetailsService) {
 
         this.jdbcClientDetailsService = jdbcClientDetailsService;
     }
