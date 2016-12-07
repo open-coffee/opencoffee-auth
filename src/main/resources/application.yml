@@ -1,3 +1,13 @@
+coffeenet:
+  profile: integration
+  application-name: Auth Clients
+  allowed-authorities: ROLE_COFFEENET-ADMIN
+  security:
+    enabled: false
+  discovery:
+    instance:
+      home-page-url: http://localhost:9999/clients
+
 auth:
   development: true
   ldap:
