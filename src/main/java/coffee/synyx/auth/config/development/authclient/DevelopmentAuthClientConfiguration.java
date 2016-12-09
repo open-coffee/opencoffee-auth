@@ -48,6 +48,6 @@ public class DevelopmentAuthClientConfiguration {
         authClient.getScope().add("openid");
         jdbcClientDetailsService.addClientDetails(authClient);
 
-        LOGGER.info("Added default OAuth Client: coffeeNetClient/coffeeNetClientSecret");
+        LOGGER.info("Added default OAuth Client in development mode: coffeeNetClient/coffeeNetClientSecret");
     }
 }
