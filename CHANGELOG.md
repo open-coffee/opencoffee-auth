@@ -1,5 +1,8 @@
 # Changelog 
 
+### 1.4.0
+* Remove synyx specific default values from `auth.ldap.*`
+
 ### 1.3.1
 * Fix that only in `auth.development=true` mode the test CoffeeNetClient is added
 
