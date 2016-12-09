@@ -43,13 +43,8 @@ spring.datasource.data=${PathTo-data.sql}
 
 ## Logging
 
-Logging wird mit SLF4J umgesetzt. 
-Logrotate wird von Journalctl übernommen.
+Das Logging wird mit dem CoffeeNet Starter Logging umgesetzt und kann mittels `coffeenet.logging.*` konfiguriert werden.
 
-Eine Logzeile sieht wie folgt aus: 
-```
-JJJJ-MM-TT- HH:mm:SS INFO|DEBUG|WARN|ERROR $prozessId --- [nio-$port-exec-$thread] $Class: $logText
-```
 
 ## Neue Anwendung einbinden
 

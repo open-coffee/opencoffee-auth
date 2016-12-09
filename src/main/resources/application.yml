@@ -1,12 +1,15 @@
 coffeenet:
   profile: integration
-  application-name: CoffeeNet Clients
+  application-name: CoffeeNet Auth
   allowed-authorities: ROLE_COFFEENET-ADMIN
   security:
     enabled: false
   discovery:
     instance:
       home-page-url: http://localhost:9999/clients
+  logging:
+    console:
+      enabled: true
 
 auth:
   development: true
