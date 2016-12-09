@@ -102,7 +102,7 @@ INSERT INTO oauth_client_details VALUES (
 
 ## Entwicklermodus
 
-Der Auth-Server kann im Entwicklermodus gestartet werden indem die property `coffeenet.development` auf true gesetzt wird.
+Der Auth-Server kann im Entwicklermodus gestartet werden indem die property `auth.development` auf `true` gesetzt wird.
 Dadurch wird beim starten des Auth-Servers ein Client angelegt, der verwendet werden kann, um eine Anwendung lokal integrativ zu testen.
 Der Client hat folgende Zugangsdaten:
 
