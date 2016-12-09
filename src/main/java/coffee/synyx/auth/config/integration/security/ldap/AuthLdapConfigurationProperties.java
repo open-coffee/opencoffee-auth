@@ -1,5 +1,7 @@
 package coffee.synyx.auth.config.integration.security.ldap;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
@@ -11,36 +13,51 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "auth.ldap")
 public class AuthLdapConfigurationProperties {
 
+    @NotBlank
+    private String url = "ldap://localhost:389";
+
+    @NotBlank
+    private String base;
+
+    @NotBlank
     private String userSearchBase = "ou=accounts";
+
+    @NotBlank
     private String userSearchFilter = "uid={0}";
+
+    @NotBlank
     private String groupSearchBase = "ou=roles,ou=groups";
+
+    @NotBlank
     private String groupSearchFilter = "member={0}";
-    private String url = "ldap://ldap-slave.synyx.coffee:389";
-    private String base = "dc=synyx,dc=coffee";
-    private String rolePrefix = "ROLE_";
+
+    @NotBlank
     private String groupRoleAttribute = "cn";
 
-    public String getGroupRoleAttribute() {
+    @NotBlank
+    private String rolePrefix = "ROLE_";
 
-        return groupRoleAttribute;
+    public String getUrl() {
+
+        return url;
     }
 
 
-    public void setGroupRoleAttribute(String groupRoleAttribute) {
+    public void setUrl(String url) {
 
-        this.groupRoleAttribute = groupRoleAttribute;
+        this.url = url;
     }
 
 
-    public String getRolePrefix() {
+    public String getBase() {
 
-        return rolePrefix;
+        return base;
     }
 
 
-    public void setRolePrefix(String rolePrefix) {
+    public void setBase(String base) {
 
-        this.rolePrefix = rolePrefix;
+        this.base = base;
     }
 
 
@@ -92,26 +109,26 @@ public class AuthLdapConfigurationProperties {
     }
 
 
-    public String getUrl() {
+    public String getGroupRoleAttribute() {
 
-        return url;
+        return groupRoleAttribute;
     }
 
 
-    public void setUrl(String url) {
+    public void setGroupRoleAttribute(String groupRoleAttribute) {
 
-        this.url = url;
+        this.groupRoleAttribute = groupRoleAttribute;
     }
 
 
-    public String getBase() {
+    public String getRolePrefix() {
 
-        return base;
+        return rolePrefix;
     }
 
 
-    public void setBase(String base) {
+    public void setRolePrefix(String rolePrefix) {
 
-        this.base = base;
+        this.rolePrefix = rolePrefix;
     }
 }
