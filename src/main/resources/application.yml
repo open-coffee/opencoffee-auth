@@ -1,6 +1,6 @@
 coffeenet:
   profile: integration
-  application-name: Auth Clients
+  application-name: CoffeeNet Clients
   allowed-authorities: ROLE_COFFEENET-ADMIN
   security:
     enabled: false
