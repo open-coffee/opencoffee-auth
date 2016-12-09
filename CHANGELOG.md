@@ -1,5 +1,8 @@
 # Changelog 
 
+### 1.3.1
+* Fix that only in `auth.development=true` mode the test CoffeeNetClient is added
+
 ### 1.3.0
 * Add CoffeeNet logging
 * Add service discovery for `/clients`
