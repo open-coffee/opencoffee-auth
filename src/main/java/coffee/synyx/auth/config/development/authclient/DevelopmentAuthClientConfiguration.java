@@ -26,7 +26,7 @@ import static java.lang.invoke.MethodHandles.lookup;
  */
 @Configuration
 @DependsOn("liquibase")
-@ConditionalOnProperty(prefix = "coffeenet", name = "development", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "auth", name = "development", havingValue = "true")
 public class DevelopmentAuthClientConfiguration {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
