@@ -2,6 +2,8 @@
 
 ### 1.4.0
 * Remove synyx specific default values from `auth.ldap.*`
+* Upgrade CoffeeNet starter-logging to version 0.13.0
+* Upgrade CoffeeNet starter-discovery to version 0.13.0
 
 ### 1.3.1
 * Fix that only in `auth.development=true` mode the test CoffeeNetClient is added
