@@ -4,6 +4,8 @@ import coffee.synyx.auth.config.integration.security.ldap.AuthLdapConfigurationP
 import coffee.synyx.auth.config.integration.security.ldap.CoffeeNetDefaultTlsDirContextAuthenticationStrategy;
 import coffee.synyx.auth.oauth.user.service.SynyxUserDetailsContextMapper;
 
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,6 +18,10 @@ import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
+import static java.lang.invoke.MethodHandles.lookup;
+
 
 /**
  * Configures an {@link org.springframework.security.authentication.AuthenticationManager authentication manager} to use
@@ -27,6 +33,8 @@ import org.springframework.security.config.annotation.authentication.configurers
 @EnableConfigurationProperties(AuthLdapConfigurationProperties.class)
 public class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
+
     private SynyxUserDetailsContextMapper synyxUserDetailsContextMapper;
     private AuthLdapConfigurationProperties authLdapConfigurationProperties;
 
@@ -36,6 +44,8 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
 
         this.synyxUserDetailsContextMapper = synyxUserDetailsContextMapper;
         this.authLdapConfigurationProperties = authLdapConfigurationProperties;
+
+        LOGGER.info("//> AuthenticationManagerConfiguration...");
     }
 
     @Override
@@ -48,6 +58,8 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
             .groupSearchFilter(authLdapConfigurationProperties.getGroupSearchFilter())
             .contextSource(contextSource())
             .userDetailsContextMapper(synyxUserDetailsContextMapper);
+
+        LOGGER.info("//> Initialize AuthenticationManagerBuilder with ldap authentication");
     }
 
 
@@ -58,6 +70,8 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
         contextSource.setUrl(authLdapConfigurationProperties.getUrl());
         contextSource.setBase(authLdapConfigurationProperties.getBase());
         contextSource.setAuthenticationStrategy(new CoffeeNetDefaultTlsDirContextAuthenticationStrategy());
+
+        LOGGER.info("//> Created LdapContextSource for AuthenticationManagerBuilder");
 
         return contextSource;
     }
