@@ -37,6 +37,8 @@ class DefaultAccessDeniedHandler implements AccessDeniedHandler {
     DefaultAccessDeniedHandler(AuthConfigurationProperties authConfigurationProperties) {
 
         this.authConfigurationProperties = authConfigurationProperties;
+
+        LOGGER.info("//> DefaultAccessDeniedHandler created");
     }
 
     @Override
@@ -52,9 +54,10 @@ class DefaultAccessDeniedHandler implements AccessDeniedHandler {
                 redirectUrl = savedRequest.getRedirectUrl();
             }
 
-            LOGGER.info("Handling CsrfException with redirect to {}.", redirectUrl);
+            LOGGER.info("//> Handling CsrfException with redirect to {}.", redirectUrl);
             response.sendRedirect(redirectUrl);
         } else {
+            LOGGER.info("//> Handling wrong CsrfException with redirect to /forbidden.");
             response.sendRedirect("/forbidden");
         }
     }

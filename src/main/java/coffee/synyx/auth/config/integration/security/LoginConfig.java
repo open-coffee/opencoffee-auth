@@ -3,6 +3,8 @@ package coffee.synyx.auth.config.integration.security;
 import coffee.synyx.auth.config.AuthConfigurationProperties;
 import coffee.synyx.auth.oauth.config.OAuth2ResourceServerConfig;
 
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -20,6 +22,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
+import static java.lang.invoke.MethodHandles.lookup;
+
 
 /**
  * This configuration configures a form based login for all paths defined in the first ant matcher. It is required for
@@ -33,6 +39,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @Order(SecurityProperties.DEFAULT_FILTER_ORDER - 2)
 @EnableConfigurationProperties({ ServerProperties.class, AuthConfigurationProperties.class })
 public class LoginConfig extends WebSecurityConfigurerAdapter {
+
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private static final String LOGOUT = "/logout";
     private static final String ADMIN_ROLE = "ROLE_COFFEENET-ADMIN";
@@ -49,12 +57,16 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         this.logoutSuccessHandler = logoutSuccessHandler;
         this.serverProperties = serverProperties;
         this.authConfigurationProperties = authConfigurationProperties;
+
+        LOGGER.info("//> LoginConfig...");
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
 
         web.ignoring().antMatchers("/h2-console/**");
+
+        LOGGER.info("//> LoginConfig does ignore h2-console/**");
     }
 
 
@@ -97,5 +109,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             .and()
             .exceptionHandling()
             .accessDeniedHandler(new DefaultAccessDeniedHandler(authConfigurationProperties));
+
+        LOGGER.info("//> LoginConfig was configured");
     }
 }

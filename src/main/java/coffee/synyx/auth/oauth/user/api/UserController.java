@@ -48,11 +48,11 @@ public class UserController {
         ResponseEntity<CoffeeNetAuthentication> responseEntity;
 
         if ((user instanceof OAuth2Authentication) && ((OAuth2Authentication) user).isAuthenticated()) {
-            LOGGER.debug("Requested Authentication for '{}'", user.getName());
+            LOGGER.info("//> Requested Authentication for '{}'", user.getName());
 
             responseEntity = new ResponseEntity<>(new CoffeeNetAuthentication((OAuth2Authentication) user), OK);
         } else {
-            LOGGER.warn("Authentication of type {} was not expected. Expected: {}.", user.getClass().getName(),
+            LOGGER.warn("//> Authentication of type {} was not expected. Expected: {}.", user.getClass().getName(),
                 OAuth2Authentication.class.getName());
 
             responseEntity = new ResponseEntity<>(UNAUTHORIZED);

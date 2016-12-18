@@ -64,6 +64,8 @@ public class AuthClientController {
     @ExceptionHandler(value = NoSuchClientException.class)
     public String handleNotFoundException() {
 
+        LOGGER.info("//> Clients: A not registered client was requested.");
+
         return "oauth/clients/not_found";
     }
 
@@ -79,11 +81,13 @@ public class AuthClientController {
     public String getAllClientsView(Model model) {
 
         List<ClientDetailsResource> clientDetails = jdbcClientDetailsService.listClientDetails()
-                .stream()
-                .map(ClientDetailsResource::new)
-                .collect(Collectors.toList());
+            .stream()
+            .map(ClientDetailsResource::new)
+            .collect(Collectors.toList());
 
         model.addAttribute("clients", clientDetails);
+
+        LOGGER.info("//> Clients: Provide overview to all clients");
 
         return "oauth/clients/all";
     }
@@ -94,6 +98,8 @@ public class AuthClientController {
 
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute(CLIENT, new ClientDetailsResource(clientDetails));
+
+        LOGGER.info("//> Clients: Provide client edit page of client {}", authClientId);
 
         return "oauth/clients/edit";
     }
@@ -111,12 +117,16 @@ public class AuthClientController {
             attr.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + CLIENT, binding);
             attr.addFlashAttribute(CLIENT, clientDetailsResource);
 
+            LOGGER.info("//> Clients: Could not edit {} client, because of binding errors", authClientId);
+
             return "oauth/clients/edit";
         }
 
         jdbcClientDetailsService.updateClientDetails(clientDetailsResource.toEntity());
         jdbcClientDetailsService.updateClientSecret(authClientId, clientDetailsResource.getClientSecret());
         attr.addFlashAttribute(SUCCESS_MESSAGE, "client.update.success.text");
+
+        LOGGER.info("//> Clients: Successful edited client {}", authClientId);
 
         return REDIRECT_CLIENTS;
     }
@@ -126,6 +136,8 @@ public class AuthClientController {
     public String getNewClientView(Model model) {
 
         model.addAttribute(CLIENT, new ClientDetailsResource());
+
+        LOGGER.info("//> Clients: Provide create new client page");
 
         return OAUTH_CLIENTS_NEW;
     }
@@ -145,9 +157,11 @@ public class AuthClientController {
 
             attr.addFlashAttribute(SUCCESS_MESSAGE, "client.create.success.text");
 
+            LOGGER.debug("//> Clients: Client {} created", clientDetailsResource.getClientId());
+
             return REDIRECT_CLIENTS;
         } catch (ClientAlreadyExistsException e) {
-            LOGGER.debug("Client already exists", e);
+            LOGGER.debug("//> Clients: Client already exists", e);
 
             binding.rejectValue("clientId", "error.client.creation.id.alreadyexists");
 
@@ -165,6 +179,8 @@ public class AuthClientController {
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute(CLIENT, new ClientDetailsResource(clientDetails));
 
+        LOGGER.debug("//> Clients: Provide specific client page of {}", authClientId);
+
         return "oauth/clients/specific";
     }
 
@@ -175,6 +191,8 @@ public class AuthClientController {
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute(CLIENT, new ClientDetailsResource(clientDetails));
 
+        LOGGER.debug("//> Clients: Provide client confirmation page to deleted {}", authClientId);
+
         return "oauth/clients/confirm_delete";
     }
 
@@ -184,6 +202,8 @@ public class AuthClientController {
 
         jdbcClientDetailsService.removeClientDetails(authClientId);
         attributes.addFlashAttribute(SUCCESS_MESSAGE, "client.delete.success.text");
+
+        LOGGER.debug("//> Clients: Client {} deleted", authClientId);
 
         return REDIRECT_CLIENTS;
     }

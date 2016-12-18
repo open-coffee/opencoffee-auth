@@ -1,5 +1,7 @@
 package coffee.synyx.auth.oauth.user.service;
 
+import org.slf4j.Logger;
+
 import org.springframework.ldap.core.DirContextOperations;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -11,13 +13,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
+import static java.lang.invoke.MethodHandles.lookup;
+
 
 @Service
 public class SynyxUserDetailsContextMapper extends LdapUserDetailsMapper {
 
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
+
     public SynyxUserDetailsContextMapper() {
 
         super();
+
+        LOGGER.info("//> SynyxUserDetailsContextMapper created");
     }
 
     @Override
@@ -25,6 +35,8 @@ public class SynyxUserDetailsContextMapper extends LdapUserDetailsMapper {
         Collection<? extends GrantedAuthority> authorities) {
 
         UserDetails details = super.mapUserFromContext(ctx, username, authorities);
+
+        LOGGER.info("//> Mapped user {} from ldap to SynyxUserDetails", username);
 
         return new SynyxUserDetails((LdapUserDetails) details, ctx.getStringAttribute("mail"));
     }

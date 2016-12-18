@@ -2,6 +2,8 @@ package coffee.synyx.auth.web;
 
 import coffee.synyx.auth.config.AuthConfigurationProperties;
 
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import static java.lang.invoke.MethodHandles.lookup;
 
 
 /**
@@ -22,6 +28,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 @EnableConfigurationProperties(AuthConfigurationProperties.class)
 public class LogoutController {
+
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private final AuthConfigurationProperties authConfigurationProperties;
 
@@ -52,6 +60,8 @@ public class LogoutController {
                 view = "redirect:" + referrer;
             }
         }
+
+        LOGGER.info("//> Send {} after logout to {}", principal != null ? principal.getName() : "anonymous", view);
 
         return view;
     }

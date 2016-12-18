@@ -2,6 +2,8 @@ package coffee.synyx.auth.config.integration.security;
 
 import coffee.synyx.auth.config.AuthConfigurationProperties;
 
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,6 +18,10 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
+import static java.lang.invoke.MethodHandles.lookup;
+
 
 /**
  * Logout Success Handler which is responsible for redirecting to the previous used application. It parses the Request
@@ -27,12 +33,16 @@ import javax.servlet.http.HttpServletResponse;
 @EnableConfigurationProperties(AuthConfigurationProperties.class)
 public class LogoutRedirectSuccessHandler implements LogoutSuccessHandler {
 
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
+
     private String defaultRedirectUri;
 
     @Autowired
     public LogoutRedirectSuccessHandler(AuthConfigurationProperties authConfigurationProperties) {
 
         defaultRedirectUri = authConfigurationProperties.getDefaultRedirectUrl();
+
+        LOGGER.info("//> LogoutRedirectSuccessHandler created");
     }
 
     @Override
@@ -44,6 +54,10 @@ public class LogoutRedirectSuccessHandler implements LogoutSuccessHandler {
         if (redirect == null) {
             redirect = defaultRedirectUri;
         }
+
+        LOGGER.info("//> Redirect {} after logout to {}",
+            request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : "anonymous",
+            defaultRedirectUri);
 
         response.sendRedirect(redirect);
     }
