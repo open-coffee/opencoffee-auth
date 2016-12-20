@@ -10,3 +10,8 @@ services:
     ports:
     - "9999:9999"
     hostname: auth.synyx.coffee
+  auth:
+    build: ./docker/coffeenet-discovery/
+    ports:
+    - "8761:8761"
+    hostname: discovery.synyx.coffee
