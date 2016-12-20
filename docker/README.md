@@ -1,19 +1,22 @@
 # Docker
 
-First, both images need to be built:
+With the provided docker-compose file you can test the auth server with its needed services very easy.
+When you run the docker-compose.yml file as describes below these services will be started:
+* CoffeeNet Auth
+* Coffeenet Discovery
+* Ldap Server (ds-389)
 
-```bash
-cd ds-389
-docker build -t registry-docker.synyx.coffee/ds-389 .
-cd ..
-```
-The output of *docker images* should now show the ds-389 image
+You will have a fully integrated CoffeeNet environment with the following users:
 
-Start a container for the ds-389 image with the following command:
+| User | Username | Password | Roles |
+|---|---|---|---|
+| Coffy | coffy | coffy | ROLE_COFFEENET-ADMIN & ROLE_USER |
+| Liam Spencer | spencer | spencer | ROLE_COFFEENET-ADMIN |
+| Logan Gonzalez | gonzalez | gonzalez | ROLE_USER |
 
-```bash
-docker run -ti -p 38900:389 --hostname ldap.synyx.coffee registry-docker.synyx.coffee/ds-389
-```
+and 2000 users for load tests e.g. with the credentials user{1..2000}/user{1..2000} 
+(e.g. user1/user1, user2/user2,...) without a role defined.
+
 
 # Usage with docker-compose
 
