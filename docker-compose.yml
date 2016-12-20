@@ -4,14 +4,14 @@ services:
     build: ./docker/ldap-ds-389/
     ports:
     - "38900:389"
-    hostname: ldap.synyx.coffee
+    hostname: coffeenet-ldap.synyx.coffee
   auth:
     build: ./docker/coffeenet-auth/
     ports:
     - "9999:9999"
-    hostname: auth.synyx.coffee
+    hostname: coffeenet-auth.synyx.coffee
   discovery:
     build: ./docker/coffeenet-discovery/
     ports:
     - "8761:8761"
-    hostname: discovery.synyx.coffee
+    hostname: coffeenet-discovery.synyx.coffee
