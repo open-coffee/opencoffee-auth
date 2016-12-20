@@ -1,0 +1,12 @@
+version: '2'
+services:
+  ds-389:
+    build: ./docker/ldap-ds-389/
+    ports:
+    - "38900:389"
+    hostname: ldap.synyx.coffee
+  auth:
+    build: ./docker/coffeenet-auth/
+    ports:
+    - "9999:9999"
+    hostname: auth.synyx.coffee
