@@ -14,19 +14,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AuthLdapConfigurationProperties {
 
     @NotBlank
-    private String url = "ldap://localhost:389";
+    private String url = "ldap://localhost";
 
     @NotBlank
     private String base;
 
     @NotBlank
-    private String userSearchBase = "ou=accounts";
+    private String userSearchBase = "ou=People";
 
     @NotBlank
     private String userSearchFilter = "uid={0}";
 
     @NotBlank
-    private String groupSearchBase = "ou=roles,ou=groups";
+    private String groupSearchBase = "ou=Groups";
 
     @NotBlank
     private String groupSearchFilter = "member={0}";
