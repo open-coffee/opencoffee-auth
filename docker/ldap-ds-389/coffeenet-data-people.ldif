@@ -1,0 +1,45 @@
+version:1
+
+dn: ou=People,dc=synyx,dc=coffee
+objectClass: organizationalUnit
+objectClass: top
+ou: People
+
+# user
+dn: uid=coffy,ou=People,dc=synyx,dc=coffee
+givenName: coffy
+sn: coffy
+cn: coffy
+mail: coffy@felinepredator.coffee
+uid: coffy
+userPassword: coffy
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=spencer,ou=People,dc=synyx,dc=coffee
+givenName: liam
+sn: spencer
+cn: liam spencer
+mail: liam.spencer@synyx.coffee
+uid: spencer
+userPassword: spencer
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=gonzalez,ou=People,dc=synyx,dc=coffee
+givenName: logan
+sn: gonzalez
+cn: logan gonzalez
+mail: logan.gonzalez@synyx.coffee
+uid: gonzalez
+userPassword: gonzalez
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
