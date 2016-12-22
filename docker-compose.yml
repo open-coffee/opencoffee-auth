@@ -1,0 +1,20 @@
+version: '2'
+services:
+  auth:
+    build: ./docker/coffeenet-auth/
+    ports:
+      - "9999:9999"
+    hostname: coffeenet-auth.synyx.coffee
+    links:
+      - discovery:coffeenet-discovery.synyx.coffee
+      - ldap:coffeenet-ldap.synyx.coffee
+  ldap:
+    build: ./docker/ldap-ds-389/
+    ports:
+      - "38900:389"
+    hostname: coffeenet-ldap.synyx.coffee
+  discovery:
+    build: ./docker/coffeenet-discovery/
+    ports:
+      - "8761:8761"
+    hostname: coffeenet-discovery.synyx.coffee

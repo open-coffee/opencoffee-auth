@@ -1,0 +1,18 @@
+[General]
+FullMachineName= coffeenet-ldap.synyx.coffee
+SuiteSpotUserID= dirsrv
+SuiteSpotGroup= dirsrv
+AdminDomain= synyx.coffee
+ConfigDirectoryAdminID= admin
+ConfigDirectoryAdminPwd= admin
+
+[slapd]
+SlapdConfigForMC= Yes
+UseExistingMC= 0
+ServerPort= 9389
+ServerIdentifier= ldap
+Suffix= dc=synyx,dc=coffee
+RootDN= cn=Directory Manager
+RootDNPwd= Iexeemah4ieb4M
+ds_bename=ldap
+AddSampleEntries= No

@@ -6,7 +6,11 @@ coffeenet:
     enabled: false
   discovery:
     instance:
-      home-page-url: http://localhost:9999/clients
+      home-page-url: http://coffeenet-auth.synyx.coffee:9999/clients
+      hostname: coffeenet-auth.synyx.coffee
+    client:
+      service-url:
+        defaultZone: http://coffeenet-discovery.synyx.coffee:8761/eureka/
   logging:
     console:
       enabled: true
@@ -14,12 +18,13 @@ coffeenet:
 auth:
   development: true
   ldap:
-    url: ldap://localhost:38900
+    url: ldap://coffeenet-ldap.synyx.coffee:389
     base: dc=synyx,dc=coffee
     userSearchBase: ou=People
     userSearchFilter: uid={0}
     groupSearchBase: ou=Groups
     groupSearchFilter: member={0}
+    connection-with-tls: false
 
 server:
   port: 9999
