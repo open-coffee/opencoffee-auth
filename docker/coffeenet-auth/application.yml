@@ -18,7 +18,7 @@ coffeenet:
 auth:
   development: true
   ldap:
-    url: ldap://coffeenet-ldap.synyx.coffee
+    url: ldap://coffeenet-ldap.synyx.coffee:389
     base: dc=synyx,dc=coffee
     userSearchBase: ou=People
     userSearchFilter: uid={0}
