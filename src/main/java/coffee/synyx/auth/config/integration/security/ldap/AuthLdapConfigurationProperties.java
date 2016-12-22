@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import javax.validation.constraints.NotNull;
+
 
 /**
  * All properties that are required to configure an LDAP-based authentication.
@@ -36,6 +38,9 @@ public class AuthLdapConfigurationProperties {
 
     @NotBlank
     private String rolePrefix = "ROLE_";
+
+    @NotNull
+    private boolean connectionWithTls = true;
 
     public String getUrl() {
 
@@ -130,5 +135,17 @@ public class AuthLdapConfigurationProperties {
     public void setRolePrefix(String rolePrefix) {
 
         this.rolePrefix = rolePrefix;
+    }
+
+
+    public boolean isConnectionWithTls() {
+
+        return connectionWithTls;
+    }
+
+
+    public void setConnectionWithTls(boolean connectionWithTls) {
+
+        this.connectionWithTls = connectionWithTls;
     }
 }

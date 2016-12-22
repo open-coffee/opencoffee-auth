@@ -27,5 +27,6 @@ public class AuthLdapConfigurationPropertiesTest {
         assertThat(sut.getGroupSearchFilter(), is("member={0}"));
         assertThat(sut.getGroupRoleAttribute(), is("cn"));
         assertThat(sut.getRolePrefix(), is("ROLE_"));
+        assertThat(sut.isConnectionWithTls(), is(true));
     }
 }
