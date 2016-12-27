@@ -10,7 +10,7 @@
 
     <groupId>coffee.synyx</groupId>
     <artifactId>auth</artifactId>
-    <version>1.5</version>
+    <version>1.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>CoffeeNet Authentication Service</name>
@@ -36,7 +36,7 @@
         <developerConnection>
             scm:git:ssh://git@gitlab.synyx.de/coffeenet/coffeenet-auth.git
         </developerConnection>
-        <tag>auth-1.5</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
