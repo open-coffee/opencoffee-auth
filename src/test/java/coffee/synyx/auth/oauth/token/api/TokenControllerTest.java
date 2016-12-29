@@ -13,12 +13,12 @@ import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.verify;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 
 /**
@@ -53,6 +53,6 @@ public class TokenControllerTest {
 
     private <T> ResultActions perform(RequestBuilder builder) throws Exception {
 
-        return MockMvcBuilders.standaloneSetup(sut).build().perform(builder);
+        return standaloneSetup(sut).build().perform(builder);
     }
 }
