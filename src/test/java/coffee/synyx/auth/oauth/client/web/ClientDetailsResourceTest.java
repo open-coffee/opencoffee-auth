@@ -22,13 +22,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class ClientDetailsResourceTest {
 
-    private AuthClient authClient;
     private ClientDetailsResource sut;
 
     @Before
     public void setup() {
 
-        authClient = new AuthClient();
+        AuthClient authClient = new AuthClient();
         authClient.setClientId("clientId");
         authClient.setClientSecret("clientSecret");
         authClient.getRegisteredRedirectUri().add("https://myApp.synyx.coffee");
