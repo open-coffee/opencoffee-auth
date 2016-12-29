@@ -36,8 +36,7 @@
                     </button>
                 </form>
                 <div class="login--password-recovery">
-                    <a href="https://profile.synyx.coffee/password-recovery"
-                       th:text="#{login.recovery}">
+                    <a th:if="${passwordRecoveryUrl}" th:href="${passwordRecoveryUrl}" th:text="#{login.recovery}">
                         Passwort recovery
                     </a>
                 </div>
