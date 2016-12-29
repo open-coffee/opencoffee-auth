@@ -1,6 +1,9 @@
 # Changelog 
 
 ### 1.5.0
+* Add password recovery link
+  * Will only provided if the service with a password recovery is available
+  * `auth.passwordRecoveryServiceName` and `auth.passwordRecoveryPath`
 * Add possibility to configure the connection with or without tls between the auth server and ldap
   * `auth.ldap.connection-with-tls (default: true)`
 
