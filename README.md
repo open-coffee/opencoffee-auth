@@ -110,12 +110,14 @@ Damit eine Anwendung den Auth-Server nun zur Authentifizierung verwenden kann, m
 
 ##How to get a token
 
+There are multiple ways to obtain an access token. In all of them the
+ Resource Owner(User) has to grant the application the access to this token.
 
 The CoffeeNet Auth-Server provides the following grant types:
-* Authorization Code
-* Password
-* Refresh Token
-* Client Credentials
+* Authorization Code Grant (Used by web apps i.e. most CoffeeNet Apps)
+* Password Grant
+* Client Credentials Grant
+* Refresh Token Grant
 
 ###Authorization Code Grant
 
@@ -150,3 +152,38 @@ in parameters)
 11. Auth-Server passes user details back to the CoffeeNet App
 12. CoffeeNet App Stores user details in a session
 13. CoffeeNet App provides content based on the user details
+
+### Password Grant
+
+This grant type is typically used by developers for testing purpose or systems.
+
+![Password Grant_Type](docs/password_grant_type.jpg)
+
+1. System or Developer requests an access token. Request contains:
+    * ClientId + ClientSecret as basic auth header:
+        `Authorization: basic base64(ClientId:ClientSecret)`
+    * Grant type, username, password and scope in the body. Looks like the
+    following as form-data
+
+
+        grant_type = password
+        username   = $username
+        password   = $password
+        scope      = openid
+
+2. Auth-Server provides access token if username, password, clientId and
+clientSecret are correct.
+
+3. System or Developer requests user details from the user endpoint with the
+    obtained access token. (Header: `Authorzitation: Bearer $accessToken`)
+
+4. Auth-Server provides user details if access token is correct.
+
+An alternative to step 3 is to perform a request to a CoffeeNet App with the same
+    Authorization header of step 3. This will cause the CoffeeNet App to treat the
+    initiator of the request as the user whose username and password were used in
+    step 1.
+
+### Client Credentials Grant
+
+### Refresh Token Grant
