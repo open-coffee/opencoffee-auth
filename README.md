@@ -125,7 +125,7 @@ The access token in CoffeeNet is used to retrieve user/clientdetails from the Au
 
 4. CoffeeNet App provides content based on the returned client details
 
-###How to get an access token
+### How to get an access token
 
 There are multiple ways to obtain an access token. In all of them the
  Resource Owner(User) has to grant the application the access to this token.
@@ -135,7 +135,7 @@ The CoffeeNet Auth-Server provides the following grant types:
 * Password Grant
 * Client Credentials Grant
 
-####Authorization Code Grant
+#### Authorization Code Grant
 
 The most common used grant type is the authorization code grant 
 type, since it's the flow that is used for web apps that redirect the 
