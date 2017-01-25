@@ -19,13 +19,14 @@ public class AuthLdapConfigurationPropertiesTest {
 
         AuthLdapConfigurationProperties sut = new AuthLdapConfigurationProperties();
 
-        assertThat(sut.getUrl(), is("ldap://localhost:389"));
+        assertThat(sut.getUrl(), is("ldap://localhost"));
         assertThat(sut.getBase(), is(nullValue()));
-        assertThat(sut.getUserSearchBase(), is("ou=accounts"));
+        assertThat(sut.getUserSearchBase(), is("ou=People"));
         assertThat(sut.getUserSearchFilter(), is("uid={0}"));
-        assertThat(sut.getGroupSearchBase(), is("ou=roles,ou=groups"));
+        assertThat(sut.getGroupSearchBase(), is("ou=Groups"));
         assertThat(sut.getGroupSearchFilter(), is("member={0}"));
         assertThat(sut.getGroupRoleAttribute(), is("cn"));
         assertThat(sut.getRolePrefix(), is("ROLE_"));
+        assertThat(sut.isConnectionWithTls(), is(true));
     }
 }

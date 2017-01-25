@@ -1,21 +1,15 @@
 package coffee.synyx.auth.config.integration.security;
 
+import coffee.synyx.auth.config.AuthConfigurationProperties;
 import coffee.synyx.auth.oauth.user.service.SynyxUserDetails;
 
+import org.junit.Before;
 import org.junit.Test;
-
-import org.junit.runner.RunWith;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
-
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
@@ -32,15 +26,19 @@ import static org.mockito.Mockito.when;
  *
  * @author  Tobias Schneider
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = LogoutRedirectSuccessHandler.class)
 public class LogoutRedirectSuccessHandlerTest {
 
-    @Autowired
     private LogoutRedirectSuccessHandler sut;
 
     private HttpServletRequest requestMock = mock(HttpServletRequest.class);
     private HttpServletResponse responseMock = mock(HttpServletResponse.class);
+
+    @Before
+    public void setUp() throws Exception {
+
+        sut = new LogoutRedirectSuccessHandler(new AuthConfigurationProperties());
+    }
+
 
     @Test
     public void onLogoutSuccess() throws IOException {

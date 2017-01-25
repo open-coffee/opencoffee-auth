@@ -69,7 +69,10 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
         LdapContextSource contextSource = new LdapContextSource();
         contextSource.setUrl(authLdapConfigurationProperties.getUrl());
         contextSource.setBase(authLdapConfigurationProperties.getBase());
-        contextSource.setAuthenticationStrategy(new CoffeeNetDefaultTlsDirContextAuthenticationStrategy());
+
+        if (authLdapConfigurationProperties.isConnectionWithTls()) {
+            contextSource.setAuthenticationStrategy(new CoffeeNetDefaultTlsDirContextAuthenticationStrategy());
+        }
 
         LOGGER.info("//> Created LdapContextSource for AuthenticationManagerBuilder");
 
