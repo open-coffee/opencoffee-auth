@@ -182,8 +182,34 @@ clientSecret are correct.
 An alternative to step 3 is to perform a request to a CoffeeNet App with the same
     Authorization header of step 3. This will cause the CoffeeNet App to treat the
     initiator of the request as the user whose username and password were used in
-    step 1.
+    step 1. Have a look at [Client Credentials Grant](#client-credentials-grant)
 
 ### Client Credentials Grant
+
+This grant type is typically used by systems. They request their access token
+from the Auth-Server and use it as authentication information for requests to
+any CoffeeNet App.
+
+![Client_Credentials Grant_Type](docs/client_credentials_grant_type.jpg)
+
+1. System requests an access token. Request contains:
+    * ClientId + ClientSecret as basic auth header:
+        `Authorization: basic base64(ClientId:ClientSecret)`
+    * Grant type and scope in the body. Looks like the following as form-data
+
+
+        grant_type = password
+        scope      = openid
+
+2. Auth-Server provides access token if clientId and clientSecret are correct.
+
+3. System requests content of a CoffeeNet App with the obtained access token.
+    (Header: `Authorzitation: Bearer $accessToken`)
+
+4. CoffeeNet App uses access token to retrieve client details from Auth-Server
+
+5. Auth-Server resolves access token to client details and provides them to the CoffeeNet App
+
+6. CoffeeNet App provides content based on the returned client details
 
 ### Refresh Token Grant
