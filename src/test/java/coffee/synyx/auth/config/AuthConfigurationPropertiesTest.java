@@ -20,6 +20,6 @@ public class AuthConfigurationPropertiesTest {
         assertThat(sut.isDevelopment(), is(true));
         assertThat(sut.getDefaultRedirectUrl(), is("http://localhost:8080"));
         assertThat(sut.getPasswordRecoveryServiceName(), is("profile"));
-        assertThat(sut.getPasswordRecoveryPath(), is("password-recovery"));
+        assertThat(sut.getPasswordRecoveryPath(), is("/password-recovery"));
     }
 }
