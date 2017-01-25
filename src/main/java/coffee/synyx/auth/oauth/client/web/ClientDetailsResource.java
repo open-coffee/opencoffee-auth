@@ -45,7 +45,7 @@ public class ClientDetailsResource {
     ClientDetailsResource() {
 
         this.scope = "openid";
-        this.authorizedGrantTypes = "authorization_code,password,refresh_token,client_credentials";
+        this.authorizedGrantTypes = "authorization_code,password,client_credentials";
         this.authorities = "";
         this.resourceIds = null;
         this.accessTokenValidity = null;
@@ -81,9 +81,9 @@ public class ClientDetailsResource {
         authClient.setRegisteredRedirectUri(StringUtils.commaDelimitedListToSet(registeredRedirectUri));
 
         List<GrantedAuthority> grantedAuthorities = StringUtils.commaDelimitedListToSet(this.authorities)
-            .stream()
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
         authClient.setAuthorities(grantedAuthorities);
 

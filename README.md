@@ -117,7 +117,6 @@ The CoffeeNet Auth-Server provides the following grant types:
 * Authorization Code Grant (Used by web apps i.e. most CoffeeNet Apps)
 * Password Grant
 * Client Credentials Grant
-* Refresh Token Grant
 
 ###Authorization Code Grant
 
@@ -211,5 +210,3 @@ any CoffeeNet App.
 5. Auth-Server resolves access token to client details and provides them to the CoffeeNet App
 
 6. CoffeeNet App provides content based on the returned client details
-
-### Refresh Token Grant
