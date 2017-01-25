@@ -47,8 +47,7 @@ public class DevelopmentAuthClientConfiguration {
         authClient.setAutoApprove(true);
         authClient.setClientId("coffeeNetClient");
         authClient.setClientSecret("coffeeNetClientSecret");
-        authClient.getAuthorizedGrantTypes()
-            .addAll(asList("authorization_code", "password", "refresh_token", "client_credentials"));
+        authClient.getAuthorizedGrantTypes().addAll(asList("authorization_code", "password", "client_credentials"));
         authClient.getScope().add("openid");
         jdbcClientDetailsService.addClientDetails(authClient);
 
