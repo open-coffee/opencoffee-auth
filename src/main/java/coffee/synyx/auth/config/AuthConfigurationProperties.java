@@ -25,7 +25,7 @@ public class AuthConfigurationProperties {
     private String passwordRecoveryServiceName = "profile";
 
     @NotBlank(message = "Please provide the path to the password recovery without starting /")
-    private String passwordRecoveryPath = "password-recovery";
+    private String passwordRecoveryPath = "/password-recovery";
 
     public boolean isDevelopment() {
 
