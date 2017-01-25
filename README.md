@@ -108,7 +108,24 @@ clientSecret: coffeeNetClientSecret
 
 Damit eine Anwendung den Auth-Server nun zur Authentifizierung verwenden kann, muss die Anwendung [entsprechend Konfiguriert werden](https://gitlab.synyx.de/coffeenet/coffeenet-starter-sso#verbindungsinformationen).
 
-##How to get a token
+## Access Token
+
+### What an access token is for
+
+The access token in CoffeeNet is used to retrieve user/clientdetails from the Auth-server.
+
+![Access_Token_Usage](docs/access_token_usage.jpg)
+
+1. System requests content of a CoffeeNet App with an access token.
+    (Header: `Authorzitation: Bearer $accessToken`)
+
+2. CoffeeNet App uses access token to retrieve client details from Auth-Server
+
+3. Auth-Server resolves access token to client details and provides them to the CoffeeNet App
+
+4. CoffeeNet App provides content based on the returned client details
+
+###How to get an access token
 
 There are multiple ways to obtain an access token. In all of them the
  Resource Owner(User) has to grant the application the access to this token.
@@ -118,7 +135,7 @@ The CoffeeNet Auth-Server provides the following grant types:
 * Password Grant
 * Client Credentials Grant
 
-###Authorization Code Grant
+####Authorization Code Grant
 
 The most common used grant type is the authorization code grant 
 type, since it's the flow that is used for web apps that redirect the 
@@ -152,7 +169,7 @@ in parameters)
 12. CoffeeNet App Stores user details in a session
 13. CoffeeNet App provides content based on the user details
 
-### Password Grant
+#### Password Grant
 
 This grant type is typically used by developers for testing purpose or systems.
 
@@ -173,17 +190,7 @@ This grant type is typically used by developers for testing purpose or systems.
 2. Auth-Server provides access token if username, password, clientId and
 clientSecret are correct.
 
-3. System or Developer requests user details from the user endpoint with the
-    obtained access token. (Header: `Authorzitation: Bearer $accessToken`)
-
-4. Auth-Server provides user details if access token is correct.
-
-An alternative to step 3 is to perform a request to a CoffeeNet App with the same
-    Authorization header of step 3. This will cause the CoffeeNet App to treat the
-    initiator of the request as the user whose username and password were used in
-    step 1. Have a look at [Client Credentials Grant](#client-credentials-grant)
-
-### Client Credentials Grant
+#### Client Credentials Grant
 
 This grant type is typically used by systems. They request their access token
 from the Auth-Server and use it as authentication information for requests to
@@ -201,12 +208,3 @@ any CoffeeNet App.
         scope      = openid
 
 2. Auth-Server provides access token if clientId and clientSecret are correct.
-
-3. System requests content of a CoffeeNet App with the obtained access token.
-    (Header: `Authorzitation: Bearer $accessToken`)
-
-4. CoffeeNet App uses access token to retrieve client details from Auth-Server
-
-5. Auth-Server resolves access token to client details and provides them to the CoffeeNet App
-
-6. CoffeeNet App provides content based on the returned client details
