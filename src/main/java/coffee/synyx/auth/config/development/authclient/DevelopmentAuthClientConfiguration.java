@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 
 import javax.annotation.PostConstruct;
@@ -43,14 +44,20 @@ public class DevelopmentAuthClientConfiguration {
     @PostConstruct
     void createDefaultClient() {
 
-        AuthClient authClient = new AuthClient();
-        authClient.setAutoApprove(true);
-        authClient.setClientId("coffeeNetClient");
-        authClient.setClientSecret("coffeeNetClientSecret");
-        authClient.getAuthorizedGrantTypes().addAll(asList("authorization_code", "password", "client_credentials"));
-        authClient.getScope().add("openid");
-        jdbcClientDetailsService.addClientDetails(authClient);
+        String coffeeNetClient = "coffeeNetClient";
 
-        LOGGER.info("//> Added default OAuth Client in development mode: coffeeNetClient/coffeeNetClientSecret");
+        try {
+            AuthClient authClient = new AuthClient();
+            authClient.setAutoApprove(true);
+            authClient.setClientId(coffeeNetClient);
+            authClient.setClientSecret("coffeeNetClientSecret");
+            authClient.getAuthorizedGrantTypes().addAll(asList("authorization_code", "password", "client_credentials"));
+            authClient.getScope().add("openid");
+            jdbcClientDetailsService.addClientDetails(authClient);
+
+            LOGGER.info("//> Added default OAuth Client in development mode: coffeeNetClient/coffeeNetClientSecret");
+        } catch (ClientAlreadyExistsException e) {
+            LOGGER.debug("//> Client with id {} already added", coffeeNetClient, e);
+        }
     }
 }

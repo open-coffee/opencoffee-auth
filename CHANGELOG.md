@@ -1,5 +1,12 @@
 # Changelog 
 
+### 1.5.0
+* Add password recovery link
+  * Will only provided if the service with a password recovery is available
+  * `auth.passwordRecoveryServiceName` and `auth.passwordRecoveryPath`
+* Add possibility to configure the connection with or without tls between the auth server and ldap
+  * `auth.ldap.connection-with-tls (default: true)`
+
 ### 1.4.0
 * Remove synyx specific default values from `auth.ldap.*`
 * Upgrade CoffeeNet starter-logging to version 0.13.0

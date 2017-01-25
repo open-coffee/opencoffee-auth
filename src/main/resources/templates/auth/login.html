@@ -19,12 +19,14 @@
 
                 <form role="form" th:action="@{/login}" th:method="post">
                     <div class="form-group">
-                        <label class="hidden-screen-reader-text" for="username" th:text="#{login.label.username}"></label>
+                        <label class="hidden-screen-reader-text" for="username"
+                               th:text="#{login.label.username}"></label>
                         <input type="text" class="form-control" id="username" name="username"
                                th:placeholder="#{login.username}" autofocus="autofocus"/>
                     </div>
                     <div class="form-group">
-                        <label class="hidden-screen-reader-text" for="password" th:text="#{login.label.password}"></label>
+                        <label class="hidden-screen-reader-text" for="password"
+                               th:text="#{login.label.password}"></label>
                         <input type="password" class="form-control" id="password" name="password"
                                th:placeholder="#{login.password}"/>
                     </div>
@@ -33,6 +35,11 @@
                         <span th:text="#{login.button.login}" th:attr="aria-label=#{login.button.login}"></span>
                     </button>
                 </form>
+                <div class="login--password-recovery">
+                    <a th:if="${passwordRecoveryUrl}" th:href="${passwordRecoveryUrl}" th:text="#{login.recovery}">
+                        Passwort recovery
+                    </a>
+                </div>
             </div>
         </div>
     </div>
