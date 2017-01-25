@@ -17,6 +17,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import static java.lang.invoke.MethodHandles.lookup;
 
+import static java.util.Arrays.asList;
+
 
 /**
  * Creates a mock auth client with secret (coffeeNetClient/coffeeNetClientSecret) in development mode.
@@ -45,6 +47,8 @@ public class DevelopmentAuthClientConfiguration {
         authClient.setAutoApprove(true);
         authClient.setClientId("coffeeNetClient");
         authClient.setClientSecret("coffeeNetClientSecret");
+        authClient.getAuthorizedGrantTypes()
+            .addAll(asList("authorization_code", "password", "refresh_token", "client_credentials"));
         authClient.getScope().add("openid");
         jdbcClientDetailsService.addClientDetails(authClient);
 
