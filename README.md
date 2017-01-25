@@ -107,3 +107,46 @@ clientSecret: coffeeNetClientSecret
 ```
 
 Damit eine Anwendung den Auth-Server nun zur Authentifizierung verwenden kann, muss die Anwendung [entsprechend Konfiguriert werden](https://gitlab.synyx.de/coffeenet/coffeenet-starter-sso#verbindungsinformationen).
+
+##How to get a token
+
+
+The CoffeeNet Auth-Server provides the following grant types:
+* Authorization Code
+* Password
+* Refresh Token
+* Client Credentials
+
+###Authorization Code Grant
+
+The most common used grant type is the authorization code grant 
+type, since it's the flow that is used for web apps that redirect the 
+user to the authorization server to obtain the token.
+This flow is the flow you see for example when you visit the coffeenet 
+frontpage.
+
+![Authorization Code Web Flow](docs/authorization_code_web_flow.jpg)
+
+1. User navigates to CoffeeNet App 
+2. CoffeeNet App checks if session is available for this user 
+    * YES: continue with step 13
+    * NO: continue with step 3
+3. CoffeeNet App sends redirect to Auth-Server (client-id, redirect uri 
+in parameters)
+4. Auth-Server checks if session is available for this user
+    * YES: continue with step 7
+    * NO: continue with step 5
+5. Auth-Server asks User to enter credentials (Login Form)
+6. User enters credentials
+7. Auth-Server sends redirect back to redirect uri (should be the address
+        of the CoffeeNet App) containing an authorization code in parameters. 
+        Users won't event notice this step, if a on auth-server session 
+        already exists.
+8. CoffeeNetApp requests token with the given authorization code and its
+        client credentials (meaning client-id and client-secret).
+9. Passes the access and refresh token back to the CoffeeNet App
+10. CoffeeNet App requests user details from Auth-Server with the obtained 
+        access token.
+11. Auth-Server passes user details back to the CoffeeNet App
+12. CoffeeNet App Stores user details in a session
+13. CoffeeNet App provides content based on the user details
