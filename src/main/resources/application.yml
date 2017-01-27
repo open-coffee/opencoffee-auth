@@ -14,11 +14,11 @@ coffeenet:
 auth:
   development: true
   ldap:
-    url: ldap://ldap-slave.synyx.coffee:389
+    url: ldap://localhost:38900
     base: dc=synyx,dc=coffee
-    userSearchBase: ou=accounts
+    userSearchBase: ou=People
     userSearchFilter: uid={0}
-    groupSearchBase: ou=roles,ou=groups
+    groupSearchBase: ou=Groups
     groupSearchFilter: member={0}
 
 server:
