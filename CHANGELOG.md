@@ -1,5 +1,8 @@
 # Changelog 
 
+### 1.6.0
+* Upgrade to Spring Boot 1.4.4
+
 ### 1.5.0
 * Add password recovery link
   * Will only provided if the service with a password recovery is available
