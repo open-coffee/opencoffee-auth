@@ -1,7 +1,10 @@
 # Changelog 
 
 ### 1.6.0
+* Remove refresh token functionality
 * Upgrade to Spring Boot 1.4.4
+* Upgrade CoffeeNet starter-logging to version 0.15.1
+* Upgrade CoffeeNet starter-discovery to version 0.15.1
 
 ### 1.5.0
 * Add password recovery link
