@@ -37,7 +37,7 @@ body {
 .login--header > h2, .authorize--header > h2, .error--header > h2 {
     margin: 0 0 0 12px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: bottom;
     text-align: center;
 }
 
@@ -59,6 +59,10 @@ body {
 .login--password-recovery {
     text-align: right;
     margin-top: 24px;
+}
+
+.login--logo, .error--logo, .authorize--logo {
+    width: 100px;
 }
 
 .authorize--form .btn {
