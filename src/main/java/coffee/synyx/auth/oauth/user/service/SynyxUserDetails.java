@@ -93,4 +93,9 @@ public final class SynyxUserDetails implements LdapUserDetails {
 
         return credentialsNonExpired;
     }
+
+
+    @Override
+    public void eraseCredentials() {
+    }
 }
