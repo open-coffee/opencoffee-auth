@@ -190,6 +190,14 @@ This grant type is typically used by developers for testing purpose or systems.
 2. Auth-Server provides access token if username, password, clientId and
 clientSecret are correct.
 
+Response looks like this:
+
+        {
+          "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
+          "token_type": "bearer",
+          "expires_in": 42837,
+          "scope": "openid"
+        }
 #### Client Credentials Grant
 
 This grant type is typically used by systems. They request their access token
@@ -204,7 +212,16 @@ any CoffeeNet App.
     * Grant type and scope in the body. Looks like the following as form-data
 
 
-        grant_type = password
+        grant_type = client_credentials
         scope      = openid
 
 2. Auth-Server provides access token if clientId and clientSecret are correct.
+
+Response looks like this:
+
+        {
+          "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
+          "token_type": "bearer",
+          "expires_in": 43189,
+          "scope": "openid"
+        }
