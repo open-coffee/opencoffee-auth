@@ -3,12 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.4.RELEASE</version>
+        <groupId>coffee.synyx</groupId>
+        <artifactId>coffeenet-starter-parent</artifactId>
+        <version>0.18.0</version>
     </parent>
 
-    <groupId>coffee.synyx</groupId>
     <artifactId>auth</artifactId>
     <version>1.7-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -39,13 +38,6 @@
         <tag>HEAD</tag>
     </scm>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <dependency.check.report.dir>${project.build.directory}/dependency-check</dependency.check.report.dir>
-        <sonar.dependencyCheck.reportPath>${dependency.check.report.dir}/dependency-check-report.xml</sonar.dependencyCheck.reportPath>
-    </properties>
-
     <repositories>
         <repository>
             <id>releases.nexus.synyx.de</id>
@@ -58,12 +50,14 @@
         <dependency>
             <groupId>coffee.synyx</groupId>
             <artifactId>starter-discovery</artifactId>
-            <version>0.15.1</version>
         </dependency>
         <dependency>
             <groupId>coffee.synyx</groupId>
             <artifactId>starter-logging</artifactId>
-            <version>0.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>coffee.synyx</groupId>
+            <artifactId>starter-web-thymeleaf</artifactId>
         </dependency>
 
         <!-- Database -->
@@ -164,7 +158,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -173,12 +166,6 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>1.4.3</version>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <format>XML</format>
-                    <outputDirectory>${dependency.check.report.dir}</outputDirectory>
-                </configuration>
             </plugin>
         </plugins>
     </build>
