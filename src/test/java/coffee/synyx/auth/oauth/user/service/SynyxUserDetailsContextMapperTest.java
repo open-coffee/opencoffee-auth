@@ -23,6 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 import static java.util.Collections.singletonList;
 
@@ -61,5 +62,22 @@ public class SynyxUserDetailsContextMapperTest {
         assertThat(userDetails.getPassword(), is(password));
         assertThat(userDetails.getAuthorities(), contains(authority));
         assertThat(userDetails.getDn(), is(distinguishName));
+    }
+
+
+    @Test
+    public void eraseCredentials() throws InvalidNameException {
+
+        DirContextAdapter ctx = new DirContextAdapter();
+        ctx.setDn(new LdapName("uid=schneider,ou=employees,ou=accounts,dc=synyx,dc=coffee"));
+        ctx.addAttributeValue("mail", "aus@berlin.de");
+        ctx.addAttributeValue("userPassword", "sicherHeit");
+
+        LdapAuthority authority = new LdapAuthority("ADMIN", "dn");
+        List<LdapAuthority> authorities = singletonList(authority);
+
+        SynyxUserDetails userDetails = (SynyxUserDetails) sut.mapUserFromContext(ctx, "dieserSchneider", authorities);
+        userDetails.eraseCredentials();
+        assertThat(userDetails.getPassword(), nullValue());
     }
 }
