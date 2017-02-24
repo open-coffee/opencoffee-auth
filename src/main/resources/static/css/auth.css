@@ -51,8 +51,8 @@ body {
 }
 
 .login--form button[type=submit] {
-    background-color: #B2C900;
-    border-color: #B2C900;
+    background-color: #AED581;
+    border-color: #AED581;
     color: #FFFFFF;
 }
 
@@ -75,8 +75,8 @@ body {
 }
 
 .btn-success {
-    background-color: #B2C900;
-    border-color: #B2C900;
+    background-color: #AED581;
+    border-color: #AED581;
 }
 
 .btn-success:hover {
@@ -84,47 +84,14 @@ body {
     border-color: #9baf02;
 }
 
-.navbar-default {
-    border-top: 2px solid #B2C900;
-}
-
-.navbar-nav > .active > a {
-    background-color: transparent !important;
-    color: #B2C900 !important;
-}
-
 .navbar-nav > li > a {
     vertical-align: middle;
     font-weight: bold;
 }
 
-.navbar--synyx-logo {
-    margin: 0 0 0 0;
-    width: 90px;
-    height: 46px;
-    float: left;
-}
-
-#navbar--logout-link {
-    background: none;
-    border: none;
-    font-weight: bold;
-    padding: 0;
-}
-
-#navhbar--current-user {
-    font-weight: bold;
-    color: #B2C900 !important;
-    padding-right: 20px;
-}
-
-.navbar--user-info {
-    line-height: 50px;
-}
-
 .panel-default > .panel-heading {
 
-    background-color: #B2C900;
+    background-color: #AED581;
 }
 
 .panel-heading a {
