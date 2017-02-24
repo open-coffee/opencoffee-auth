@@ -15,7 +15,7 @@ public final class SynyxUserDetails implements LdapUserDetails {
     private final boolean enabled;
     private final Collection<? extends GrantedAuthority> authorities;
     private final String username;
-    private final String password;
+    private String password;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
     private final boolean credentialsNonExpired;
@@ -97,5 +97,7 @@ public final class SynyxUserDetails implements LdapUserDetails {
 
     @Override
     public void eraseCredentials() {
+
+        this.password = null;
     }
 }
