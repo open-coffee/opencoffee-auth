@@ -1,5 +1,11 @@
 # Changelog 
 
+### 1.7.0
+* Add navigation bar for /clients
+* Upgrade to Spring Boot 1.5.1
+* Upgrade CoffeeNet starter-logging to version 0.18.0
+* Upgrade CoffeeNet starter-discovery to version 0.18.0
+
 ### 1.6.0
 * Remove refresh token functionality
 * Upgrade to Spring Boot 1.4.4
