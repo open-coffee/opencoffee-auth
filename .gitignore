@@ -2,3 +2,7 @@
 target/
 *.iml
 logs/
+
+# Spring configuration files (only toplevel)
+/application*.properties
+/application*.yml
