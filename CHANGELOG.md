@@ -1,5 +1,9 @@
 # Changelog 
 
+### 1.7.1
+* Fix logout page was not displayed correctly
+* Add developer feature to manage application.properties on project root level that is not tracked by git
+
 ### 1.7.0
 * Add navigation bar for /clients
 * Upgrade to Spring Boot 1.5.1
