@@ -2,8 +2,9 @@ package coffee.synyx.auth.web;
 
 import coffee.synyx.auth.AuthenticationServer;
 
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.appinfo.MyDataCenterInstanceConfig;
+import coffee.synyx.autoconfigure.discovery.service.AppQuery;
+import coffee.synyx.autoconfigure.discovery.service.CoffeeNetApp;
+import coffee.synyx.autoconfigure.discovery.service.CoffeeNetAppService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,11 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import org.springframework.cloud.client.DefaultServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient.EurekaServiceInstance;
-import org.springframework.cloud.netflix.eureka.InstanceInfoFactory;
-
 import org.springframework.security.test.context.support.WithMockUser;
 
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,6 +25,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.Filter;
 
 import static org.hamcrest.core.IsNull.nullValue;
@@ -36,7 +36,6 @@ import static org.hamcrest.core.StringEndsWith.endsWith;
 
 import static org.mockito.Matchers.any;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -47,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
 import static java.util.Collections.singletonList;
 
 
@@ -66,14 +65,15 @@ public class LoginControllerTest {
     private Filter springSecurityFilterChain;
 
     @MockBean
-    private DiscoveryClient discoveryClient;
+    private CoffeeNetAppService coffeeNetAppService;
 
     private MockMvc mockMvc;
 
     @Before
     public void setupMockMvc() {
 
-        mockMvc = MockMvcBuilders.webAppContextSetup(webContext).apply(springSecurity(springSecurityFilterChain))
+        mockMvc = MockMvcBuilders.webAppContextSetup(webContext)
+                .apply(springSecurity(springSecurityFilterChain))
                 .build();
     }
 
@@ -81,20 +81,7 @@ public class LoginControllerTest {
     @Test
     public void redirectsToDefaultRedirectUriIfLoggedInAndNoInstanceFound() throws Exception {
 
-        when(discoveryClient.getInstances(any())).thenReturn(emptyList());
-
-        ResultActions resultActions = mockMvc.perform(get("/login"));
-        resultActions.andExpect(status().isOk());
-        resultActions.andExpect(view().name("auth/login"));
-        resultActions.andExpect(model().attribute("passwordRecoveryUrl", nullValue()));
-    }
-
-
-    @Test
-    public void redirectsToDefaultRedirectUriIfLoggedInAndWrongProfileFound() throws Exception {
-
-        when(discoveryClient.getInstances(any())).thenReturn(singletonList(
-                new DefaultServiceInstance("profile", "host", 1, true)));
+        when(coffeeNetAppService.getApps(any(AppQuery.class))).thenReturn(new HashMap<>());
 
         ResultActions resultActions = mockMvc.perform(get("/login"));
         resultActions.andExpect(status().isOk());
@@ -106,11 +93,9 @@ public class LoginControllerTest {
     @Test
     public void redirectsToDefaultRedirectUriIfLoggedInAndPasswordRecoveryService() throws Exception {
 
-        InstanceInfo instanceInfo = new InstanceInfoFactory().create(new MyDataCenterInstanceConfig());
-        EurekaServiceInstance eurekaServiceInstance = mock(EurekaServiceInstance.class);
-        when(eurekaServiceInstance.getInstanceInfo()).thenReturn(instanceInfo);
-
-        when(discoveryClient.getInstances(any())).thenReturn(singletonList(eurekaServiceInstance));
+        Map<String, List<CoffeeNetApp>> apps = new HashMap<>();
+        apps.put("profile", singletonList(new CoffeeNetApp("profile", "url", emptySet())));
+        when(coffeeNetAppService.getApps(any(AppQuery.class))).thenReturn(apps);
 
         ResultActions resultActions = mockMvc.perform(get("/login"));
         resultActions.andExpect(status().isOk());

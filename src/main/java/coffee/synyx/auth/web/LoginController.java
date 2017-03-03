@@ -2,15 +2,15 @@ package coffee.synyx.auth.web;
 
 import coffee.synyx.auth.config.AuthConfigurationProperties;
 
+import coffee.synyx.autoconfigure.discovery.service.AppQuery;
+import coffee.synyx.autoconfigure.discovery.service.CoffeeNetApp;
+import coffee.synyx.autoconfigure.discovery.service.CoffeeNetAppService;
+
 import org.slf4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient.EurekaServiceInstance;
 
 import org.springframework.stereotype.Controller;
 
@@ -39,13 +39,14 @@ public class LoginController {
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private final AuthConfigurationProperties authConfigurationProperties;
-    private final DiscoveryClient discoveryClient;
+    private final CoffeeNetAppService coffeeNetAppService;
 
     @Autowired
-    public LoginController(AuthConfigurationProperties authConfigurationProperties, DiscoveryClient discoveryClient) {
+    public LoginController(AuthConfigurationProperties authConfigurationProperties,
+        CoffeeNetAppService coffeeNetAppService) {
 
         this.authConfigurationProperties = authConfigurationProperties;
-        this.discoveryClient = discoveryClient;
+        this.coffeeNetAppService = coffeeNetAppService;
     }
 
     @RequestMapping(value = "/login", method = GET)
@@ -69,17 +70,14 @@ public class LoginController {
     private String getPasswordRecoveryUri() {
 
         String passwordRecoveryServiceName = authConfigurationProperties.getPasswordRecoveryServiceName();
-        List<ServiceInstance> profileServices = discoveryClient.getInstances(passwordRecoveryServiceName);
 
-        if (!profileServices.isEmpty()) {
-            ServiceInstance profileService = profileServices.get(0);
+        AppQuery query = AppQuery.builder().withAppName(passwordRecoveryServiceName).build();
+        List<CoffeeNetApp> profileApps = coffeeNetAppService.getApps(query).get(passwordRecoveryServiceName);
 
-            if (profileService instanceof EurekaServiceInstance) {
-                EurekaServiceInstance eurekaServiceProfile = (EurekaServiceInstance) profileService;
+        if (profileApps != null) {
+            CoffeeNetApp profileService = profileApps.get(0);
 
-                return eurekaServiceProfile.getInstanceInfo().getHomePageUrl()
-                    + authConfigurationProperties.getPasswordRecoveryPath();
-            }
+            return profileService.getUrl() + authConfigurationProperties.getPasswordRecoveryPath();
         }
 
         return null;
