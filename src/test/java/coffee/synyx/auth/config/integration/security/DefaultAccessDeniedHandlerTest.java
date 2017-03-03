@@ -43,7 +43,7 @@ public class DefaultAccessDeniedHandlerTest {
     public void setup() {
 
         AuthConfigurationProperties authConfigurationProperties = new AuthConfigurationProperties();
-        authConfigurationProperties.setDefaultRedirectUrl("https://synyx.coffee");
+        authConfigurationProperties.setDefaultRedirectUrl("https://coffeenet");
         sut = new DefaultAccessDeniedHandler(authConfigurationProperties);
     }
 
@@ -62,7 +62,7 @@ public class DefaultAccessDeniedHandlerTest {
 
         sut.handle(request, response, new MissingCsrfTokenException("Test"));
 
-        verify(response).sendRedirect("https://synyx.coffee");
+        verify(response).sendRedirect("https://coffeenet");
     }
 
 
@@ -72,6 +72,6 @@ public class DefaultAccessDeniedHandlerTest {
         sut.handle(request, response,
             new InvalidCsrfTokenException(new DefaultCsrfToken("test", "test", "test"), "Test"));
 
-        verify(response).sendRedirect("https://synyx.coffee");
+        verify(response).sendRedirect("https://coffeenet");
     }
 }
