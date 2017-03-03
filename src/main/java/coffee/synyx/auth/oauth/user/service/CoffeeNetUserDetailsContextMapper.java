@@ -19,15 +19,15 @@ import static java.lang.invoke.MethodHandles.lookup;
 
 
 @Service
-public class SynyxUserDetailsContextMapper extends LdapUserDetailsMapper {
+public class CoffeeNetUserDetailsContextMapper extends LdapUserDetailsMapper {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    public SynyxUserDetailsContextMapper() {
+    public CoffeeNetUserDetailsContextMapper() {
 
         super();
 
-        LOGGER.info("//> SynyxUserDetailsContextMapper created");
+        LOGGER.info("//> CoffeeNetUserDetailsContextMapper created");
     }
 
     @Override
@@ -36,8 +36,8 @@ public class SynyxUserDetailsContextMapper extends LdapUserDetailsMapper {
 
         UserDetails details = super.mapUserFromContext(ctx, username, authorities);
 
-        LOGGER.info("//> Mapped user {} from ldap to SynyxUserDetails", username);
+        LOGGER.info("//> Mapped user {} from ldap to CoffeeNetUserDetails", username);
 
-        return new SynyxUserDetails((LdapUserDetails) details, ctx.getStringAttribute("mail"));
+        return new CoffeeNetUserDetails((LdapUserDetails) details, ctx.getStringAttribute("mail"));
     }
 }

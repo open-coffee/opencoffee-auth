@@ -1,6 +1,6 @@
 package coffee.synyx.auth.oauth.user.api;
 
-import coffee.synyx.auth.oauth.user.service.SynyxUserDetails;
+import coffee.synyx.auth.oauth.user.service.CoffeeNetUserDetails;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -64,12 +64,12 @@ public class UserControllerTest {
     public void userOAuth2() throws Exception {
 
         LdapUserDetails ldapUserDetailsMock = mock(LdapUserDetails.class);
-        when(ldapUserDetailsMock.getUsername()).thenReturn("klem");
+        when(ldapUserDetailsMock.getUsername()).thenReturn("user");
 
-        SynyxUserDetails synyxUserDetails = new SynyxUserDetails(ldapUserDetailsMock, "klem@synyx.de");
+        CoffeeNetUserDetails coffeeNetUserDetails = new CoffeeNetUserDetails(ldapUserDetailsMock, "user@coffeenet");
         Authentication userAuthenticationMock = mock(Authentication.class);
         when(userAuthenticationMock.isAuthenticated()).thenReturn(true);
-        when(userAuthenticationMock.getPrincipal()).thenReturn(synyxUserDetails);
+        when(userAuthenticationMock.getPrincipal()).thenReturn(coffeeNetUserDetails);
 
         OAuth2Request oAuthRequestMock = mock(OAuth2Request.class);
         when(oAuthRequestMock.isApproved()).thenReturn(true);
@@ -79,10 +79,10 @@ public class UserControllerTest {
         ResultActions resultActions = perform(get("/user").principal(oAuth2Authentication));
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-        resultActions.andExpect(jsonPath("$.name").value("klem"));
-        resultActions.andExpect(jsonPath("$.id").value("klem"));
-        resultActions.andExpect(jsonPath("$.principal.username").value("klem"));
-        resultActions.andExpect(jsonPath("$.principal.mail").value("klem@synyx.de"));
+        resultActions.andExpect(jsonPath("$.name").value("user"));
+        resultActions.andExpect(jsonPath("$.id").value("user"));
+        resultActions.andExpect(jsonPath("$.principal.username").value("user"));
+        resultActions.andExpect(jsonPath("$.principal.mail").value("user@coffeenet"));
         resultActions.andExpect(jsonPath("$.principal.password").doesNotExist());
         resultActions.andExpect(jsonPath("$.principal.authorities").exists());
         resultActions.andExpect(jsonPath("$.password").doesNotExist());
