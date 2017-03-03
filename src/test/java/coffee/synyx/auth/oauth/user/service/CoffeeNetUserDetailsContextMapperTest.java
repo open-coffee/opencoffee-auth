@@ -69,15 +69,14 @@ public class CoffeeNetUserDetailsContextMapperTest {
     public void eraseCredentials() throws InvalidNameException {
 
         DirContextAdapter ctx = new DirContextAdapter();
-        ctx.setDn(new LdapName("uid=schneider,ou=employees,ou=accounts,dc=synyx,dc=coffee"));
-        ctx.addAttributeValue("mail", "aus@berlin.de");
-        ctx.addAttributeValue("userPassword", "sicherHeit");
+        ctx.setDn(new LdapName("uid=schneider,ou=employees,ou=accounts,dc=coffee,dc=net"));
+        ctx.addAttributeValue("mail", "user@coffeenet");
+        ctx.addAttributeValue("userPassword", "passw0rd");
 
         LdapAuthority authority = new LdapAuthority("ADMIN", "dn");
         List<LdapAuthority> authorities = singletonList(authority);
 
-        CoffeeNetUserDetails userDetails = (CoffeeNetUserDetails) sut.mapUserFromContext(ctx, "dieserSchneider",
-                authorities);
+        CoffeeNetUserDetails userDetails = (CoffeeNetUserDetails) sut.mapUserFromContext(ctx, "username", authorities);
         userDetails.eraseCredentials();
         assertThat(userDetails.getPassword(), nullValue());
     }
