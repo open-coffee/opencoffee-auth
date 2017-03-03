@@ -163,7 +163,7 @@ public class ClientDetailsResource {
      *
      * @param  registeredRedirectUri  This is a comma separated list of uris where the client can be accessed with a
      *                                maximum length of 256 characters. I.e.
-     *                                "https://myApp.synyx.coffee,http://myApp.synyx.coffee"
+     *                                "https://first-app.coffeenet,http://second-app.coffeenet"
      */
     public void setRegisteredRedirectUri(String registeredRedirectUri) {
 
