@@ -29,24 +29,24 @@ import static java.util.Collections.singletonList;
 
 
 /**
- * Unit test of {@link SynyxUserDetailsContextMapper}.
+ * Unit test of {@link CoffeeNetUserDetailsContextMapper}.
  *
  * @author  Tobias Schneider
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SynyxUserDetailsContextMapper.class)
-public class SynyxUserDetailsContextMapperTest {
+@SpringBootTest(classes = CoffeeNetUserDetailsContextMapper.class)
+public class CoffeeNetUserDetailsContextMapperTest {
 
     @Autowired
-    private SynyxUserDetailsContextMapper sut;
+    private CoffeeNetUserDetailsContextMapper sut;
 
     @Test
     public void mapUserFromContext() throws InvalidNameException {
 
-        String username = "dieserSchneider";
-        String password = "sicherHeit";
-        String mail = "aus@berlin.de";
-        String distinguishName = "uid=schneider,ou=employees,ou=accounts,dc=synyx,dc=coffee";
+        String username = "username";
+        String password = "password";
+        String mail = "user@coffeenet";
+        String distinguishName = "uid=user,ou=employees,ou=accounts,dc=coffee,dc=net";
 
         DirContextAdapter ctx = new DirContextAdapter();
         ctx.setDn(new LdapName(distinguishName));
@@ -56,7 +56,7 @@ public class SynyxUserDetailsContextMapperTest {
         LdapAuthority authority = new LdapAuthority("ADMIN", "dn");
         List<LdapAuthority> authorities = singletonList(authority);
 
-        SynyxUserDetails userDetails = (SynyxUserDetails) sut.mapUserFromContext(ctx, username, authorities);
+        CoffeeNetUserDetails userDetails = (CoffeeNetUserDetails) sut.mapUserFromContext(ctx, username, authorities);
         assertThat(userDetails.getUsername(), is(username));
         assertThat(userDetails.getMail(), is(mail));
         assertThat(userDetails.getPassword(), is(password));
@@ -76,7 +76,8 @@ public class SynyxUserDetailsContextMapperTest {
         LdapAuthority authority = new LdapAuthority("ADMIN", "dn");
         List<LdapAuthority> authorities = singletonList(authority);
 
-        SynyxUserDetails userDetails = (SynyxUserDetails) sut.mapUserFromContext(ctx, "dieserSchneider", authorities);
+        CoffeeNetUserDetails userDetails = (CoffeeNetUserDetails) sut.mapUserFromContext(ctx, "dieserSchneider",
+                authorities);
         userDetails.eraseCredentials();
         assertThat(userDetails.getPassword(), nullValue());
     }
