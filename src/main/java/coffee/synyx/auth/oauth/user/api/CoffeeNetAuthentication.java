@@ -2,9 +2,13 @@ package coffee.synyx.auth.oauth.user.api;
 
 import coffee.synyx.auth.oauth.user.service.CoffeeNetUserDetails;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 import javax.validation.constraints.NotNull;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 
 /**
@@ -16,6 +20,9 @@ final class CoffeeNetAuthentication {
 
     private final String id;
     private final String name;
+
+    @JsonInclude(NON_NULL)
+    private final String email;
     private final boolean clientOnly;
 
     /**
@@ -32,6 +39,7 @@ final class CoffeeNetAuthentication {
             this.principal = oAuth2Authentication.getName();
             this.id = oAuth2Authentication.getName();
             this.name = oAuth2Authentication.getName();
+            this.email = null;
         } else {
             CoffeeNetUserDetails coffeeNetUserDetails = (CoffeeNetUserDetails) oAuth2Authentication.getPrincipal();
             String username = coffeeNetUserDetails.getUsername();
@@ -40,6 +48,7 @@ final class CoffeeNetAuthentication {
                     coffeeNetUserDetails.getAuthorities(), username);
             this.id = username;
             this.name = username;
+            this.email = coffeeNetUserDetails.getMail();
         }
     }
 
@@ -64,5 +73,11 @@ final class CoffeeNetAuthentication {
     public boolean isClientOnly() {
 
         return clientOnly;
+    }
+
+
+    public String getEmail() {
+
+        return email;
     }
 }
