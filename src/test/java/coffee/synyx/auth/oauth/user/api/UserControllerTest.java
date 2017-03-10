@@ -21,7 +21,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -105,7 +104,6 @@ public class UserControllerTest {
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, clientOnly);
 
         ResultActions resultActions = perform(get("/user").principal(oAuth2Authentication));
-        resultActions.andDo(print());
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
         resultActions.andExpect(jsonPath("$.name").value("clientId"));
