@@ -74,35 +74,40 @@ in parameters)
 12. CoffeeNet App Stores user details in a session
 13. CoffeeNet App provides content based on the user details
 
+
 #### Password Grant
 
 This grant type is typically used by developers for testing purpose or systems.
 
 ![Password Grant_Type](docs/password_grant_type.jpg)
 
-1. System or Developer requests an access token. Request contains:
-    * ClientId + ClientSecret as basic auth header:
-        `Authorization: basic base64(ClientId:ClientSecret)`
-    * Grant type, username, password and scope in the body. Looks like the
-    following as form-data
+#####Request
+System or Developer requests (post) an access token. Request contains:
+* ClientId + ClientSecret as basic auth **header**:
 
+    `Authorization: basic base64(ClientId:ClientSecret)`
 
-        grant_type = password
-        username   = $username
-        password   = $password
-        scope      = openid
+* Grant type, username, password and scope in the **body**:
 
-2. Auth-Server provides access token if username, password, clientId and
+  `grant_type=password&username=$username&password=$password&scope=openid`
+
+with header `Content-Type: application/x-www-form-urlencoded`
+
+#####Response
+Auth-Server provides access token if username, password, clientId and
 clientSecret are correct.
 
 Response looks like this:
+```json
+{
+  "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
+  "token_type": "bearer",
+  "expires_in": 42837,
+  "scope": "openid"
+}
+```
 
-        {
-          "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
-          "token_type": "bearer",
-          "expires_in": 42837,
-          "scope": "openid"
-        }
+
 #### Client Credentials Grant
 
 This grant type is typically used by systems. They request their access token
@@ -111,26 +116,34 @@ any CoffeeNet App.
 
 ![Client_Credentials Grant_Type](docs/client_credentials_grant_type.jpg)
 
-1. System requests an access token. Request contains:
-    * ClientId + ClientSecret as basic auth header:
-        `Authorization: basic base64(ClientId:ClientSecret)`
-    * Grant type and scope in the body. Looks like the following as form-data
+##### Request
+System requests (post) an access token. Request **must** contain:
+
+* ClientId + ClientSecret as basic auth **header**:
+
+  `Authorization: basic base64(ClientId:ClientSecret)`
+
+* Grant type and scope in the **body**:
+
+  `grant_type=client_credentials&scope=openid`
+
+with header `Content-Type: application/x-www-form-urlencoded`
 
 
-        grant_type = client_credentials
-        scope      = openid
-
-2. Auth-Server provides access token if clientId and clientSecret are correct.
+#####Response
+Auth-Server provides access token if clientId and clientSecret are correct.
 
 Response looks like this:
 
-        {
-          "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
-          "token_type": "bearer",
-          "expires_in": 43189,
-          "scope": "openid"
-        }
-        
+```json
+{
+  "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
+  "token_type": "bearer",
+  "expires_in": 43189,
+  "scope": "openid"
+}
+```
+
 ## Configuration
 
 ### Developer Mode
