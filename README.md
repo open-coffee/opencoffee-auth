@@ -81,7 +81,7 @@ This grant type is typically used by developers for testing purpose or systems.
 
 ![Password Grant_Type](docs/password_grant_type.jpg)
 
-#####Request
+##### Request
 System or Developer requests (post) an access token. Request contains:
 * ClientId + ClientSecret as basic auth **header**:
 
@@ -89,11 +89,11 @@ System or Developer requests (post) an access token. Request contains:
 
 * Grant type, username, password and scope in the **body**:
 
-  `grant_type=password&username=$username&password=$password&scope=openid`
+    `grant_type=password&username=$username&password=$password&scope=openid`
 
 with header `Content-Type: application/x-www-form-urlencoded`
 
-#####Response
+##### Response
 Auth-Server provides access token if username, password, clientId and
 clientSecret are correct.
 
@@ -121,16 +121,16 @@ System requests (post) an access token. Request **must** contain:
 
 * ClientId + ClientSecret as basic auth **header**:
 
-  `Authorization: basic base64(ClientId:ClientSecret)`
+    `Authorization: basic base64(ClientId:ClientSecret)`
 
 * Grant type and scope in the **body**:
 
-  `grant_type=client_credentials&scope=openid`
+    `grant_type=client_credentials&scope=openid`
 
 with header `Content-Type: application/x-www-form-urlencoded`
 
 
-#####Response
+##### Response
 Auth-Server provides access token if clientId and clientSecret are correct.
 
 Response looks like this:
