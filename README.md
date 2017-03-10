@@ -79,7 +79,7 @@ in parameters)
 
 This grant type is typically used by developers for testing purpose or systems.
 
-![Password Grant_Type](docs/password_grant_type.jpg)
+![Password Grant_Type](docs/password_grant_type.png)
 
 ##### Request
 System or Developer requests (post) an access token. Request contains:
