@@ -21,10 +21,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.emptySet;
 
 
 /**
@@ -81,10 +86,32 @@ public class UserControllerTest {
         resultActions.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
         resultActions.andExpect(jsonPath("$.name").value("user"));
         resultActions.andExpect(jsonPath("$.id").value("user"));
+        resultActions.andExpect(jsonPath("$.email").value("user@coffeenet"));
         resultActions.andExpect(jsonPath("$.principal.username").value("user"));
         resultActions.andExpect(jsonPath("$.principal.mail").value("user@coffeenet"));
         resultActions.andExpect(jsonPath("$.principal.password").doesNotExist());
         resultActions.andExpect(jsonPath("$.principal.authorities").exists());
+        resultActions.andExpect(jsonPath("$.password").doesNotExist());
+    }
+
+
+    @Test
+    public void userOAuth2AsClientOnlyClient() throws Exception {
+
+        OAuth2Request oAuth2Request = new OAuth2Request(emptyMap(), "clientId", emptyList(), true, emptySet(),
+                emptySet(), "", emptySet(), emptyMap());
+
+        Authentication clientOnly = null;
+        OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, clientOnly);
+
+        ResultActions resultActions = perform(get("/user").principal(oAuth2Authentication));
+        resultActions.andDo(print());
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+        resultActions.andExpect(jsonPath("$.name").value("clientId"));
+        resultActions.andExpect(jsonPath("$.id").value("clientId"));
+        resultActions.andExpect(jsonPath("$.email").doesNotExist());
+        resultActions.andExpect(jsonPath("$.principal").value("clientId"));
         resultActions.andExpect(jsonPath("$.password").doesNotExist());
     }
 
