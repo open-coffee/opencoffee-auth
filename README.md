@@ -6,6 +6,32 @@ To use the Auth-Server in your application, see [README of CoffeeNet Starter Sec
 
 ## Endpoints
 * User endpoint: `/user` (Endpoint to retrieve user details)
+
+Response for human user:
+```json
+{
+"id":"${username}",
+"name":"${username}",
+"email":"${email}",
+"clientOnly":false,
+"principal": {
+    "mail":"${email}",
+    "authorities":[],
+    "username":"${username}"
+    }
+}
+```
+
+Response for technical user:
+```json
+{
+"id":"${username}",
+"name":"${username}",
+"clientOnly":true,
+"principal": "${username}"
+}
+```
+
 * Authorization endpoint: `/oauth/authorize` (User authorizes client to access the user endpoint)
 * Token edpoint: `/oauth/token` (Used to get an access token. See [access token](#access-token))
 
