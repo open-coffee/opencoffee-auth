@@ -1,5 +1,8 @@
 # Changelog 
 
+### 1.8.0
+* Expose email attribute on '/user' endpoint
+
 ### 1.7.1
 * Fix logout page was not displayed correctly
 * Add developer feature to manage application.properties on project root level that is not tracked by git
