@@ -5,9 +5,17 @@ It authenticates against a LDAP-Server. See [how to configure LDAP](#LDAP)
 To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://gitlab.synyx.de/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
 
 ## Endpoints
-* User endpoint: `/user` (Endpoint to retrieve user details)
 
-Response for human user:
+### User Endpoint
+
+`/user` (Endpoint to retrieve user details)
+
+#### Request
+A [access token](#access-token) is needed to get the user details via `/user?access_token=${access_token}`
+
+#### Response
+
+Response for **human user**:
 ```json
 {
 "id":"${username}",
@@ -22,7 +30,7 @@ Response for human user:
 }
 ```
 
-Response for technical user:
+Response for **technical user**:
 ```json
 {
 "id":"${username}",
@@ -32,12 +40,21 @@ Response for technical user:
 }
 ```
 
-* Authorization endpoint: `/oauth/authorize` (User authorizes client to access the user endpoint)
-* Token edpoint: `/oauth/token` (Used to get an access token. See [access token](#access-token))
+
+### Authorization Endpoint
+
+`/oauth/authorize` (User authorizes client to access the user endpoint)
+
+
+### Token Endpoint
+
+`/oauth/token` (Used to get an access token. See [access token](#access-token))
+
 
 ## Create a new OAuth2 Client
 
 A user with the role `COFFEENET-ADMIN` is able to create a new client at `http(s)://$host/clients/new`.
+
 
 ## Access Token
 
@@ -180,7 +197,7 @@ This client can be used to test your application with integration into the Auth-
 
 Details of the default client:
 
-```
+```yaml
 clientId: coffeeNetClient
 clientSecret: coffeeNetClientSecret
 ```
@@ -189,26 +206,30 @@ clientSecret: coffeeNetClientSecret
 To configure the connection to your LDAP-Server just set the following properties inside your `application.yml`.
 This example shows the properties to connect with the LDAP-Server provided by our docker container.
 
-    auth:
-      ldap:
-        url: ldap://localhost:38900
-        base: dc=synyx,dc=coffee
-        userSearchBase: ou=People
-        userSearchFilter: uid={0}
-        groupSearchBase: ou=Groups
-        groupSearchFilter: member={0}
+```yaml
+auth:
+  ldap:
+    url: ldap://localhost:38900
+    base: dc=synyx,dc=coffee
+    userSearchBase: ou=People
+    userSearchFilter: uid={0}
+    groupSearchBase: ou=Groups
+    groupSearchFilter: member={0}
+```
 
 ### Database
 
 Specify the following properties inside your `application.yml`. 
 The following example is configures the application to use the mysql database provided by our docker container.
 
-```
-spring.datasource.url=jdbc:mysql://localhost:3306/${Database}
-spring.datasource.driverClassName=com.mysql.jdbc.Driver
-spring.datasource.username=${username}
-spring.datasource.password=${Password}
-spring.datasource.data=${PathTo-data.sql}
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/${database}
+    driver-className: com.mysql.jdbc.Driver
+    username: ${username}
+    password: ${password}
+    data: ${pathToData.sql}
 ```
 
 ### Logging
