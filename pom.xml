@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>auth</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.8</version>
     <packaging>jar</packaging>
 
     <name>CoffeeNet Authentication Service</name>
@@ -35,7 +35,7 @@
         <developerConnection>
             scm:git:ssh://git@gitlab.synyx.de/coffeenet/coffeenet-auth.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>auth-1.8</tag>
     </scm>
 
     <repositories>
