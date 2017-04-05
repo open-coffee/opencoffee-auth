@@ -46,8 +46,8 @@ public class LogoutRedirectSuccessHandler implements LogoutSuccessHandler {
     }
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-        throws IOException {
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
+        Authentication authentication) throws IOException {
 
         String redirect = request.getParameter("redirect");
 
