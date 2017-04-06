@@ -62,7 +62,7 @@ A user with the role `COFFEENET-ADMIN` is able to create a new client at `http(s
 
 The access token in CoffeeNet is used to retrieve user/clientdetails from the Auth-server.
 
-![Access_Token_Usage](docs/access_token_usage.jpg)
+![Access_Token_Usage](docs/access_token_usage.png)
 
 1. System requests content of a CoffeeNet App with an access token.
     (Header: `Authorzitation: Bearer $accessToken`)
@@ -91,7 +91,7 @@ user to the authorization server to obtain the token.
 This flow is the flow you see for example when you visit the coffeenet 
 frontpage.
 
-![Authorization Code Web Flow](docs/authorization_code_web_flow.jpg)
+![Authorization Code Web Flow](docs/authorization_code_web_flow.png)
 
 1. User navigates to CoffeeNet App 
 2. CoffeeNet App checks if session is available for this user 
@@ -157,7 +157,7 @@ This grant type is typically used by systems. They request their access token
 from the Auth-Server and use it as authentication information for requests to
 any CoffeeNet App.
 
-![Client_Credentials Grant_Type](docs/client_credentials_grant_type.jpg)
+![Client_Credentials Grant_Type](docs/client_credentials_grant_type.png)
 
 ##### Request
 System requests (post) an access token. Request **must** contain:
