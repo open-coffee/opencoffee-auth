@@ -1,5 +1,10 @@
 # Changelog 
 
+### 1.9.0
+* Upgrade to Spring Boot 1.5.3
+* Upgrade CoffeeNet starter-logging to version 0.19.0
+* Upgrade CoffeeNet starter-discovery to version 0.19.0
+
 ### 1.8.0
 * Expose email attribute on '/user' endpoint
 
