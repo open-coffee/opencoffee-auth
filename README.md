@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/coffeenet/coffeenet-auth.svg?branch=master)](https://travis-ci.org/coffeenet/coffeenet-auth)
+
 # CoffeeNet Auth Server
 
 The CoffeeNet Auth Server is an OAuth2 provider to achieve single sign-on for the CoffeeNet. 
