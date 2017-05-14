@@ -3,8 +3,8 @@
 # CoffeeNet Auth Server
 
 The CoffeeNet Auth Server is an OAuth2 provider to achieve single sign-on for the CoffeeNet. 
-It authenticates against a LDAP-Server. See [how to configure LDAP](#LDAP)
-To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://gitlab.synyx.de/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
+It authenticates against a LDAP-Server. See [how to configure LDAP](#ldap)
+To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
 
 ## Endpoints
 
@@ -236,9 +236,9 @@ spring:
 
 ### Logging
 
-Logging is provided by [CoffeeNet Logging](https://gitlab.synyx.de/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-logging) and can be configured by setting
+Logging is provided by [CoffeeNet Logging](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-logging) and can be configured by setting
 properties below `coffeenet.logging.*` inside your `application.yml`.
 
 ### Service Discovery
 
-The Auth-Server uses [Coffeenet Service Discovery](https://gitlab.synyx.de/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-discovery) and is only visible to users with the role `COFFEENET-ADMIN`.  
+The Auth-Server uses [Coffeenet Service Discovery](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-discovery) and is only visible to users with the role `COFFEENET-ADMIN`.  
