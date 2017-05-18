@@ -1,5 +1,23 @@
 # Changelog 
 
+### 1.9.0
+* Upgrade to Spring Boot 1.5.3
+* Upgrade CoffeeNet starter-logging to version 0.19.0
+* Upgrade CoffeeNet starter-discovery to version 0.19.0
+
+### 1.8.0
+* Expose email attribute on '/user' endpoint
+
+### 1.7.1
+* Fix logout page was not displayed correctly
+* Add developer feature to manage application.properties on project root level that is not tracked by git
+
+### 1.7.0
+* Add navigation bar for /clients
+* Upgrade to Spring Boot 1.5.1
+* Upgrade CoffeeNet starter-logging to version 0.18.0
+* Upgrade CoffeeNet starter-discovery to version 0.18.0
+
 ### 1.6.0
 * Remove refresh token functionality
 * Upgrade to Spring Boot 1.4.4

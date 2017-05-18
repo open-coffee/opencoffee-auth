@@ -6,7 +6,7 @@ import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import java.util.Collection;
 
 
-public final class SynyxUserDetails implements LdapUserDetails {
+public final class CoffeeNetUserDetails implements LdapUserDetails {
 
     private static final long serialVersionUID = 8870805981125727355L;
 
@@ -20,7 +20,7 @@ public final class SynyxUserDetails implements LdapUserDetails {
     private final boolean accountNonLocked;
     private final boolean credentialsNonExpired;
 
-    public SynyxUserDetails(LdapUserDetails details, String mail) {
+    public CoffeeNetUserDetails(LdapUserDetails details, String mail) {
 
         this.mail = mail;
         this.dn = details.getDn();

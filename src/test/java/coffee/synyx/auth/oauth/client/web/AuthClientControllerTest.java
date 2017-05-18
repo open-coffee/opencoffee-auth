@@ -72,8 +72,9 @@ public class AuthClientControllerTest {
     @Before
     public void setupMockMvc() {
 
-        mockMvc = MockMvcBuilders.webAppContextSetup(webContext).apply(springSecurity(springSecurityFilterChain))
-            .build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webContext)
+                .apply(springSecurity(springSecurityFilterChain))
+                .build();
     }
 
 
@@ -224,7 +225,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
+                .param("registeredRedirectUri", "https://coffeenet"));
 
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("http://localhost/login"));
@@ -238,7 +239,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
+                .param("registeredRedirectUri", "https://coffeenet"));
 
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("/forbidden"));
@@ -253,7 +254,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://.synyx.coffee"));
+                .param("registeredRedirectUri", "https://.coffeenet"));
 
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(view().name("oauth/clients/edit"));
@@ -273,7 +274,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(put("/clients/myApp").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
+                .param("registeredRedirectUri", "https://coffeenet"));
 
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("/clients"));
@@ -289,7 +290,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
+                .param("registeredRedirectUri", "https://coffeenet"));
 
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("http://localhost/login"));
@@ -303,7 +304,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
+                .param("registeredRedirectUri", "https://coffeenet"));
 
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("/forbidden"));
@@ -318,7 +319,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://.synyx.coffee"));
+                .param("registeredRedirectUri", "https://.coffeenet"));
 
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(view().name("oauth/clients/new"));
@@ -342,7 +343,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
+                .param("registeredRedirectUri", "https://coffeenet"));
 
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(view().name("oauth/clients/new"));
@@ -362,7 +363,7 @@ public class AuthClientControllerTest {
         ResultActions resultActions = mockMvc.perform(post("/clients").with(csrf())
                 .param("clientId", "myApp")
                 .param("clientSecret", "myAppSecret")
-                .param("registeredRedirectUri", "https://synyx.coffee"));
+                .param("registeredRedirectUri", "https://coffeenet"));
 
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("/clients"));

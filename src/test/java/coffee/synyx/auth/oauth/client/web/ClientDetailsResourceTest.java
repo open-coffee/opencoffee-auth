@@ -30,8 +30,8 @@ public class ClientDetailsResourceTest {
         AuthClient authClient = new AuthClient();
         authClient.setClientId("clientId");
         authClient.setClientSecret("clientSecret");
-        authClient.getRegisteredRedirectUri().add("https://myApp.synyx.coffee");
-        authClient.getRegisteredRedirectUri().add("http://myApp.synyx.coffee");
+        authClient.getRegisteredRedirectUri().add("https://first-app.coffeenet");
+        authClient.getRegisteredRedirectUri().add("https://second-app.coffeenet");
         authClient.getScope().add("openid");
         authClient.getAuthorizedGrantTypes().add("password");
         authClient.getAuthorizedGrantTypes().add("authorization_code");
@@ -62,8 +62,8 @@ public class ClientDetailsResourceTest {
         assertThat(clientDetails.getScope().contains("openid"), is(true));
         assertThat(clientDetails.getRegisteredRedirectUri(), is(notNullValue()));
         assertThat(clientDetails.getRegisteredRedirectUri().size(), is(2));
-        assertThat(clientDetails.getRegisteredRedirectUri().contains("https://myApp.synyx.coffee"), is(true));
-        assertThat(clientDetails.getRegisteredRedirectUri().contains("http://myApp.synyx.coffee"), is(true));
+        assertThat(clientDetails.getRegisteredRedirectUri().contains("https://first-app.coffeenet"), is(true));
+        assertThat(clientDetails.getRegisteredRedirectUri().contains("https://second-app.coffeenet"), is(true));
         assertThat(clientDetails.getClientId(), is("clientId"));
         assertThat(clientDetails.getClientSecret(), is("clientSecret"));
         assertThat(clientDetails.isAutoApprove("openid"), is(true));
@@ -75,8 +75,8 @@ public class ClientDetailsResourceTest {
     @Test
     public void setRegisteredRedirectedUriBeautifiesString() {
 
-        sut.setRegisteredRedirectUri(",https://myApp.synyx.coffee , http://synyx.coffee,, , ");
+        sut.setRegisteredRedirectUri(",https://first-app.coffeenet , https://second-app.coffeenet,, , ");
 
-        assertThat(sut.getRegisteredRedirectUri(), is("https://myApp.synyx.coffee,http://synyx.coffee"));
+        assertThat(sut.getRegisteredRedirectUri(), is("https://first-app.coffeenet,https://second-app.coffeenet"));
     }
 }

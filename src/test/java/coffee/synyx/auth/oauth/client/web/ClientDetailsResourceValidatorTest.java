@@ -39,7 +39,7 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateFailsIfUriStartsWithFtp() {
 
-        clientDetailsResource.setRegisteredRedirectUri("ftp://test.synyx.de");
+        clientDetailsResource.setRegisteredRedirectUri("ftp://test.coffeenet");
 
         sut.validate(clientDetailsResource, bindingResult);
 
@@ -53,7 +53,7 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateFailsIfUriStartsWithADotAfterScheme() {
 
-        clientDetailsResource.setRegisteredRedirectUri("http://.test.synyx.de");
+        clientDetailsResource.setRegisteredRedirectUri("http://.test.coffeenet");
 
         sut.validate(clientDetailsResource, bindingResult);
 
@@ -92,7 +92,7 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateSucceedsIfUriStartsWithHttp() {
 
-        clientDetailsResource.setRegisteredRedirectUri("http://test.synyx.de");
+        clientDetailsResource.setRegisteredRedirectUri("http://coffeenet");
 
         sut.validate(clientDetailsResource, bindingResult);
 
@@ -103,7 +103,7 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateSucceedsIfUriStartsWithHttps() {
 
-        clientDetailsResource.setRegisteredRedirectUri("https://test.synyx.de");
+        clientDetailsResource.setRegisteredRedirectUri("https://coffeenet");
 
         sut.validate(clientDetailsResource, bindingResult);
 

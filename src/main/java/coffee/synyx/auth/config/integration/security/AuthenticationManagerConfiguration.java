@@ -2,7 +2,7 @@ package coffee.synyx.auth.config.integration.security;
 
 import coffee.synyx.auth.config.integration.security.ldap.AuthLdapConfigurationProperties;
 import coffee.synyx.auth.config.integration.security.ldap.CoffeeNetDefaultTlsDirContextAuthenticationStrategy;
-import coffee.synyx.auth.oauth.user.service.SynyxUserDetailsContextMapper;
+import coffee.synyx.auth.oauth.user.service.CoffeeNetUserDetailsContextMapper;
 
 import org.slf4j.Logger;
 
@@ -24,8 +24,8 @@ import static java.lang.invoke.MethodHandles.lookup;
 
 
 /**
- * Configures an {@link org.springframework.security.authentication.AuthenticationManager authentication manager} to use
- * ldap based on {@link AuthLdapConfigurationProperties}.
+ * Configures an {@link org.springframework.security.authentication.AuthenticationManager authentication manager} to
+ * use ldap based on {@link AuthLdapConfigurationProperties}.
  *
  * @author  Yannic Klem - klem@synyx.de
  */
@@ -35,14 +35,14 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    private SynyxUserDetailsContextMapper synyxUserDetailsContextMapper;
+    private CoffeeNetUserDetailsContextMapper coffeeNetUserDetailsContextMapper;
     private AuthLdapConfigurationProperties authLdapConfigurationProperties;
 
     @Autowired
-    public AuthenticationManagerConfiguration(SynyxUserDetailsContextMapper synyxUserDetailsContextMapper,
+    public AuthenticationManagerConfiguration(CoffeeNetUserDetailsContextMapper coffeeNetUserDetailsContextMapper,
         AuthLdapConfigurationProperties authLdapConfigurationProperties) {
 
-        this.synyxUserDetailsContextMapper = synyxUserDetailsContextMapper;
+        this.coffeeNetUserDetailsContextMapper = coffeeNetUserDetailsContextMapper;
         this.authLdapConfigurationProperties = authLdapConfigurationProperties;
 
         LOGGER.info("//> AuthenticationManagerConfiguration...");
@@ -57,7 +57,7 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
             .groupSearchBase(authLdapConfigurationProperties.getGroupSearchBase())
             .groupSearchFilter(authLdapConfigurationProperties.getGroupSearchFilter())
             .contextSource(contextSource())
-            .userDetailsContextMapper(synyxUserDetailsContextMapper);
+            .userDetailsContextMapper(coffeeNetUserDetailsContextMapper);
 
         LOGGER.info("//> Initialize AuthenticationManagerBuilder with ldap authentication");
     }

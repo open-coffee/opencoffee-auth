@@ -20,6 +20,7 @@ auth:
     userSearchFilter: uid={0}
     groupSearchBase: ou=Groups
     groupSearchFilter: member={0}
+    connection-with-tls: false
 
 server:
   port: 9999

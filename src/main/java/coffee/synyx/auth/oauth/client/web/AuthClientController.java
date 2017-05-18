@@ -81,9 +81,9 @@ public class AuthClientController {
     public String getAllClientsView(Model model) {
 
         List<ClientDetailsResource> clientDetails = jdbcClientDetailsService.listClientDetails()
-            .stream()
-            .map(ClientDetailsResource::new)
-            .collect(Collectors.toList());
+                .stream()
+                .map(ClientDetailsResource::new)
+                .collect(Collectors.toList());
 
         model.addAttribute("clients", clientDetails);
 

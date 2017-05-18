@@ -25,15 +25,15 @@ import static java.lang.invoke.MethodHandles.lookup;
  * Configures the authorization server.
  *
  * <ul>
- * <li>
- * {@link OAuth2AuthorizationServerConfig#configure(AuthorizationServerSecurityConfigurer) Who has access to the token endpoint}
- * </li>
- * <li>
- * {@link OAuth2AuthorizationServerConfig#configure(AuthorizationServerEndpointsConfigurer) How Tokens and Approvals should be stored}
- * </li>
- * <li>
- * {@link OAuth2AuthorizationServerConfig#configure(ClientDetailsServiceConfigurer) Where client details could be found}
- * </li>
+ *   <li>
+ *     {@link OAuth2AuthorizationServerConfig#configure(AuthorizationServerSecurityConfigurer) Who has access to the token endpoint}
+ *   </li>
+ *   <li>
+ *     {@link OAuth2AuthorizationServerConfig#configure(AuthorizationServerEndpointsConfigurer) How Tokens and Approvals should be stored}
+ *   </li>
+ *   <li>
+ *     {@link OAuth2AuthorizationServerConfig#configure(ClientDetailsServiceConfigurer) Where client details could be found}
+ *   </li>
  * </ul>
  *
  * @author  Yannic Klem - klem@synyx.de

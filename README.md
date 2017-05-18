@@ -1,17 +1,62 @@
+[![Build Status](https://travis-ci.org/coffeenet/coffeenet-auth.svg?branch=master)](https://travis-ci.org/coffeenet/coffeenet-auth)
+
 # CoffeeNet Auth Server
 
 The CoffeeNet Auth Server is an OAuth2 provider to achieve single sign-on for the CoffeeNet. 
-It authenticates against a LDAP-Server. See [how to configure LDAP](#LDAP)
-To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://gitlab.synyx.de/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
+It authenticates against a LDAP-Server. See [how to configure LDAP](#ldap)
+To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
 
 ## Endpoints
-* User endpoint: `/user` (Endpoint to retrieve user details)
-* Authorization endpoint: `/oauth/authorize` (User authorizes client to access the user endpoint)
-* Token edpoint: `/oauth/token` (Used to get an access token. See [access token](#access-token))
+
+### User Endpoint
+
+`/user` (Endpoint to retrieve user details)
+
+#### Request
+A [access token](#access-token) is needed to get the user details via `/user?access_token=${access_token}`
+
+#### Response
+
+Response for **human user**:
+```json
+{
+"id":"${username}",
+"name":"${username}",
+"email":"${email}",
+"clientOnly":false,
+"principal": {
+    "mail":"${email}",
+    "authorities":[],
+    "username":"${username}"
+    }
+}
+```
+
+Response for **technical user**:
+```json
+{
+"id":"${username}",
+"name":"${username}",
+"clientOnly":true,
+"principal": "${username}"
+}
+```
+
+
+### Authorization Endpoint
+
+`/oauth/authorize` (User authorizes client to access the user endpoint)
+
+
+### Token Endpoint
+
+`/oauth/token` (Used to get an access token. See [access token](#access-token))
+
 
 ## Create a new OAuth2 Client
 
 A user with the role `COFFEENET-ADMIN` is able to create a new client at `http(s)://$host/clients/new`.
+
 
 ## Access Token
 
@@ -19,7 +64,7 @@ A user with the role `COFFEENET-ADMIN` is able to create a new client at `http(s
 
 The access token in CoffeeNet is used to retrieve user/clientdetails from the Auth-server.
 
-![Access_Token_Usage](docs/access_token_usage.jpg)
+![Access_Token_Usage](docs/access_token_usage.png)
 
 1. System requests content of a CoffeeNet App with an access token.
     (Header: `Authorzitation: Bearer $accessToken`)
@@ -48,7 +93,7 @@ user to the authorization server to obtain the token.
 This flow is the flow you see for example when you visit the coffeenet 
 frontpage.
 
-![Authorization Code Web Flow](docs/authorization_code_web_flow.jpg)
+![Authorization Code Web Flow](docs/authorization_code_web_flow.png)
 
 1. User navigates to CoffeeNet App 
 2. CoffeeNet App checks if session is available for this user 
@@ -74,63 +119,76 @@ in parameters)
 12. CoffeeNet App Stores user details in a session
 13. CoffeeNet App provides content based on the user details
 
+
 #### Password Grant
 
 This grant type is typically used by developers for testing purpose or systems.
 
-![Password Grant_Type](docs/password_grant_type.jpg)
+![Password Grant_Type](docs/password_grant_type.png)
 
-1. System or Developer requests an access token. Request contains:
-    * ClientId + ClientSecret as basic auth header:
-        `Authorization: basic base64(ClientId:ClientSecret)`
-    * Grant type, username, password and scope in the body. Looks like the
-    following as form-data
+##### Request
+System or Developer requests (post) an access token. Request contains:
+* ClientId + ClientSecret as basic auth **header**:
 
+    `Authorization: basic base64(ClientId:ClientSecret)`
 
-        grant_type = password
-        username   = $username
-        password   = $password
-        scope      = openid
+* Grant type, username, password and scope in the **body**:
 
-2. Auth-Server provides access token if username, password, clientId and
+    `grant_type=password&username=$username&password=$password&scope=openid`
+
+with header `Content-Type: application/x-www-form-urlencoded`
+
+##### Response
+Auth-Server provides access token if username, password, clientId and
 clientSecret are correct.
 
 Response looks like this:
+```json
+{
+  "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
+  "token_type": "bearer",
+  "expires_in": 42837,
+  "scope": "openid"
+}
+```
 
-        {
-          "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
-          "token_type": "bearer",
-          "expires_in": 42837,
-          "scope": "openid"
-        }
+
 #### Client Credentials Grant
 
 This grant type is typically used by systems. They request their access token
 from the Auth-Server and use it as authentication information for requests to
 any CoffeeNet App.
 
-![Client_Credentials Grant_Type](docs/client_credentials_grant_type.jpg)
+![Client_Credentials Grant_Type](docs/client_credentials_grant_type.png)
 
-1. System requests an access token. Request contains:
-    * ClientId + ClientSecret as basic auth header:
-        `Authorization: basic base64(ClientId:ClientSecret)`
-    * Grant type and scope in the body. Looks like the following as form-data
+##### Request
+System requests (post) an access token. Request **must** contain:
+
+* ClientId + ClientSecret as basic auth **header**:
+
+    `Authorization: basic base64(ClientId:ClientSecret)`
+
+* Grant type and scope in the **body**:
+
+    `grant_type=client_credentials&scope=openid`
+
+with header `Content-Type: application/x-www-form-urlencoded`
 
 
-        grant_type = client_credentials
-        scope      = openid
-
-2. Auth-Server provides access token if clientId and clientSecret are correct.
+##### Response
+Auth-Server provides access token if clientId and clientSecret are correct.
 
 Response looks like this:
 
-        {
-          "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
-          "token_type": "bearer",
-          "expires_in": 43189,
-          "scope": "openid"
-        }
-        
+```json
+{
+  "access_token": "6b311332-f57c-3ee2-a668-57c1db083a5p",
+  "token_type": "bearer",
+  "expires_in": 43189,
+  "scope": "openid"
+}
+```
+
 ## Configuration
 
 ### Developer Mode
@@ -141,7 +199,7 @@ This client can be used to test your application with integration into the Auth-
 
 Details of the default client:
 
-```
+```yaml
 clientId: coffeeNetClient
 clientSecret: coffeeNetClientSecret
 ```
@@ -150,33 +208,37 @@ clientSecret: coffeeNetClientSecret
 To configure the connection to your LDAP-Server just set the following properties inside your `application.yml`.
 This example shows the properties to connect with the LDAP-Server provided by our docker container.
 
-    auth:
-      ldap:
-        url: ldap://localhost:38900
-        base: dc=synyx,dc=coffee
-        userSearchBase: ou=People
-        userSearchFilter: uid={0}
-        groupSearchBase: ou=Groups
-        groupSearchFilter: member={0}
+```yaml
+auth:
+  ldap:
+    url: ldap://localhost:38900
+    base: dc=synyx,dc=coffee
+    userSearchBase: ou=People
+    userSearchFilter: uid={0}
+    groupSearchBase: ou=Groups
+    groupSearchFilter: member={0}
+```
 
 ### Database
 
 Specify the following properties inside your `application.yml`. 
 The following example is configures the application to use the mysql database provided by our docker container.
 
-```
-spring.datasource.url=jdbc:mysql://localhost:3306/${Database}
-spring.datasource.driverClassName=com.mysql.jdbc.Driver
-spring.datasource.username=${username}
-spring.datasource.password=${Password}
-spring.datasource.data=${PathTo-data.sql}
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/${database}
+    driver-className: com.mysql.jdbc.Driver
+    username: ${username}
+    password: ${password}
+    data: ${pathToData.sql}
 ```
 
 ### Logging
 
-Logging is provided by [CoffeeNet Logging](https://gitlab.synyx.de/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-logging) and can be configured by setting
+Logging is provided by [CoffeeNet Logging](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-logging) and can be configured by setting
 properties below `coffeenet.logging.*` inside your `application.yml`.
 
 ### Service Discovery
 
-The Auth-Server uses [Coffeenet Service Discovery](https://gitlab.synyx.de/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-discovery) and is only visible to users with the role `COFFEENET-ADMIN`.  
+The Auth-Server uses [Coffeenet Service Discovery](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-discovery) and is only visible to users with the role `COFFEENET-ADMIN`.  

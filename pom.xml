@@ -5,11 +5,11 @@
     <parent>
         <groupId>coffee.synyx</groupId>
         <artifactId>coffeenet-starter-parent</artifactId>
-        <version>0.18.0</version>
+        <version>0.19.0</version>
     </parent>
 
     <artifactId>auth</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.9-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>CoffeeNet Authentication Service</name>
@@ -20,20 +20,20 @@
     <distributionManagement>
         <repository>
             <id>releases.nexus.synyx.de</id>
-            <url>http://nexus.synyx.de/content/repositories/releases</url>
+            <url>http://nexus.synyx.de/content/repositories/public-releases</url>
         </repository>
         <snapshotRepository>
             <id>snapshots.nexus.synyx.de</id>
-            <url>http://nexus.synyx.de/content/repositories/snapshots</url>
+            <url>http://nexus.synyx.de/content/repositories/public-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
     <scm>
         <connection>
-            scm:git:ssh://git@gitlab.synyx.de/coffeenet/coffeenet-auth.git
+            scm:git:ssh://git@github.com:coffeenet/coffeenet-auth.git
         </connection>
         <developerConnection>
-            scm:git:ssh://git@gitlab.synyx.de/coffeenet/coffeenet-auth.git
+            scm:git:ssh://git@github.com:coffeenet/coffeenet-auth.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
@@ -41,7 +41,7 @@
     <repositories>
         <repository>
             <id>releases.nexus.synyx.de</id>
-            <url>http://nexus.synyx.de/content/repositories/releases</url>
+            <url>http://nexus.synyx.de/content/repositories/public-releases</url>
         </repository>
     </repositories>
 
@@ -166,6 +166,27 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
+            </plugin>
+            <!-- Overriding build properties with local modifications per user -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>properties.initialize</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>application.properties</file>
+                            </files>
+                            <quiet>true</quiet>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
