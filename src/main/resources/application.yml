@@ -1,5 +1,5 @@
 coffeenet:
-  profile: integration
+  profile: development
   application-name: CoffeeNet Auth
   allowed-authorities: ROLE_COFFEENET-ADMIN
   security:
