@@ -29,13 +29,15 @@
         </snapshotRepository>
     </distributionManagement>
 
+    <issueManagement>
+        <url>https://github.com/coffeenet/coffeenet-auth/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
     <scm>
-        <connection>
-            scm:git:ssh://git@github.com:coffeenet/coffeenet-auth.git
-        </connection>
-        <developerConnection>
-            scm:git:ssh://git@github.com:coffeenet/coffeenet-auth.git
-        </developerConnection>
+        <url>https://github.com/coffeenet/coffeenet-auth</url>
+        <connection>scm:git:git://github.com/coffeenet/coffeenet-auth.git</connection>
+        <developerConnection>scm:git:git@github.com:coffeenet/coffeenet-auth.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
