@@ -4,23 +4,17 @@
 <head>
     <title th:text="#{error.title}"></title>
 </head>
-
 <body>
 <main layout:fragment="auth_main">
-    <div class="error container">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-            <div class="error--header">
-                <img class="error--logo" alt="coffeenet Logo" src="/images/logo.svg"/>
-                <h2 th:text="#{error.general}"></h2>
-            </div>
-            <div class="error--body">
-                <p th:text="#{error.general.messageA}"></p>
-                <p th:text="#{error.general.messageB}"></p>
-                <p class="small">
-                    <span th:text="#{error.general.contactA}"></span>
-                    <a th:text="#{error.general.contactB}" th:href="#{error.general.contactB.href}"></a>.
-                </p>
-            </div>
+    <div class="coffeenet--container coffeenet--container-error">
+        <img class="logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
+    </div>
+
+    <div class="coffeenet--container">
+        <div>
+            <h2 th:text="#{error.general}"></h2>
+            <p th:text="#{error.general.messageA}"></p>
+            <p th:text="#{error.general.messageB}"></p>
         </div>
     </div>
 </main>

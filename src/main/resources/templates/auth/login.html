@@ -6,41 +6,31 @@
 </head>
 <body>
 <main layout:fragment="auth_main">
-    <div class="login container">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
 
-            <div th:if="${param.error}" th:text="#{login.failure}" class="alert alert-danger"></div>
+    <div class="coffeenet--container-column coffeenet--container-login">
+        <img class="logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
 
-            <div class="login--form">
-                <div class="login--header">
-                    <img class="login--logo" alt="coffeenet Logo" src="/images/logo.svg"/>
-                    <h2 th:text="#{login.name}"></h2>
-                </div>
+        <div th:if="${param.error}" th:text="#{login.failure}" class="alert alert-danger"></div>
 
-                <form role="form" th:action="@{/login}" th:method="post">
-                    <div class="form-group">
-                        <label class="hidden-screen-reader-text" for="username"
-                               th:text="#{login.label.username}"></label>
-                        <input type="text" class="form-control" id="username" name="username"
-                               th:placeholder="#{login.username}" autofocus="autofocus"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="hidden-screen-reader-text" for="password"
-                               th:text="#{login.label.password}"></label>
-                        <input type="password" class="form-control" id="password" name="password"
-                               th:placeholder="#{login.password}"/>
-                    </div>
-                    <button type="submit" class="btn btn-block btn-success">
-                        <span class="glyphicon glyphicon-log-in"></span>
-                        <span th:text="#{login.button.login}" th:attr="aria-label=#{login.button.login}"></span>
-                    </button>
-                </form>
-                <div class="login--password-recovery">
-                    <a th:if="${passwordRecoveryUrl}" th:href="${passwordRecoveryUrl}" th:text="#{login.recovery}">
-                        Passwort recovery
-                    </a>
-                </div>
-            </div>
+        <form class="coffeenet--login-form" role="form" th:action="@{/login}" th:method="POST">
+            <label class="hidden-screen-reader-text" for="username" th:text="#{login.label.username}"></label>
+            <input type="text" class="form-control" id="username" name="username"
+                   th:placeholder="#{login.username}" autofocus="autofocus"/>
+
+            <label class="hidden-screen-reader-text" for="password" th:text="#{login.label.password}"></label>
+            <input type="password" class="form-control" id="password" name="password"
+                   th:placeholder="#{login.password}"/>
+
+            <button type="submit" class="btn btn-block btn-success">
+                <span class="glyphicon glyphicon-log-in"></span>
+                <span th:text="#{login.button.login}" th:attr="aria-label=#{login.button.login}"></span>
+            </button>
+        </form>
+
+        <div class="coffeenet--login-password-recovery">
+            <a th:if="${passwordRecoveryUrl}" th:href="${passwordRecoveryUrl}" th:text="#{login.recovery}">
+                Passwort recovery
+            </a>
         </div>
     </div>
 </main>
