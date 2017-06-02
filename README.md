@@ -18,7 +18,7 @@ a client with this credentials
 
 ```yaml
 client-id: coffeeNetClient
-cliend-secret: coffeeNetClientSecret`
+cliend-secret: coffeeNetClientSecret
 ```
 will be added automatically.
 This can be used in none prodution environments for testing purposes.
