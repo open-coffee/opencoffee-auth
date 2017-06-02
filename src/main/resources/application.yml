@@ -29,17 +29,17 @@ server:
       name: coffee-cookie
 
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
-    url: jdbc:h2:mem:auth;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mariadb://localhost:3308/auth
+    username: auth
+    password: auth
+    driver-class-name: org.mariadb.jdbc.Driver
+    tomcat:
+      test-on-borrow: true
+      validation-query: SELECT 1
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: validate
+    show-sql: false
   messages:
     fallback-to-system-locale: false
