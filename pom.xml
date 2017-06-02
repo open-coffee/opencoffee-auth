@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>coffee.synyx</groupId>
         <artifactId>coffeenet-starter-parent</artifactId>
-        <version>0.19.0</version>
+        <version>0.20.0</version>
     </parent>
 
     <artifactId>auth</artifactId>
@@ -19,28 +20,34 @@
 
     <distributionManagement>
         <repository>
-            <id>releases.nexus.synyx.de</id>
+            <id>releases.public.nexus.synyx.de</id>
             <url>http://nexus.synyx.de/content/repositories/public-releases</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots.nexus.synyx.de</id>
+            <id>snapshots.public.nexus.synyx.de</id>
             <url>http://nexus.synyx.de/content/repositories/public-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
+    <issueManagement>
+        <url>https://github.com/coffeenet/coffeenet-auth/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
     <scm>
-        <connection>
-            scm:git:ssh://git@github.com:coffeenet/coffeenet-auth.git
-        </connection>
-        <developerConnection>
-            scm:git:ssh://git@github.com:coffeenet/coffeenet-auth.git
-        </developerConnection>
+        <url>https://github.com/coffeenet/coffeenet-auth</url>
+        <connection>scm:git:git://github.com/coffeenet/coffeenet-auth.git</connection>
+        <developerConnection>scm:git:git@github.com:coffeenet/coffeenet-auth.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
+    <properties>
+        <docker.finalName>${project.build.finalName}</docker.finalName>
+    </properties>
+
     <repositories>
         <repository>
-            <id>releases.nexus.synyx.de</id>
+            <id>releases.public.nexus.synyx.de</id>
             <url>http://nexus.synyx.de/content/repositories/public-releases</url>
         </repository>
     </repositories>
@@ -187,6 +194,29 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- Docker -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.21.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>coffeenet/coffeenet-auth</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}</dockerFileDir>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                    <tag>latest</tag>
+                                </tags>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
             </plugin>
         </plugins>
     </build>

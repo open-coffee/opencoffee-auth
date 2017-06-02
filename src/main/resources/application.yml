@@ -1,5 +1,5 @@
 coffeenet:
-  profile: integration
+  profile: development
   application-name: CoffeeNet Auth
   allowed-authorities: ROLE_COFFEENET-ADMIN
   security:
@@ -15,7 +15,7 @@ auth:
   development: true
   ldap:
     url: ldap://localhost:38900
-    base: dc=synyx,dc=coffee
+    base: dc=coffeenet
     userSearchBase: ou=People
     userSearchFilter: uid={0}
     groupSearchBase: ou=Groups
