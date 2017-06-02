@@ -1,7 +1,5 @@
 package coffee.synyx.auth.oauth.config;
 
-import coffee.synyx.auth.AuthenticationServer;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.security.test.context.support.WithMockUser;
 
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -32,7 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author  Tobias Schneider
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AuthenticationServer.class)
+@SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class OAuthViewConfigTest {
 
     @Autowired

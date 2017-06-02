@@ -1,7 +1,5 @@
 package coffee.synyx.auth.oauth.client.web;
 
-import coffee.synyx.auth.AuthenticationServer;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +15,7 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -55,7 +54,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author  Yannic Klem - klem@synyx.de
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AuthenticationServer.class)
+@SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class AuthClientControllerTest {
 
     @Autowired

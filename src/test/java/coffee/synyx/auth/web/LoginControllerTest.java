@@ -1,7 +1,5 @@
 package coffee.synyx.auth.web;
 
-import coffee.synyx.auth.AuthenticationServer;
-
 import coffee.synyx.autoconfigure.discovery.service.AppQuery;
 import coffee.synyx.autoconfigure.discovery.service.CoffeeNetApp;
 import coffee.synyx.autoconfigure.discovery.service.CoffeeNetAppService;
@@ -18,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import org.springframework.security.test.context.support.WithMockUser;
 
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -55,7 +54,8 @@ import static java.util.Collections.singletonList;
  * @author  Tobias Schneider - schneider@synyx.de
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AuthenticationServer.class)
+@SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class LoginControllerTest {
 
     @Autowired

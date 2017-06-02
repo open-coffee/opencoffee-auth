@@ -245,8 +245,8 @@ The following example is configures the application to use the mysql database pr
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/${database}
-    driver-className: com.mysql.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/${database}
+    driver-className: com.mariadb.jdbc.Driver
     username: ${username}
     password: ${password}
     data: ${pathToData.sql}

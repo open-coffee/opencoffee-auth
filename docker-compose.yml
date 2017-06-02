@@ -4,9 +4,16 @@ services:
     image: coffeenet/coffeenet-discovery:latest
     ports:
       - "8761:8761"
+    depends_on:
+      - ldap
+      - mariadb
     hostname: coffeenet-discovery.coffeenet
   ldap:
     image: coffeenet/ldap:latest
     ports:
       - "38900:389"
     hostname: coffeenet-ldap.coffeenet
+  mariadb:
+    build: src/main/docker/mariadb
+    ports:
+      - '3308:3306'
