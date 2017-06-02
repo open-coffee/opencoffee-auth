@@ -6,51 +6,45 @@
     <title th:text="#{authorize.title}"></title>
     <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
-
 <body>
 <main layout:fragment="auth_main">
-    <div class="authorize container">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
 
-            <div class="authorize--header">
-                <img alt="synyx Logo" src="/images/logo.png"/>
-                <h2 th:text="#{authorize.title}"></h2>
-            </div>
+    <div class="coffeenet--container coffeenet--container-authorize">
+        <img class="logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
+    </div>
 
-            <div th:if="${authorizationRequest == null}" th:text="#{authorize.no.request}"
-                 class="authorize--form"></div>
-            <div th:if="${authorizationRequest != null}" class="authorize--form">
+    <div class="coffeenet--container">
+        <div>
+            <h2 th:text="#{authorize.title}"></h2>
+
+            <th:block th:if="${authorizationRequest == null}">
+                <div th:text="#{authorize.no.request}">No authorization request to approve</div>
+            </th:block>
+            <th:block th:if="${authorizationRequest != null}">
                 <p th:text="#{authorize.text.first}"></p>
-                <p class="authorize--client-id" th:text="${authorizationRequest.clientId}"></p>
+                <p class="coffeenet--authorize--client-id" th:text="${authorizationRequest.clientId}"></p>
                 <p th:text="#{authorize.text.second}"></p>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <form role="form" th:action="@{/oauth/authorize}" th:method="post">
-                            <div class="form-group">
-                                <input name="user_oauth_approval" value="true" type="hidden"/>
-                                <input type="hidden" id="scope.openid" name="scope.openid" value="true"/>
-                                <input type="hidden" id="authorize" name="authorize" value="Authorize"/>
-                                <button class="btn btn-success" type="submit">
-                                    <i class="fa fa-thumbs-up"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
 
-                    <div class="col-xs-6">
-                        <form role="form" th:action="@{/oauth/authorize}" th:method="post">
-                            <div class="form-group">
-                                <input name="user_oauth_approval" value="true" type="hidden"/>
-                                <input type="hidden" id="scope.openid" name="scope.openid" value="false"/>
-                                <input type="hidden" id="authorize" name="authorize" value="Authorize"/>
-                                <button class="btn btn-danger" type="submit">
-                                    <i class="fa fa-thumbs-down"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="coffeenet--container coffeenet--container-buttons">
+                    <form role="form" th:action="@{/oauth/authorize}" th:method="POST">
+                        <input name="user_oauth_approval" value="true" type="hidden"/>
+                        <input type="hidden" id="scope.openid" name="scope.openid" value="false"/>
+                        <input type="hidden" id="authorize" name="authorize" value="Authorize"/>
+                        <button class="btn btn-danger" type="submit">
+                            <i class="fa fa-thumbs-down"></i>
+                        </button>
+                    </form>
+
+                    <form role="form" th:action="@{/oauth/authorize}" th:method="POST">
+                        <input name="user_oauth_approval" value="true" type="hidden"/>
+                        <input type="hidden" id="scope.openid" name="scope.openid" value="true"/>
+                        <input type="hidden" id="authorize" name="authorize" value="Authorize"/>
+                        <button class="btn btn-success" type="submit">
+                            <i class="fa fa-thumbs-up"></i>
+                        </button>
+                    </form>
                 </div>
-            </div>
+            </th:block>
         </div>
     </div>
 </main>

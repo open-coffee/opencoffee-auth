@@ -6,24 +6,16 @@
 </head>
 <body>
 <main layout:fragment="auth_main">
-    <div class="login container">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-            <div class="login--form">
-                <div class="login--header">
-                    <img alt="synyx Logo" src="/images/logo.png"/>
-                    <h2 th:text="#{logout.name}"></h2>
-                </div>
+    <div class="coffeenet--container-column coffeenet--container-login">
+        <img class="logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
 
-                <form id="logoutForm" name="logoutForm" th:action="@{/logout}" th:method="post">
-                    <button class="btn btn-block btn-danger" type="submit">
-                        <span class="glyphicon glyphicon-log-out"></span>
-                        <span th:text="#{login.button.logout}"></span>
-                    </button>
-                </form>
-            </div>
-        </div>
+        <form id="logoutForm" name="logoutForm" th:action="@{/logout}" th:method="POST">
+            <button class="btn btn-block btn-success" type="submit">
+                <span class="glyphicon glyphicon-log-out"></span>
+                <span th:text="#{login.button.logout}" th:attr="aria-label=#{login.button.logout}"></span>
+            </button>
+        </form>
     </div>
-
     <script>
         $('#logoutForm').ready(function () {
             $logoutForm = $('#logoutForm');

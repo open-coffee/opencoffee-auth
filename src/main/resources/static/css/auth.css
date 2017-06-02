@@ -1,87 +1,72 @@
-/* Basic overrides */
-
 body {
     background-color: #FFFFFF;
-}
-
-@media (min-width: 768px) {
-    body {
-        background-color: #EFEAE1;
-    }
 }
 
 .container {
     padding: 0;
 }
 
-/* Login/authorize module */
-.login, .authorize, .error {
-    /* OK */
+/* CoffeeNet Container */
+.coffeenet--container-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
 }
 
-@media (min-width: 768px) {
-    .login, .authorize, .error {
-        margin-top: 120px;
-    }
+.coffeenet--container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
 }
 
-.login--header, .authorize--header, .error--header {
-    background-color: #FFFFFF;
-    padding: 24px 18px;
+/* CoffeeNet Login & Logout */
+.coffeenet--container-login {
+    width: 300px;
 }
 
-.login--header > img, .authorize--header > img, .error--header > img {
-    display: inline-block;
+.coffeenet--login-form input {
+    margin-bottom: 10px;
 }
 
-.login--header > h2, .authorize--header > h2, .error--header > h2 {
-    margin: 0 0 0 12px;
-    display: inline-block;
-    vertical-align: middle;
+.coffeenet--login-password-recovery {
     text-align: center;
-}
-
-.login--form, .authorize--form, .error--body {
-    background-color: #FFFFFF;
-    padding: 0 18px 10px 18px;
-}
-
-.login--form form, .authorize--form form {
-    margin: 0;
-}
-
-.login--form button[type=submit] {
-    background-color: #AED581;
-    border-color: #AED581;
-    color: #FFFFFF;
-}
-
-.login--password-recovery {
-    text-align: right;
     margin-top: 24px;
 }
 
-.authorize--form .btn {
-    width: 100%;
+/* CoffeeNet Error & Forbidden */
+.coffeenet--container-error {
+    width: 150px;
 }
 
-.authorize--client-id {
+/* CoffeeNet authorize client by user */
+.coffeenet--container-authorize {
+    width: 150px;
+}
+
+.coffeenet--container-buttons {
+    justify-content: space-between;
+}
+
+.coffeenet--authorize--client-id {
     font-size: 2em;
     text-align: center;
 }
 
-.btn {
-    border-radius: 0;
-}
-
+/* CoffeeNet Buttons */
 .btn-success {
-    background-color: #AED581;
-    border-color: #AED581;
+    background-color: #6c4227 !important;
+    border-color: #6c4227 !important;
 }
 
 .btn-success:hover {
-    background-color: #9baf02;
-    border-color: #9baf02;
+    background-color: #815C44 !important;
+    border-color: #815C44 !important;
+}
+
+.btn-success:active, .btn-success.active {
+    background-color: #512B12 !important;
+    border-color: #512B12 !important;
 }
 
 .navbar-nav > li > a {
@@ -90,7 +75,6 @@ body {
 }
 
 .panel-default > .panel-heading {
-
     background-color: #AED581;
 }
 
