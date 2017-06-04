@@ -5,7 +5,7 @@
 * Upgrade to Spring Cloud Camden.SR7
 * Upgrade CoffeeNet starter-logging to version 0.20.0
 * Upgrade CoffeeNet starter-discovery to version 0.20.0
-* Use MariaDB instead id MySQL
+* Use MariaDB instead of MySQL
 * Add new CoffeeNet logo and design
 
 ### 1.8.0
