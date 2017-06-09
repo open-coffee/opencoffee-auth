@@ -1,5 +1,7 @@
 # Changelog 
 
+### 1.10.0
+
 ### 1.9.0
 * Upgrade to Spring Boot 1.5.4
 * Upgrade to Spring Cloud Camden.SR7
