@@ -1,8 +1,8 @@
 # Changelog 
 
 ### 1.10.0
-* Upgrade CoffeeNet starter-logging to version 0.22.0
-* Upgrade CoffeeNet starter-discovery to version 0.22.0
+* Upgrade CoffeeNet starter-logging to version 0.22.1
+* Upgrade CoffeeNet starter-discovery to version 0.22.1
 
 ### 1.9.0
 * Upgrade to Spring Boot 1.5.4
