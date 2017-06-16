@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.config;
+package coffee.synyx.auth.resource.user;
 
 import org.springframework.context.annotation.Configuration;
 

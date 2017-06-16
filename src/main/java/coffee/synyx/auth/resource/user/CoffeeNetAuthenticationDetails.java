@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.user.api;
+package coffee.synyx.auth.resource.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

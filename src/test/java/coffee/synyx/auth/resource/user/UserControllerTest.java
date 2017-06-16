@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.user.api;
+package coffee.synyx.auth.resource.user;
 
 import coffee.synyx.auth.authentication.config.CoffeeNetUserDetails;
 
