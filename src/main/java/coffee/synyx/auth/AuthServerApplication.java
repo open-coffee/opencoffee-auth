@@ -18,9 +18,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @SpringBootApplication
 @EnableAuthorizationServer
 @EnableResourceServer
-public class AuthenticationServer {
+public class AuthServerApplication {
 
-    AuthenticationServer() {
+    AuthServerApplication() {
 
         // hide implicit public constructor
     }
@@ -28,6 +28,6 @@ public class AuthenticationServer {
     @SuppressWarnings("checkstyle:uncommentedmain")
     public static void main(String[] args) {
 
-        SpringApplication.run(AuthenticationServer.class, args);
+        SpringApplication.run(AuthServerApplication.class, args);
     }
 }
