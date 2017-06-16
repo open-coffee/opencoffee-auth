@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
-public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final TokenExtractor tokenExtractor = new BearerTokenExtractor();
 

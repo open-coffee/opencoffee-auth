@@ -26,20 +26,20 @@ import static java.lang.invoke.MethodHandles.lookup;
  *
  * <ul>
  *   <li>
- *     {@link OAuth2AuthorizationServerConfig#configure(AuthorizationServerSecurityConfigurer) Who has access to the token endpoint}
+ *     {@link AuthorizationServerConfig#configure(AuthorizationServerSecurityConfigurer) Who has access to the token endpoint}
  *   </li>
  *   <li>
- *     {@link OAuth2AuthorizationServerConfig#configure(AuthorizationServerEndpointsConfigurer) How Tokens and Approvals should be stored}
+ *     {@link AuthorizationServerConfig#configure(AuthorizationServerEndpointsConfigurer) How Tokens and Approvals should be stored}
  *   </li>
  *   <li>
- *     {@link OAuth2AuthorizationServerConfig#configure(ClientDetailsServiceConfigurer) Where client details could be found}
+ *     {@link AuthorizationServerConfig#configure(ClientDetailsServiceConfigurer) Where client details could be found}
  *   </li>
  * </ul>
  *
  * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
-public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
@@ -49,7 +49,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     private final ApprovalStore approvalStore;
 
     @Autowired
-    public OAuth2AuthorizationServerConfig(AuthenticationManager authenticationManager, DataSource dataSource,
+    public AuthorizationServerConfig(AuthenticationManager authenticationManager, DataSource dataSource,
         TokenStore tokenStore, ApprovalStore approvalStore) {
 
         this.authenticationManager = authenticationManager;

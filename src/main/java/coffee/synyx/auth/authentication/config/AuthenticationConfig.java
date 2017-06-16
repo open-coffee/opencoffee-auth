@@ -1,7 +1,7 @@
 package coffee.synyx.auth.authentication.config;
 
 import coffee.synyx.auth.AuthConfigurationProperties;
-import coffee.synyx.auth.resource.config.OAuth2ResourceServerConfig;
+import coffee.synyx.auth.resource.config.ResourceServerConfig;
 
 import org.slf4j.Logger;
 
@@ -30,7 +30,7 @@ import static java.lang.invoke.MethodHandles.lookup;
  * This configuration configures a form based login for all paths defined in the first ant matcher. It is required for
  * the "authorization_code" grant type flow.
  *
- * <p>Every path NOT matched by this configuration, will be handled by {@link OAuth2ResourceServerConfig}</p>
+ * <p>Every path NOT matched by this configuration, will be handled by {@link ResourceServerConfig}</p>
  *
  * @author  Yannic Klem - klem@synyx.de
  */

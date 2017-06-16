@@ -16,7 +16,7 @@ import static java.lang.invoke.MethodHandles.lookup;
  * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
-public class OAuthViewConfig extends WebMvcConfigurerAdapter {
+public class ViewConfig extends WebMvcConfigurerAdapter {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
