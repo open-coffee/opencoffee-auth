@@ -43,10 +43,10 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    private AuthenticationManager authenticationManager;
-    private DataSource dataSource;
-    private TokenStore tokenStore;
-    private ApprovalStore approvalStore;
+    private final AuthenticationManager authenticationManager;
+    private final DataSource dataSource;
+    private final TokenStore tokenStore;
+    private final ApprovalStore approvalStore;
 
     @Autowired
     public OAuth2AuthorizationServerConfig(AuthenticationManager authenticationManager, DataSource dataSource,

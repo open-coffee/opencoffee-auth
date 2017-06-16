@@ -45,9 +45,9 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     private static final String ADMIN_ROLE = "ROLE_COFFEENET-ADMIN";
     private static final String CLIENTS = "/clients/**";
 
-    private LogoutSuccessHandler logoutSuccessHandler;
-    private ServerProperties serverProperties;
-    private AuthConfigurationProperties authConfigurationProperties;
+    private final LogoutSuccessHandler logoutSuccessHandler;
+    private final ServerProperties serverProperties;
+    private final AuthConfigurationProperties authConfigurationProperties;
 
     @Autowired
     public LoginConfig(LogoutSuccessHandler logoutSuccessHandler, ServerProperties serverProperties,

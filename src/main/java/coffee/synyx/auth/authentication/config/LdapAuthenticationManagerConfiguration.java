@@ -31,8 +31,8 @@ public class LdapAuthenticationManagerConfiguration extends GlobalAuthentication
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    private LdapCoffeeNetUserDetailsContextMapper ldapCoffeeNetUserDetailsContextMapper;
-    private LdapConfigurationProperties ldapConfigurationProperties;
+    private final LdapCoffeeNetUserDetailsContextMapper ldapCoffeeNetUserDetailsContextMapper;
+    private final LdapConfigurationProperties ldapConfigurationProperties;
 
     @Autowired
     public LdapAuthenticationManagerConfiguration(

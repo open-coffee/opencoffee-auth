@@ -35,7 +35,7 @@ public class LogoutRedirectSuccessHandler implements LogoutSuccessHandler {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    private String defaultRedirectUri;
+    private final String defaultRedirectUri;
 
     @Autowired
     public LogoutRedirectSuccessHandler(AuthConfigurationProperties authConfigurationProperties) {

@@ -53,7 +53,7 @@ public class AuthClientController {
     private static final String OAUTH_CLIENTS_NEW = "oauth/clients/new";
     private static final String CLIENT = "client";
 
-    private JdbcClientDetailsService jdbcClientDetailsService;
+    private final JdbcClientDetailsService jdbcClientDetailsService;
 
     @Autowired
     public AuthClientController(JdbcClientDetailsService jdbcClientDetailsService) {

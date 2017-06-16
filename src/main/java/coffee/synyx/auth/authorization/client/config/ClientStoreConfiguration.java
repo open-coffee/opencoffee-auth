@@ -24,7 +24,7 @@ public class ClientStoreConfiguration {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     @Autowired
     public ClientStoreConfiguration(DataSource dataSource) {

@@ -27,7 +27,7 @@ public class BeanConfiguration {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     @Autowired
     public BeanConfiguration(DataSource dataSource) {
