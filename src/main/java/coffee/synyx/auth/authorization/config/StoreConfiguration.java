@@ -11,9 +11,13 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.io.ClassPathResource;
 
+import org.springframework.security.ldap.userdetails.LdapUserDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -30,7 +34,7 @@ import static java.lang.invoke.MethodHandles.lookup;
  */
 @Configuration
 @EnableConfigurationProperties(AuthorizationProperties.class)
-public class StoreConfiguration {
+class StoreConfiguration {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
@@ -38,37 +42,53 @@ public class StoreConfiguration {
     private final AuthorizationProperties authorizationProperties;
 
     @Autowired
-    public StoreConfiguration(DataSource dataSource, AuthorizationProperties authorizationProperties) {
+    StoreConfiguration(DataSource dataSource, AuthorizationProperties authorizationProperties) {
 
         this.dataSource = dataSource;
         this.authorizationProperties = authorizationProperties;
     }
 
     @Bean
-    public TokenStore tokenStore() {
+    @Autowired
+    TokenStore tokenStore(JwtAccessTokenConverter accessTokenConverter) {
 
-        LOGGER.info("//> JdbcTokenStore created");
+        LOGGER.info("//> JwtTokenStore created");
 
-        return new JwtTokenStore(jwtTokenEnhancer());
+        return new JwtTokenStore(accessTokenConverter);
     }
 
 
     @Bean
-    public JwtAccessTokenConverter jwtTokenEnhancer() {
+    @Autowired
+    JwtAccessTokenConverter accessTokenConverter(UserAuthenticationConverter userAuthenticationConverter) {
 
-        ClassPathResource jksPath = new ClassPathResource(authorizationProperties.getJksPath());
-        char[] jksPassword = authorizationProperties.getJksPassword().toCharArray();
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(jksPath, jksPassword);
+        final ClassPathResource jksPath = new ClassPathResource(authorizationProperties.getJksPath());
+        final char[] jksPassword = authorizationProperties.getJksPassword().toCharArray();
+        final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(jksPath, jksPassword);
 
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setKeyPair(keyStoreKeyFactory.getKeyPair(authorizationProperties.getJksAlias()));
+
+        ((DefaultAccessTokenConverter) converter.getAccessTokenConverter()).setUserTokenConverter(
+            userAuthenticationConverter);
 
         return converter;
     }
 
 
     @Bean
-    public ApprovalStore approvalStore() {
+    @Autowired
+    UserAuthenticationConverter userAuthenticationConverter(LdapUserDetailsService ldapUserDetailsService) {
+
+        DefaultUserAuthenticationConverter converter = new DefaultUserAuthenticationConverter();
+        converter.setUserDetailsService(ldapUserDetailsService);
+
+        return converter;
+    }
+
+
+    @Bean
+    ApprovalStore approvalStore() {
 
         LOGGER.info("//> JdbcApprovalStore created");
 
