@@ -82,7 +82,6 @@ public class UserController {
             String email = coffeeNetUserDetails.getMail();
 
             CoffeeNetAuthenticationDetails details = new CoffeeNetAuthenticationDetails(email, authorities, username);
-
             coffeeNetAuthentication = new CoffeeNetAuthentication(username, username, email, false, details);
         }
 

@@ -21,7 +21,7 @@ import static org.springframework.util.StringUtils.collectionToCommaDelimitedStr
  *
  * @author  Yannic Klem - klem@synyx.de
  */
-public class ClientDetailsResource {
+public class AuthClientDto {
 
     private static final boolean AUTO_APPROVE = true;
 
@@ -42,7 +42,7 @@ public class ClientDetailsResource {
     private final Integer refreshTokenValidity;
     private final Map<String, Object> additionalInformation;
 
-    ClientDetailsResource() {
+    AuthClientDto() {
 
         this.scope = "openid";
         this.authorizedGrantTypes = "authorization_code,password,client_credentials";
@@ -54,7 +54,7 @@ public class ClientDetailsResource {
     }
 
 
-    ClientDetailsResource(ClientDetails clientDetails) {
+    AuthClientDto(ClientDetails clientDetails) {
 
         this.clientId = clientDetails.getClientId();
         this.clientSecret = clientDetails.getClientSecret();

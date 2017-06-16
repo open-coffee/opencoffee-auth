@@ -20,9 +20,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author  Yannic Klem - klem@synyx.de
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ClientDetailsResourceTest {
+public class AuthClientDtoTest {
 
-    private ClientDetailsResource sut;
+    private AuthClientDto sut;
 
     @Before
     public void setup() {
@@ -36,7 +36,7 @@ public class ClientDetailsResourceTest {
         authClient.getAuthorizedGrantTypes().add("password");
         authClient.getAuthorizedGrantTypes().add("authorization_code");
 
-        sut = new ClientDetailsResource(authClient);
+        sut = new AuthClientDto(authClient);
     }
 
 

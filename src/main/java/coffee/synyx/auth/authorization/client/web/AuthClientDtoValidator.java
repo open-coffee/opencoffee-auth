@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * @author  Yannic Klem - yann.klem@gmail.com
  */
-public class ClientDetailsResourceValidator implements Validator {
+public class AuthClientDtoValidator implements Validator {
 
     private static final UrlValidator URL_VALIDATOR = new UrlValidator(new String[] { "http", "https" },
             UrlValidator.ALLOW_LOCAL_URLS);
@@ -21,16 +21,16 @@ public class ClientDetailsResourceValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
 
-        return ClientDetailsResource.class.equals(aClass);
+        return AuthClientDto.class.equals(aClass);
     }
 
 
     @Override
     public void validate(Object o, Errors errors) {
 
-        ClientDetailsResource clientDetailsResource = (ClientDetailsResource) o;
+        AuthClientDto authClientDto = (AuthClientDto) o;
 
-        validateUrls(clientDetailsResource.getRegisteredRedirectUri(), errors);
+        validateUrls(authClientDto.getRegisteredRedirectUri(), errors);
     }
 
 
