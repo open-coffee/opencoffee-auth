@@ -29,16 +29,16 @@ import static java.util.Collections.singletonList;
 
 
 /**
- * Unit test of {@link CoffeeNetUserDetailsContextMapper}.
+ * Unit test of {@link LdapCoffeeNetUserDetailsContextMapper}.
  *
  * @author  Tobias Schneider
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = CoffeeNetUserDetailsContextMapper.class)
-public class CoffeeNetUserDetailsContextMapperTest {
+@SpringBootTest(classes = LdapCoffeeNetUserDetailsContextMapper.class)
+public class LdapCoffeeNetUserDetailsContextMapperTest {
 
     @Autowired
-    private CoffeeNetUserDetailsContextMapper sut;
+    private LdapCoffeeNetUserDetailsContextMapper sut;
 
     @Test
     public void mapUserFromContext() throws InvalidNameException {

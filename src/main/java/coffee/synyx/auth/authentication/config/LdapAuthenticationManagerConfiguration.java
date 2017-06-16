@@ -27,18 +27,19 @@ import static java.lang.invoke.MethodHandles.lookup;
  */
 @Configuration
 @EnableConfigurationProperties(LdapConfigurationProperties.class)
-public class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
+public class LdapAuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    private CoffeeNetUserDetailsContextMapper coffeeNetUserDetailsContextMapper;
+    private LdapCoffeeNetUserDetailsContextMapper ldapCoffeeNetUserDetailsContextMapper;
     private LdapConfigurationProperties ldapConfigurationProperties;
 
     @Autowired
-    public AuthenticationManagerConfiguration(CoffeeNetUserDetailsContextMapper coffeeNetUserDetailsContextMapper,
+    public LdapAuthenticationManagerConfiguration(
+        LdapCoffeeNetUserDetailsContextMapper ldapCoffeeNetUserDetailsContextMapper,
         LdapConfigurationProperties ldapConfigurationProperties) {
 
-        this.coffeeNetUserDetailsContextMapper = coffeeNetUserDetailsContextMapper;
+        this.ldapCoffeeNetUserDetailsContextMapper = ldapCoffeeNetUserDetailsContextMapper;
         this.ldapConfigurationProperties = ldapConfigurationProperties;
 
         LOGGER.info("//> AuthenticationManagerConfiguration...");
@@ -53,7 +54,7 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
             .groupSearchBase(ldapConfigurationProperties.getGroupSearchBase())
             .groupSearchFilter(ldapConfigurationProperties.getGroupSearchFilter())
             .contextSource(contextSource())
-            .userDetailsContextMapper(coffeeNetUserDetailsContextMapper);
+            .userDetailsContextMapper(ldapCoffeeNetUserDetailsContextMapper);
 
         LOGGER.info("//> Initialize AuthenticationManagerBuilder with ldap authentication");
     }

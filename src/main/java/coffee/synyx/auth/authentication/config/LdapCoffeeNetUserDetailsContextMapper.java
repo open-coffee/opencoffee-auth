@@ -19,15 +19,15 @@ import static java.lang.invoke.MethodHandles.lookup;
 
 
 @Service
-public class CoffeeNetUserDetailsContextMapper extends LdapUserDetailsMapper {
+public class LdapCoffeeNetUserDetailsContextMapper extends LdapUserDetailsMapper {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    public CoffeeNetUserDetailsContextMapper() {
+    public LdapCoffeeNetUserDetailsContextMapper() {
 
         super();
 
-        LOGGER.info("//> CoffeeNetUserDetailsContextMapper created");
+        LOGGER.info("//> LdapCoffeeNetUserDetailsContextMapper created");
     }
 
     @Override
