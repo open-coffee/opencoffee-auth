@@ -14,34 +14,34 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * @author  Yannic Klem - klem@synyx.de
  */
-public class ClientDetailsResourceValidatorTest {
+public class AuthClientDtoValidatorTest {
 
-    private ClientDetailsResourceValidator sut;
-    private ClientDetailsResource clientDetailsResource;
+    private AuthClientDtoValidator sut;
+    private AuthClientDto authClientDto;
     private BindingResult bindingResult;
 
     @Before
     public void setup() {
 
-        sut = new ClientDetailsResourceValidator();
-        clientDetailsResource = new ClientDetailsResource();
-        bindingResult = new BeanPropertyBindingResult(clientDetailsResource, "clientDetailsResource");
+        sut = new AuthClientDtoValidator();
+        authClientDto = new AuthClientDto();
+        bindingResult = new BeanPropertyBindingResult(authClientDto, "authClientDto");
     }
 
 
     @Test
     public void supports() {
 
-        assertThat(sut.supports(ClientDetailsResource.class), is(true));
+        assertThat(sut.supports(AuthClientDto.class), is(true));
     }
 
 
     @Test
     public void validateFailsIfUriStartsWithFtp() {
 
-        clientDetailsResource.setRegisteredRedirectUri("ftp://test.coffeenet");
+        authClientDto.setRegisteredRedirectUri("ftp://test.coffeenet");
 
-        sut.validate(clientDetailsResource, bindingResult);
+        sut.validate(authClientDto, bindingResult);
 
         assertThat(bindingResult.hasFieldErrors(), is(true));
         assertThat(bindingResult.hasFieldErrors("registeredRedirectUri"), is(true));
@@ -53,9 +53,9 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateFailsIfUriStartsWithADotAfterScheme() {
 
-        clientDetailsResource.setRegisteredRedirectUri("http://.test.coffeenet");
+        authClientDto.setRegisteredRedirectUri("http://.test.coffeenet");
 
-        sut.validate(clientDetailsResource, bindingResult);
+        sut.validate(authClientDto, bindingResult);
 
         assertThat(bindingResult.hasFieldErrors(), is(true));
         assertThat(bindingResult.hasFieldErrors("registeredRedirectUri"), is(true));
@@ -67,9 +67,9 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateFailsIfUriEndsAfterScheme() {
 
-        clientDetailsResource.setRegisteredRedirectUri("http://");
+        authClientDto.setRegisteredRedirectUri("http://");
 
-        sut.validate(clientDetailsResource, bindingResult);
+        sut.validate(authClientDto, bindingResult);
 
         assertThat(bindingResult.hasFieldErrors(), is(true));
         assertThat(bindingResult.hasFieldErrors("registeredRedirectUri"), is(true));
@@ -81,9 +81,9 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateSucceedsIfUriIsLocal() {
 
-        clientDetailsResource.setRegisteredRedirectUri("http://localhost:9000");
+        authClientDto.setRegisteredRedirectUri("http://localhost:9000");
 
-        sut.validate(clientDetailsResource, bindingResult);
+        sut.validate(authClientDto, bindingResult);
 
         assertThat(bindingResult.hasFieldErrors(), is(false));
     }
@@ -92,9 +92,9 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateSucceedsIfUriStartsWithHttp() {
 
-        clientDetailsResource.setRegisteredRedirectUri("http://coffeenet");
+        authClientDto.setRegisteredRedirectUri("http://coffeenet");
 
-        sut.validate(clientDetailsResource, bindingResult);
+        sut.validate(authClientDto, bindingResult);
 
         assertThat(bindingResult.hasFieldErrors(), is(false));
     }
@@ -103,9 +103,9 @@ public class ClientDetailsResourceValidatorTest {
     @Test
     public void validateSucceedsIfUriStartsWithHttps() {
 
-        clientDetailsResource.setRegisteredRedirectUri("https://coffeenet");
+        authClientDto.setRegisteredRedirectUri("https://coffeenet");
 
-        sut.validate(clientDetailsResource, bindingResult);
+        sut.validate(authClientDto, bindingResult);
 
         assertThat(bindingResult.hasFieldErrors(), is(false));
     }

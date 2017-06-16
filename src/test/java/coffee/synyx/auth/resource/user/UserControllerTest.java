@@ -15,8 +15,6 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.security.Principal;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -50,16 +48,6 @@ public class UserControllerTest {
     public void userIsNull() throws Exception {
 
         ResultActions resultActions = perform(get("/user"));
-        resultActions.andExpect(status().isUnauthorized());
-    }
-
-
-    @Test
-    public void userNotOAuth2() throws Exception {
-
-        Principal principal = () -> "NOT_OAuth2Authentication";
-
-        ResultActions resultActions = perform(get("/user").principal(principal));
         resultActions.andExpect(status().isUnauthorized());
     }
 

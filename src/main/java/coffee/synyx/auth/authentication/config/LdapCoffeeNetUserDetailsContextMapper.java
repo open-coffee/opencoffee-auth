@@ -34,11 +34,10 @@ public class LdapCoffeeNetUserDetailsContextMapper extends LdapUserDetailsMapper
     public UserDetails mapUserFromContext(DirContextOperations ctx, String username,
         Collection<? extends GrantedAuthority> authorities) {
 
-        UserDetails details = super.mapUserFromContext(ctx, username, authorities);
+        LdapUserDetails ldapUserDetails = (LdapUserDetails) super.mapUserFromContext(ctx, username, authorities);
+        String mail = ctx.getStringAttribute("mail");
 
-        CoffeeNetUserDetails coffeeNetUserDetails = new CoffeeNetUserDetails((LdapUserDetails) details,
-                ctx.getStringAttribute("mail"));
-
+        CoffeeNetUserDetails coffeeNetUserDetails = new CoffeeNetUserDetails(ldapUserDetails, mail);
         LOGGER.info("//> Mapped user {} from ldap to CoffeeNetUserDetails", username);
         LOGGER.debug("//> User {} is", coffeeNetUserDetails);
 
