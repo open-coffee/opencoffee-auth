@@ -126,7 +126,7 @@ public class AuthClientControllerTest {
     @WithMockUser(roles = { "COFFEENET-ADMIN" })
     public void getEditViewReturnsEditViewIfLoggedInAsCoffeeNetAdmin() throws Exception {
 
-        when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(mock(ClientDetails.class));
+        when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(new AuthClient());
 
         ResultActions resultActions = mockMvc.perform(get("/clients/myApp/edit"));
         resultActions.andExpect(status().isOk());
@@ -158,7 +158,7 @@ public class AuthClientControllerTest {
     @WithMockUser(roles = { "COFFEENET-ADMIN" })
     public void getDeleteConfirmationViewReturnsDeleteConfirmationViewIfLoggedInAsCoffeeNetAdmin() throws Exception {
 
-        when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(mock(ClientDetails.class));
+        when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(new AuthClient());
 
         ResultActions resultActions = mockMvc.perform(get("/clients/myApp/delete"));
         resultActions.andExpect(status().isOk());
@@ -210,7 +210,7 @@ public class AuthClientControllerTest {
     @WithMockUser
     public void getClientViewReturnsNewClientViewIfLoggedIn() throws Exception {
 
-        when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(mock(ClientDetails.class));
+        when(jdbcClientDetailsServiceMock.loadClientByClientId("myApp")).thenReturn(new AuthClient());
 
         ResultActions resultActions = mockMvc.perform(get("/clients/myApp"));
         resultActions.andExpect(status().isOk());

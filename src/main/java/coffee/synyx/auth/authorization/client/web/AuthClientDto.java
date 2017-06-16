@@ -2,28 +2,17 @@ package coffee.synyx.auth.authorization.client.web;
 
 import org.hibernate.validator.constraints.Length;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.provider.ClientDetails;
-
-import org.springframework.util.StringUtils;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.springframework.util.StringUtils.collectionToCommaDelimitedString;
 
 
 /**
- * Dto of the {@link ClientDetails}.
+ * Dto of the {@link AuthClient}.
  *
  * @author  Yannic Klem - klem@synyx.de
+ * @author  Tobias Schneider - schneider@synyx.de
  */
 public class AuthClientDto {
-
-    private static final boolean AUTO_APPROVE = true;
 
     @Length(min = 1, max = 200)
     private String clientId;
@@ -34,65 +23,138 @@ public class AuthClientDto {
     @Length(min = 1, max = 256)
     private String registeredRedirectUri;
 
-    private final String resourceIds;
-    private final String scope;
-    private final String authorizedGrantTypes;
-    private final String authorities;
-    private final Integer accessTokenValidity;
-    private final Integer refreshTokenValidity;
-    private final Map<String, Object> additionalInformation;
+    private String resourceIds;
+    private String scope;
+    private String authorizedGrantTypes;
+    private String authorities;
+    private Integer accessTokenValidity;
+    private Integer refreshTokenValidity;
+    private Map<String, Object> additionalInformation = new HashMap<>();
 
-    AuthClientDto() {
+    public String getClientId() {
 
-        this.scope = "openid";
-        this.authorizedGrantTypes = "authorization_code,password,client_credentials";
-        this.authorities = "";
-        this.resourceIds = null;
-        this.accessTokenValidity = null;
-        this.refreshTokenValidity = null;
-        this.additionalInformation = new HashMap<>();
+        return clientId;
     }
 
 
-    AuthClientDto(ClientDetails clientDetails) {
+    public void setClientId(String clientId) {
 
-        this.clientId = clientDetails.getClientId();
-        this.clientSecret = clientDetails.getClientSecret();
-        this.resourceIds = collectionToCommaDelimitedString(clientDetails.getResourceIds());
-        this.scope = collectionToCommaDelimitedString(clientDetails.getScope());
-        this.authorizedGrantTypes = collectionToCommaDelimitedString(clientDetails.getAuthorizedGrantTypes());
-
-        setRegisteredRedirectUri(collectionToCommaDelimitedString(clientDetails.getRegisteredRedirectUri()));
-
-        this.authorities = collectionToCommaDelimitedString(clientDetails.getAuthorities());
-        this.accessTokenValidity = clientDetails.getAccessTokenValiditySeconds();
-        this.refreshTokenValidity = clientDetails.getRefreshTokenValiditySeconds();
-        this.additionalInformation = clientDetails.getAdditionalInformation();
+        this.clientId = clientId;
     }
 
-    ClientDetails toEntity() {
 
-        AuthClient authClient = new AuthClient();
-        authClient.setClientId(clientId);
-        authClient.setClientSecret(clientSecret);
-        authClient.setResourceIds(StringUtils.commaDelimitedListToSet(resourceIds));
-        authClient.setScope(StringUtils.commaDelimitedListToSet(scope));
-        authClient.setAuthorizedGrantTypes(StringUtils.commaDelimitedListToSet(authorizedGrantTypes));
-        authClient.setRegisteredRedirectUri(StringUtils.commaDelimitedListToSet(registeredRedirectUri));
+    public String getClientSecret() {
 
-        List<GrantedAuthority> grantedAuthorities = StringUtils.commaDelimitedListToSet(this.authorities)
-                .stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return clientSecret;
+    }
 
-        authClient.setAuthorities(grantedAuthorities);
 
-        authClient.setAccessTokenValiditySeconds(accessTokenValidity);
-        authClient.setRefreshTokenValiditySeconds(refreshTokenValidity);
-        authClient.setAutoApprove(AUTO_APPROVE);
-        authClient.setAdditionalInformation(additionalInformation);
+    public void setClientSecret(String clientSecret) {
 
-        return authClient;
+        this.clientSecret = clientSecret;
+    }
+
+
+    public String getRegisteredRedirectUri() {
+
+        return registeredRedirectUri;
+    }
+
+
+    public String getResourceIds() {
+
+        return resourceIds;
+    }
+
+
+    public void setResourceIds(String resourceIds) {
+
+        this.resourceIds = resourceIds;
+    }
+
+
+    public String getScope() {
+
+        return scope;
+    }
+
+
+    public void setScope(String scope) {
+
+        this.scope = scope;
+    }
+
+
+    public String getAuthorizedGrantTypes() {
+
+        return authorizedGrantTypes;
+    }
+
+
+    public void setAuthorizedGrantTypes(String authorizedGrantTypes) {
+
+        this.authorizedGrantTypes = authorizedGrantTypes;
+    }
+
+
+    public String getAuthorities() {
+
+        return authorities;
+    }
+
+
+    public void setAuthorities(String authorities) {
+
+        this.authorities = authorities;
+    }
+
+
+    public Integer getAccessTokenValidity() {
+
+        return accessTokenValidity;
+    }
+
+
+    public void setAccessTokenValidity(Integer accessTokenValidity) {
+
+        this.accessTokenValidity = accessTokenValidity;
+    }
+
+
+    public Integer getRefreshTokenValidity() {
+
+        return refreshTokenValidity;
+    }
+
+
+    public void setRefreshTokenValidity(Integer refreshTokenValidity) {
+
+        this.refreshTokenValidity = refreshTokenValidity;
+    }
+
+
+    public Map<String, Object> getAdditionalInformation() {
+
+        return additionalInformation;
+    }
+
+
+    public void setAdditionalInformation(Map<String, Object> additionalInformation) {
+
+        this.additionalInformation = additionalInformation;
+    }
+
+
+    /**
+     * Needs to be public for deserialization purposes.
+     *
+     * @param  registeredRedirectUri  This is a comma separated list of uris where the client can be accessed with a
+     *                                maximum length of 256 characters. I.e.
+     *                                "https://first-app.coffeenet,http://second-app.coffeenet"
+     */
+    public void setRegisteredRedirectUri(String registeredRedirectUri) {
+
+        this.registeredRedirectUri = beautifyRedirectUriString(registeredRedirectUri);
     }
 
 
@@ -113,60 +175,5 @@ public class AuthClientDto {
         }
 
         return beautifiedRegisteredRedirectUri.substring(startIndex, endIndex + 1);
-    }
-
-
-    public String getClientId() {
-
-        return clientId;
-    }
-
-
-    /**
-     * Needs to be public for deserialization purposes.
-     *
-     * @param  clientId  This could be any UTF-8 String that identifies the client with a maximum length of 200
-     *                   characters.
-     */
-    public void setClientId(String clientId) {
-
-        this.clientId = clientId;
-    }
-
-
-    public String getClientSecret() {
-
-        return clientSecret;
-    }
-
-
-    /**
-     * Needs to be public for deserialization purposes.
-     *
-     * @param  clientSecret  This could be any UTF-8 String. This is the secret for this client. The secret has a
-     *                       maximum length of 256 characters.
-     */
-    public void setClientSecret(String clientSecret) {
-
-        this.clientSecret = clientSecret;
-    }
-
-
-    public String getRegisteredRedirectUri() {
-
-        return registeredRedirectUri;
-    }
-
-
-    /**
-     * Needs to be public for deserialization purposes.
-     *
-     * @param  registeredRedirectUri  This is a comma separated list of uris where the client can be accessed with a
-     *                                maximum length of 256 characters. I.e.
-     *                                "https://first-app.coffeenet,http://second-app.coffeenet"
-     */
-    public void setRegisteredRedirectUri(String registeredRedirectUri) {
-
-        this.registeredRedirectUri = beautifyRedirectUriString(registeredRedirectUri);
     }
 }

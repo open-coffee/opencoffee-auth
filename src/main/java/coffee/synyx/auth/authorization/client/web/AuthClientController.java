@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
-import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 
@@ -24,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+
+import static coffee.synyx.auth.authorization.client.web.AuthClientMapper.toDto;
+import static coffee.synyx.auth.authorization.client.web.AuthClientMapper.toEntity;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -36,6 +37,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import static java.lang.invoke.MethodHandles.lookup;
+
+import static java.util.stream.Collectors.toList;
 
 
 /**
@@ -82,8 +85,8 @@ public class AuthClientController {
 
         List<AuthClientDto> clientDetails = jdbcClientDetailsService.listClientDetails()
                 .stream()
-                .map(AuthClientDto::new)
-                .collect(Collectors.toList());
+                .map(client -> toDto((AuthClient) client))
+                .collect(toList());
 
         model.addAttribute("clients", clientDetails);
 
@@ -96,8 +99,8 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}/edit", method = GET)
     public String getEditView(@PathVariable("authClientId") String authClientId, Model model) {
 
-        ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
-        model.addAttribute(CLIENT, new AuthClientDto(clientDetails));
+        AuthClient authClient = (AuthClient) jdbcClientDetailsService.loadClientByClientId(authClientId);
+        model.addAttribute(CLIENT, toDto(authClient));
 
         LOGGER.info("//> Clients: Provide client edit page of client {}", authClientId);
 
@@ -122,7 +125,7 @@ public class AuthClientController {
             return "oauth/clients/edit";
         }
 
-        jdbcClientDetailsService.updateClientDetails(authClientDto.toEntity());
+        jdbcClientDetailsService.updateClientDetails(toEntity(authClientDto));
         jdbcClientDetailsService.updateClientSecret(authClientId, authClientDto.getClientSecret());
         attr.addFlashAttribute(SUCCESS_MESSAGE, "client.update.success.text");
 
@@ -135,7 +138,15 @@ public class AuthClientController {
     @RequestMapping(value = "/new", method = GET)
     public String getNewClientView(Model model) {
 
-        model.addAttribute(CLIENT, new AuthClientDto());
+        AuthClientDto authClientDto = new AuthClientDto();
+        authClientDto.setScope("openid");
+        authClientDto.setAuthorizedGrantTypes("authorization_code,password,client_credentials");
+        authClientDto.setAuthorities("");
+        authClientDto.setResourceIds(null);
+        authClientDto.setAccessTokenValidity(null);
+        authClientDto.setRefreshTokenValidity(null);
+
+        model.addAttribute(CLIENT, authClientDto);
 
         LOGGER.info("//> Clients: Provide create new client page");
 
@@ -145,7 +156,7 @@ public class AuthClientController {
 
     @RequestMapping(method = POST)
     public String createNewClient(@Valid
-        @ModelAttribute(value = CLIENT)
+        @ModelAttribute(CLIENT)
         AuthClientDto authClientDto, BindingResult binding, RedirectAttributes attr) {
 
         if (binding.hasErrors()) {
@@ -153,7 +164,7 @@ public class AuthClientController {
         }
 
         try {
-            jdbcClientDetailsService.addClientDetails(authClientDto.toEntity());
+            jdbcClientDetailsService.addClientDetails(toEntity(authClientDto));
 
             attr.addFlashAttribute(SUCCESS_MESSAGE, "client.create.success.text");
 
@@ -176,8 +187,8 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}", method = GET)
     public String getClientView(@PathVariable("authClientId") String authClientId, Model model) {
 
-        ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
-        model.addAttribute(CLIENT, new AuthClientDto(clientDetails));
+        AuthClient authClient = (AuthClient) jdbcClientDetailsService.loadClientByClientId(authClientId);
+        model.addAttribute(CLIENT, toDto(authClient));
 
         LOGGER.debug("//> Clients: Provide specific client page of {}", authClientId);
 
@@ -188,8 +199,8 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}/delete", method = GET)
     public String getDeleteConfirmationView(@PathVariable("authClientId") String authClientId, Model model) {
 
-        ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(authClientId);
-        model.addAttribute(CLIENT, new AuthClientDto(clientDetails));
+        AuthClient authClient = (AuthClient) jdbcClientDetailsService.loadClientByClientId(authClientId);
+        model.addAttribute(CLIENT, toDto(authClient));
 
         LOGGER.debug("//> Clients: Provide client confirmation page to deleted {}", authClientId);
 
