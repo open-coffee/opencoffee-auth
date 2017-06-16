@@ -62,12 +62,15 @@ class StoreConfiguration {
     @Autowired
     JwtAccessTokenConverter accessTokenConverter(UserAuthenticationConverter userAuthenticationConverter) {
 
-        final ClassPathResource jksPath = new ClassPathResource(authorizationProperties.getJksPath());
-        final char[] jksPassword = authorizationProperties.getJksPassword().toCharArray();
-        final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(jksPath, jksPassword);
-
         final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair(authorizationProperties.getJksAlias()));
+
+        if (authorizationProperties.getJksPassword() != null) {
+            final ClassPathResource jksPath = new ClassPathResource(authorizationProperties.getJksPath());
+            final char[] jksPassword = authorizationProperties.getJksPassword().toCharArray();
+            final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(jksPath, jksPassword);
+
+            converter.setKeyPair(keyStoreKeyFactory.getKeyPair(authorizationProperties.getJksAlias()));
+        }
 
         ((DefaultAccessTokenConverter) converter.getAccessTokenConverter()).setUserTokenConverter(
             userAuthenticationConverter);

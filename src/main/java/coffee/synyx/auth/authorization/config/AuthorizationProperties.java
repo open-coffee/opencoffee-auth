@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "auth.key")
 public class AuthorizationProperties {
 
-    @NotEmpty
     private String jksPassword;
 
     @NotEmpty
