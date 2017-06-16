@@ -4,6 +4,9 @@
 * Upgrade CoffeeNet starter-logging to version 0.23.0
 * Upgrade CoffeeNet starter-discovery to version 0.23.0
 * Upgrade to Spring Cloud Dalston.SR1
+* Change the intern package structure
+  * Be aware that your old database client entities
+    does not work anymore, because of the new package
 
 ### 1.9.0
 * Upgrade to Spring Boot 1.5.4
