@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.config;
+package coffee.synyx.auth.authorization.config;
 
 import org.slf4j.Logger;
 

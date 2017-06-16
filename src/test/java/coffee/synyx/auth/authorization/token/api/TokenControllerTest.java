@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.token.api;
+package coffee.synyx.auth.authorization.token.api;
 
 import org.junit.Before;
 import org.junit.Test;

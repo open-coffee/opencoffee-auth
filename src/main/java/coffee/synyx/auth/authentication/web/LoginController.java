@@ -1,6 +1,6 @@
 package coffee.synyx.auth.authentication.web;
 
-import coffee.synyx.auth.config.AuthConfigurationProperties;
+import coffee.synyx.auth.AuthConfigurationProperties;
 
 import coffee.synyx.autoconfigure.discovery.service.AppQuery;
 import coffee.synyx.autoconfigure.discovery.service.CoffeeNetApp;

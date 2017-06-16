@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.client.web;
+package coffee.synyx.auth.authorization.client.web;
 
 import org.apache.commons.validator.routines.UrlValidator;
 

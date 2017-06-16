@@ -1,6 +1,6 @@
 package coffee.synyx.auth.authentication.config;
 
-import coffee.synyx.auth.config.AuthConfigurationProperties;
+import coffee.synyx.auth.AuthConfigurationProperties;
 
 import org.slf4j.Logger;
 

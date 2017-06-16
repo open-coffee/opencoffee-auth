@@ -1,6 +1,6 @@
-package coffee.synyx.auth.config.development.authclient;
+package coffee.synyx.auth.authorization.client.config;
 
-import coffee.synyx.auth.oauth.client.web.AuthClient;
+import coffee.synyx.auth.authorization.client.web.AuthClient;
 
 import org.slf4j.Logger;
 

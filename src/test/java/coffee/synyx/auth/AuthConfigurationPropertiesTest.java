@@ -1,4 +1,4 @@
-package coffee.synyx.auth.config;
+package coffee.synyx.auth;
 
 import org.junit.Test;
 
