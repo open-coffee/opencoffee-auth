@@ -1,4 +1,4 @@
-package coffee.synyx.auth.web;
+package coffee.synyx.auth.authentication.web;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +26,16 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
 /**
- * @author  Tobias Schneider - schneider@synyx.de
+ * @author  Yannic Klem - klem@synyx.de
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class RootControllerTest {
+public class AccessDeniedControllerTest {
 
     @Autowired
     private WebApplicationContext webContext;
@@ -54,9 +55,9 @@ public class RootControllerTest {
 
 
     @Test
-    public void redirectToRootIfNotLoggedIn() throws Exception {
+    public void getForbiddenViewRedirectsToLoginIfNotLoggedIn() throws Exception {
 
-        ResultActions resultActions = mockMvc.perform(get("/"));
+        ResultActions resultActions = mockMvc.perform(get("/forbidden"));
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("http://localhost/login"));
     }
@@ -64,10 +65,10 @@ public class RootControllerTest {
 
     @Test
     @WithMockUser
-    public void redirectToRootIfLoggedIn() throws Exception {
+    public void getForbiddenViewReturns403IfLoggedIn() throws Exception {
 
-        ResultActions resultActions = mockMvc.perform(get("/"));
-        resultActions.andExpect(status().is3xxRedirection());
-        resultActions.andExpect(redirectedUrl("http://localhost:8080"));
+        ResultActions resultActions = mockMvc.perform(get("/forbidden"));
+        resultActions.andExpect(status().isForbidden());
+        resultActions.andExpect(view().name("access_denied"));
     }
 }

@@ -1,6 +1,6 @@
 package coffee.synyx.auth.oauth.user.api;
 
-import coffee.synyx.auth.oauth.user.service.CoffeeNetUserDetails;
+import coffee.synyx.auth.authentication.config.CoffeeNetUserDetails;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -1,4 +1,4 @@
-package coffee.synyx.auth.config.integration.security;
+package coffee.synyx.auth.authentication.config;
 
 import coffee.synyx.auth.config.AuthConfigurationProperties;
 import coffee.synyx.auth.oauth.config.OAuth2ResourceServerConfig;

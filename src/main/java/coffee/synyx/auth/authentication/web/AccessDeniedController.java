@@ -1,4 +1,4 @@
-package coffee.synyx.auth.web;
+package coffee.synyx.auth.authentication.web;
 
 import org.slf4j.Logger;
 

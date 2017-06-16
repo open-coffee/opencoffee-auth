@@ -1,4 +1,4 @@
-package coffee.synyx.auth.web;
+package coffee.synyx.auth.authentication.web;
 
 import coffee.synyx.autoconfigure.discovery.service.AppQuery;
 import coffee.synyx.autoconfigure.discovery.service.CoffeeNetApp;

@@ -1,4 +1,4 @@
-package coffee.synyx.auth.web;
+package coffee.synyx.auth.authentication.web;
 
 import coffee.synyx.auth.config.AuthConfigurationProperties;
 

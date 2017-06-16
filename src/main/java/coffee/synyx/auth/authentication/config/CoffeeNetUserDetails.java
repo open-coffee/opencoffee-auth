@@ -1,4 +1,4 @@
-package coffee.synyx.auth.oauth.user.service;
+package coffee.synyx.auth.authentication.config;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;

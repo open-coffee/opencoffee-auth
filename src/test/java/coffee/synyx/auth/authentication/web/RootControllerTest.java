@@ -1,4 +1,4 @@
-package coffee.synyx.auth.web;
+package coffee.synyx.auth.authentication.web;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,16 +26,15 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
 /**
- * @author  Yannic Klem - klem@synyx.de
+ * @author  Tobias Schneider - schneider@synyx.de
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class AccessDeniedControllerTest {
+public class RootControllerTest {
 
     @Autowired
     private WebApplicationContext webContext;
@@ -55,9 +54,9 @@ public class AccessDeniedControllerTest {
 
 
     @Test
-    public void getForbiddenViewRedirectsToLoginIfNotLoggedIn() throws Exception {
+    public void redirectToRootIfNotLoggedIn() throws Exception {
 
-        ResultActions resultActions = mockMvc.perform(get("/forbidden"));
+        ResultActions resultActions = mockMvc.perform(get("/"));
         resultActions.andExpect(status().is3xxRedirection());
         resultActions.andExpect(redirectedUrl("http://localhost/login"));
     }
@@ -65,10 +64,10 @@ public class AccessDeniedControllerTest {
 
     @Test
     @WithMockUser
-    public void getForbiddenViewReturns403IfLoggedIn() throws Exception {
+    public void redirectToRootIfLoggedIn() throws Exception {
 
-        ResultActions resultActions = mockMvc.perform(get("/forbidden"));
-        resultActions.andExpect(status().isForbidden());
-        resultActions.andExpect(view().name("access_denied"));
+        ResultActions resultActions = mockMvc.perform(get("/"));
+        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(redirectedUrl("http://localhost:8080"));
     }
 }

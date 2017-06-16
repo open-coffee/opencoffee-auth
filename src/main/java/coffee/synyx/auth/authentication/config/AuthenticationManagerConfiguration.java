@@ -1,8 +1,4 @@
-package coffee.synyx.auth.config.integration.security;
-
-import coffee.synyx.auth.config.integration.security.ldap.AuthLdapConfigurationProperties;
-import coffee.synyx.auth.config.integration.security.ldap.CoffeeNetDefaultTlsDirContextAuthenticationStrategy;
-import coffee.synyx.auth.oauth.user.service.CoffeeNetUserDetailsContextMapper;
+package coffee.synyx.auth.authentication.config;
 
 import org.slf4j.Logger;
 
