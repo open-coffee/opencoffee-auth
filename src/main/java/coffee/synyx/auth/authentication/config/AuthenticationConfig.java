@@ -37,7 +37,7 @@ import static java.lang.invoke.MethodHandles.lookup;
 @Configuration
 @Order(SecurityProperties.DEFAULT_FILTER_ORDER - 2)
 @EnableConfigurationProperties({ ServerProperties.class, AuthConfigurationProperties.class })
-public class LoginConfig extends WebSecurityConfigurerAdapter {
+public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
@@ -50,7 +50,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     private final AuthConfigurationProperties authConfigurationProperties;
 
     @Autowired
-    public LoginConfig(LogoutSuccessHandler logoutSuccessHandler, ServerProperties serverProperties,
+    public AuthenticationConfig(LogoutSuccessHandler logoutSuccessHandler, ServerProperties serverProperties,
         AuthConfigurationProperties authConfigurationProperties) {
 
         this.logoutSuccessHandler = logoutSuccessHandler;
@@ -63,43 +63,44 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
+        //J-
         http.requestMatchers()
-            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT, "/webjars/**", "/health",
-                    CLIENTS, "/forbidden")
+                .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT,
+                        "/webjars/**", "/health", CLIENTS, "/forbidden")
             .and()
-            .formLogin()
-            .defaultSuccessUrl(authConfigurationProperties.getDefaultRedirectUrl())
-            .loginPage("/login")
-            .permitAll()
+                .formLogin()
+                .defaultSuccessUrl(authConfigurationProperties.getDefaultRedirectUrl())
+                .loginPage("/login")
+                .permitAll()
             .and()
-            .logout()
-            .logoutUrl(LOGOUT)
-            .logoutSuccessHandler(logoutSuccessHandler)
-            .deleteCookies(serverProperties.getSession().getCookie().getName())
+                .logout()
+                .logoutUrl(LOGOUT)
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies(serverProperties.getSession().getCookie().getName())
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, LOGOUT)
+                .permitAll()
             .and()
-            .authorizeRequests()
-            .antMatchers(HttpMethod.GET, LOGOUT)
-            .permitAll()
+                .authorizeRequests()
+                .antMatchers("/webjars/**", "/health")
+                .permitAll()
             .and()
-            .authorizeRequests()
-            .antMatchers("/webjars/**", "/health")
-            .permitAll()
+                .authorizeRequests()
+                .antMatchers("/clients/new", "/clients/*/edit", "/clients/*/delete")
+                .hasAuthority(ADMIN_ROLE)
             .and()
-            .authorizeRequests()
-            .antMatchers("/clients/new", "/clients/*/edit", "/clients/*/delete")
-            .hasAuthority(ADMIN_ROLE)
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, CLIENTS)
+                .authenticated()
+                .antMatchers(CLIENTS)
+                .hasAuthority(ADMIN_ROLE)
+                .anyRequest()
+                .authenticated()
             .and()
-            .authorizeRequests()
-            .antMatchers(HttpMethod.GET, CLIENTS)
-            .authenticated()
-            .antMatchers(CLIENTS)
-            .hasAuthority(ADMIN_ROLE)
-            .anyRequest()
-            .authenticated()
-            .and()
-            .exceptionHandling()
-            .accessDeniedHandler(new DefaultAccessDeniedHandler(authConfigurationProperties));
-
+                .exceptionHandling()
+                .accessDeniedHandler(new DefaultAccessDeniedHandler(authConfigurationProperties));
+        //J+
         LOGGER.info("//> LoginConfig was configured");
     }
 }
