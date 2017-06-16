@@ -12,12 +12,12 @@ import static org.hamcrest.core.Is.is;
 /**
  * @author  Tobias Schneider
  */
-public class AuthLdapConfigurationPropertiesTest {
+public class LdapConfigurationPropertiesTest {
 
     @Test
     public void testDefaultValues() {
 
-        AuthLdapConfigurationProperties sut = new AuthLdapConfigurationProperties();
+        LdapConfigurationProperties sut = new LdapConfigurationProperties();
 
         assertThat(sut.getUrl(), is("ldap://localhost"));
         assertThat(sut.getBase(), is(nullValue()));

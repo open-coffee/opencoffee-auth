@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @Validated
 @ConfigurationProperties(prefix = "auth.ldap")
-public class AuthLdapConfigurationProperties {
+public class LdapConfigurationProperties {
 
     @NotBlank
     private String url = "ldap://localhost";

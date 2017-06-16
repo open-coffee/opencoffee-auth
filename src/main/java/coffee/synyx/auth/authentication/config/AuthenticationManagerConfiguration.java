@@ -21,25 +21,25 @@ import static java.lang.invoke.MethodHandles.lookup;
 
 /**
  * Configures an {@link org.springframework.security.authentication.AuthenticationManager authentication manager} to
- * use ldap based on {@link AuthLdapConfigurationProperties}.
+ * use ldap based on {@link LdapConfigurationProperties}.
  *
  * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
-@EnableConfigurationProperties(AuthLdapConfigurationProperties.class)
+@EnableConfigurationProperties(LdapConfigurationProperties.class)
 public class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private CoffeeNetUserDetailsContextMapper coffeeNetUserDetailsContextMapper;
-    private AuthLdapConfigurationProperties authLdapConfigurationProperties;
+    private LdapConfigurationProperties ldapConfigurationProperties;
 
     @Autowired
     public AuthenticationManagerConfiguration(CoffeeNetUserDetailsContextMapper coffeeNetUserDetailsContextMapper,
-        AuthLdapConfigurationProperties authLdapConfigurationProperties) {
+        LdapConfigurationProperties ldapConfigurationProperties) {
 
         this.coffeeNetUserDetailsContextMapper = coffeeNetUserDetailsContextMapper;
-        this.authLdapConfigurationProperties = authLdapConfigurationProperties;
+        this.ldapConfigurationProperties = ldapConfigurationProperties;
 
         LOGGER.info("//> AuthenticationManagerConfiguration...");
     }
@@ -48,10 +48,10 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
     public void init(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.ldapAuthentication()
-            .userSearchBase(authLdapConfigurationProperties.getUserSearchBase())
-            .userSearchFilter(authLdapConfigurationProperties.getUserSearchFilter())
-            .groupSearchBase(authLdapConfigurationProperties.getGroupSearchBase())
-            .groupSearchFilter(authLdapConfigurationProperties.getGroupSearchFilter())
+            .userSearchBase(ldapConfigurationProperties.getUserSearchBase())
+            .userSearchFilter(ldapConfigurationProperties.getUserSearchFilter())
+            .groupSearchBase(ldapConfigurationProperties.getGroupSearchBase())
+            .groupSearchFilter(ldapConfigurationProperties.getGroupSearchFilter())
             .contextSource(contextSource())
             .userDetailsContextMapper(coffeeNetUserDetailsContextMapper);
 
@@ -63,10 +63,10 @@ public class AuthenticationManagerConfiguration extends GlobalAuthenticationConf
     public LdapContextSource contextSource() {
 
         LdapContextSource contextSource = new LdapContextSource();
-        contextSource.setUrl(authLdapConfigurationProperties.getUrl());
-        contextSource.setBase(authLdapConfigurationProperties.getBase());
+        contextSource.setUrl(ldapConfigurationProperties.getUrl());
+        contextSource.setBase(ldapConfigurationProperties.getBase());
 
-        if (authLdapConfigurationProperties.isConnectionWithTls()) {
+        if (ldapConfigurationProperties.isConnectionWithTls()) {
             contextSource.setAuthenticationStrategy(new CoffeeNetDefaultTlsDirContextAuthenticationStrategy());
         }
 
