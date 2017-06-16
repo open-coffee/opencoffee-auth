@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.URL;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import org.springframework.validation.annotation.Validated;
+
 
 /**
  * Configuration properties of the {@code AuthenticationServer}.
@@ -12,6 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author  Tobias Schneider - schneider@synyx.de
  * @author  Yannic Klem - klem@synyx.de
  */
+@Validated
 @ConfigurationProperties(prefix = "auth")
 public class AuthConfigurationProperties {
 
