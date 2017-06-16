@@ -36,8 +36,12 @@ public class LdapCoffeeNetUserDetailsContextMapper extends LdapUserDetailsMapper
 
         UserDetails details = super.mapUserFromContext(ctx, username, authorities);
 
-        LOGGER.info("//> Mapped user {} from ldap to CoffeeNetUserDetails", username);
+        CoffeeNetUserDetails coffeeNetUserDetails = new CoffeeNetUserDetails((LdapUserDetails) details,
+                ctx.getStringAttribute("mail"));
 
-        return new CoffeeNetUserDetails((LdapUserDetails) details, ctx.getStringAttribute("mail"));
+        LOGGER.info("//> Mapped user {} from ldap to CoffeeNetUserDetails", username);
+        LOGGER.debug("//> User {} is", coffeeNetUserDetails);
+
+        return coffeeNetUserDetails;
     }
 }
