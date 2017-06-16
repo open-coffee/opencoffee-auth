@@ -23,14 +23,14 @@ import static java.lang.invoke.MethodHandles.lookup;
  * @author  Yannic Klem - klem@synyx.de
  */
 @Configuration
-public class BeanConfiguration {
+public class StoreConfiguration {
 
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private final DataSource dataSource;
 
     @Autowired
-    public BeanConfiguration(DataSource dataSource) {
+    public StoreConfiguration(DataSource dataSource) {
 
         this.dataSource = dataSource;
     }
