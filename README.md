@@ -6,24 +6,6 @@ The CoffeeNet Auth Server is an OAuth2 provider to achieve single sign-on for th
 It authenticates against a LDAP-Server. See [how to configure LDAP](#ldap)
 To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
 
-## Development Mode
-
-When the development mode of the auth server is activated via
-
-```yaml
-auth:
-  development: true
-```
-a client with this credentials
-
-```yaml
-client-id: coffeeNetClient
-cliend-secret: coffeeNetClientSecret
-```
-will be added automatically.
-This can be used in none prodution environments for testing purposes.
-
-
 ## Endpoints
 
 ### User Endpoint
@@ -221,6 +203,8 @@ Details of the default client:
 clientId: coffeeNetClient
 clientSecret: coffeeNetClientSecret
 ```
+
+This can be used in none production environments for testing purposes.
 
 ### Json Web Token (JWT)
 
