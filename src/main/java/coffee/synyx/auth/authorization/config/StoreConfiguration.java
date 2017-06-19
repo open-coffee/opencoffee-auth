@@ -52,9 +52,10 @@ class StoreConfiguration {
     @Autowired
     TokenStore tokenStore(JwtAccessTokenConverter accessTokenConverter) {
 
+        final JwtTokenStore jwtTokenStore = new JwtTokenStore(accessTokenConverter);
         LOGGER.info("//> JwtTokenStore created");
 
-        return new JwtTokenStore(accessTokenConverter);
+        return jwtTokenStore;
     }
 
 
@@ -75,6 +76,8 @@ class StoreConfiguration {
         ((DefaultAccessTokenConverter) converter.getAccessTokenConverter()).setUserTokenConverter(
             userAuthenticationConverter);
 
+        LOGGER.info("//> JwtAccessTokenConverter created");
+
         return converter;
     }
 
@@ -83,8 +86,10 @@ class StoreConfiguration {
     @Autowired
     UserAuthenticationConverter userAuthenticationConverter(LdapUserDetailsService ldapUserDetailsService) {
 
-        DefaultUserAuthenticationConverter converter = new DefaultUserAuthenticationConverter();
+        final DefaultUserAuthenticationConverter converter = new DefaultUserAuthenticationConverter();
         converter.setUserDetailsService(ldapUserDetailsService);
+
+        LOGGER.info("//> UserAuthenticationConverter created");
 
         return converter;
     }
@@ -93,8 +98,9 @@ class StoreConfiguration {
     @Bean
     ApprovalStore approvalStore() {
 
+        final JdbcApprovalStore jdbcApprovalStore = new JdbcApprovalStore(dataSource);
         LOGGER.info("//> JdbcApprovalStore created");
 
-        return new JdbcApprovalStore(dataSource);
+        return jdbcApprovalStore;
     }
 }
