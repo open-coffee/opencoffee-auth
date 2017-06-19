@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop-access-token-table
+      author: schneider
+      changes:
+      - dropTable:
+          tableName: oauth_access_token
