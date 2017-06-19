@@ -222,6 +222,41 @@ clientId: coffeeNetClient
 clientSecret: coffeeNetClientSecret
 ```
 
+### Json Web Token (JWT)
+
+JWT can be signed asymmetrical and the private key will be saved in
+the Java KeyStore (JKS).
+
+```yaml
+auth:
+  keystore:
+    enabled: true
+    jksPassword:
+    jksAlias: 'coffeenet'
+    jksPath: 'file:coffeenet.jks'
+```
+
+The JKS is enabled by default. Just provide the path to your jks file
+that can created with the following command:
+
+```bash
+keytool -genkeypair -alias ${alias} -keyalg RSA -dname "CN=jwt, L=${L}, S=${S}, C=${DE}" -keypass ${yourSecret} -keystore ${myKeystore.jks} -storepass ${yourSecret}
+```
+
+e.g.
+
+```bash
+keytool -genkeypair -alias coffeenet -keyalg RSA -dname "CN=jwt, L=Berlin, S=Berlin, C=DE" -keypass changeit -keystore coffeenet.jks -storepass changeit
+```
+
+The `auth.keystore.jksPath` property:
+* Must support fully qualified URLs, e.g. "file:C:/test.dat".
+* Must support classpath pseudo-URLs, e.g. "classpath:test.dat".
+* Should support relative file paths, e.g. "WEB-INF/test.dat".
+  (This will be implementation-specific, typically
+  provided by an ApplicationContext implementation.)
+
+
 ### LDAP
 To configure the connection to your LDAP-Server just set the following properties inside your `application.yml`.
 This example shows the properties to connect with the LDAP-Server provided by our docker container.
@@ -230,7 +265,7 @@ This example shows the properties to connect with the LDAP-Server provided by ou
 auth:
   ldap:
     url: ldap://localhost:38900
-    base: dc=synyx,dc=coffee
+    base: dc=coffeenet
     userSearchBase: ou=People
     userSearchFilter: uid={0}
     groupSearchBase: ou=Groups
