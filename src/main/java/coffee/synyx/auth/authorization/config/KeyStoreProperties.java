@@ -11,8 +11,10 @@ import org.springframework.validation.annotation.Validated;
  * @author  Tobias Schneider
  */
 @Validated
-@ConfigurationProperties(prefix = "auth.key")
-public class AuthorizationProperties {
+@ConfigurationProperties(prefix = "auth.keystore")
+public class KeyStoreProperties {
+
+    private boolean enabled = true;
 
     private String jksPassword;
 
@@ -20,7 +22,19 @@ public class AuthorizationProperties {
     private String jksAlias = "coffeenet";
 
     @NotEmpty
-    private String jksPath = "coffeenet.jks";
+    private String jksPath = "file:coffeenet.jks";
+
+    public boolean isEnabled() {
+
+        return enabled;
+    }
+
+
+    public void setEnabled(boolean enabled) {
+
+        this.enabled = enabled;
+    }
+
 
     public String getJksPassword() {
 
