@@ -32,13 +32,13 @@ the Java KeyStore (JKS).
 ```yaml
 auth:
   keystore:
-    enabled: true
+    enabled: false
     jksPassword:
     jksAlias: 'coffeenet'
     jksPath: 'file:coffeenet.jks'
 ```
 
-The JKS is enabled by default. Just provide the path to your jks file
+The JKS is disabled by default. Just provide the path to your jks file
 that can created with the following command:
 
 ```bash

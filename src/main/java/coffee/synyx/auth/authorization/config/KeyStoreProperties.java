@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "auth.keystore")
 public class KeyStoreProperties {
 
-    private boolean enabled = true;
+    private boolean enabled = false;
 
     private String jksPassword;
 
