@@ -4,6 +4,8 @@ services:
     image: coffeenet/coffeenet-discovery:latest
     ports:
       - "8761:8761"
+    volumes:
+      - ./src/main/docker/coffeenet-discovery/application.yml:/application.yml
     hostname: coffeenet-discovery.coffeenet
   ldap:
     image: coffeenet/ldap:latest
