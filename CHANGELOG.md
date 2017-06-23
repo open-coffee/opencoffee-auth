@@ -5,6 +5,7 @@
 * Upgrade CoffeeNet starter-discovery to version 0.23.0
 * Upgrade to Spring Cloud Dalston.SR1
 * Change the intern package structure
+* Add JWT token store instead of jdbc token store
 
 ### 1.9.0
 * Upgrade to Spring Boot 1.5.4
