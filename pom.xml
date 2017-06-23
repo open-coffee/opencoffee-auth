@@ -10,12 +10,13 @@
     </parent>
 
     <artifactId>auth</artifactId>
-    <version>1.10-SNAPSHOT</version>
+    <version>1.10</version>
     <packaging>jar</packaging>
 
     <name>CoffeeNet Authentication Service</name>
     <description>
-        Authentication service for all services in the CoffeeNet based on single sign on with OAuth
+        Authentication service for all services in the CoffeeNet
+        based on single sign on with OAuth
     </description>
 
     <scm>
