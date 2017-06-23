@@ -25,6 +25,6 @@ public class ViewConfig extends WebMvcConfigurerAdapter {
 
         registry.addViewController("/oauth/confirm_access").setViewName("oauth/confirm_application_access");
 
-        LOGGER.info("//> OAuthViewConfig: created view controller for /oauth/confirm_access");
+        LOGGER.info("//> ViewConfig: created view controller for /oauth/confirm_access");
     }
 }

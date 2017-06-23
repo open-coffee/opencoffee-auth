@@ -13,6 +13,8 @@ import org.springframework.ldap.core.support.LdapContextSource;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.ldap.search.FilterBasedLdapUserSearch;
+import org.springframework.security.ldap.userdetails.LdapUserDetailsService;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -57,6 +59,19 @@ public class LdapAuthenticationManagerConfiguration extends GlobalAuthentication
             .userDetailsContextMapper(ldapCoffeeNetUserDetailsContextMapper);
 
         LOGGER.info("//> Initialize AuthenticationManagerBuilder with ldap authentication");
+    }
+
+
+    @Bean
+    public LdapUserDetailsService ldapUserDetailsService() {
+
+        FilterBasedLdapUserSearch userSearch = new FilterBasedLdapUserSearch(
+                ldapConfigurationProperties.getUserSearchBase(), ldapConfigurationProperties.getUserSearchFilter(),
+                contextSource());
+        LdapUserDetailsService service = new LdapUserDetailsService(userSearch);
+        service.setUserDetailsMapper(ldapCoffeeNetUserDetailsContextMapper);
+
+        return service;
     }
 
 

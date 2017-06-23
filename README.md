@@ -6,22 +6,97 @@ The CoffeeNet Auth Server is an OAuth2 provider to achieve single sign-on for th
 It authenticates against a LDAP-Server. See [how to configure LDAP](#ldap)
 To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
 
-## Development Mode
 
-When the development mode of the auth server is activated via
+## Configuration
+
+### Developer Mode
+
+The Auth-Server can be started in developer mode by setting the property `auth.development` to `true`.
+By doing this, a default client is created during startup.
+This client can be used to test your application with integration into the Auth-Server.
+
+Details of the default client:
+
+```yaml
+clientId: coffeeNetClient
+clientSecret: coffeeNetClientSecret
+```
+
+This can be used in none production environments for testing purposes.
+
+### Json Web Token (JWT)
+
+JWT can be signed asymmetrical and the private key will be saved in
+the Java KeyStore (JKS).
 
 ```yaml
 auth:
-  development: true
+  keystore:
+    enabled: false
+    jksPassword:
+    jksAlias: 'coffeenet'
+    jksPath: 'file:coffeenet.jks'
 ```
-a client with this credentials
+
+The JKS is disabled by default. Just provide the path to your jks file
+that can created with the following command:
+
+```bash
+keytool -genkeypair -alias ${alias} -keyalg RSA -dname "CN=jwt, L=${L}, S=${S}, C=${DE}" -keypass ${yourSecret} -keystore ${myKeystore.jks} -storepass ${yourSecret}
+```
+
+e.g.
+
+```bash
+keytool -genkeypair -alias coffeenet -keyalg RSA -dname "CN=jwt, L=Berlin, S=Berlin, C=DE" -keypass changeit -keystore coffeenet.jks -storepass changeit
+```
+
+The `auth.keystore.jksPath` property:
+* Must support fully qualified URLs, e.g. "file:C:/test.dat".
+* Must support classpath pseudo-URLs, e.g. "classpath:test.dat".
+* Should support relative file paths, e.g. "WEB-INF/test.dat".
+  (This will be implementation-specific, typically
+  provided by an ApplicationContext implementation.)
+
+
+### LDAP
+To configure the connection to your LDAP-Server just set the following properties inside your `application.yml`.
+This example shows the properties to connect with the LDAP-Server provided by our docker container.
 
 ```yaml
-client-id: coffeeNetClient
-cliend-secret: coffeeNetClientSecret
+auth:
+  ldap:
+    url: ldap://localhost:38900
+    base: dc=coffeenet
+    userSearchBase: ou=People
+    userSearchFilter: uid={0}
+    groupSearchBase: ou=Groups
+    groupSearchFilter: member={0}
 ```
-will be added automatically.
-This can be used in none prodution environments for testing purposes.
+
+### Database
+
+Specify the following properties inside your `application.yml`.
+The following example is configures the application to use the mysql database provided by our docker container.
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/${database}
+    driver-className: com.mariadb.jdbc.Driver
+    username: ${username}
+    password: ${password}
+    data: ${pathToData.sql}
+```
+
+### Logging
+
+Logging is provided by [CoffeeNet Logging](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-logging) and can be configured by setting
+properties below `coffeenet.logging.*` inside your `application.yml`.
+
+### Service Discovery
+
+The Auth-Server uses [Coffeenet Service Discovery](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-discovery) and is only visible to users with the role `COFFEENET-ADMIN`.
 
 
 ## Endpoints
@@ -206,57 +281,3 @@ Response looks like this:
   "scope": "openid"
 }
 ```
-
-## Configuration
-
-### Developer Mode
-
-The Auth-Server can be started in developer mode by setting the property `auth.development` to `true`.
-By doing this, a default client is created during startup. 
-This client can be used to test your application with integration into the Auth-Server.
-
-Details of the default client:
-
-```yaml
-clientId: coffeeNetClient
-clientSecret: coffeeNetClientSecret
-```
-
-### LDAP
-To configure the connection to your LDAP-Server just set the following properties inside your `application.yml`.
-This example shows the properties to connect with the LDAP-Server provided by our docker container.
-
-```yaml
-auth:
-  ldap:
-    url: ldap://localhost:38900
-    base: dc=synyx,dc=coffee
-    userSearchBase: ou=People
-    userSearchFilter: uid={0}
-    groupSearchBase: ou=Groups
-    groupSearchFilter: member={0}
-```
-
-### Database
-
-Specify the following properties inside your `application.yml`. 
-The following example is configures the application to use the mysql database provided by our docker container.
-
-```yaml
-spring:
-  datasource:
-    url: jdbc:mariadb://localhost:3306/${database}
-    driver-className: com.mariadb.jdbc.Driver
-    username: ${username}
-    password: ${password}
-    data: ${pathToData.sql}
-```
-
-### Logging
-
-Logging is provided by [CoffeeNet Logging](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-logging) and can be configured by setting
-properties below `coffeenet.logging.*` inside your `application.yml`.
-
-### Service Discovery
-
-The Auth-Server uses [Coffeenet Service Discovery](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-discovery) and is only visible to users with the role `COFFEENET-ADMIN`.  

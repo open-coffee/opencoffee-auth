@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
+import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import javax.sql.DataSource;
@@ -46,15 +47,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final AuthenticationManager authenticationManager;
     private final DataSource dataSource;
     private final TokenStore tokenStore;
+    private final AccessTokenConverter accessTokenConverter;
     private final ApprovalStore approvalStore;
 
     @Autowired
     public AuthorizationServerConfig(AuthenticationManager authenticationManager, DataSource dataSource,
-        TokenStore tokenStore, ApprovalStore approvalStore) {
+        TokenStore tokenStore, AccessTokenConverter accessTokenConverter, ApprovalStore approvalStore) {
 
         this.authenticationManager = authenticationManager;
         this.dataSource = dataSource;
         this.tokenStore = tokenStore;
+        this.accessTokenConverter = accessTokenConverter;
         this.approvalStore = approvalStore;
 
         LOGGER.info("//> OAuth2AuthorizationServerConfig ...");
@@ -63,7 +66,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception { // NOSONAR
 
-        endpoints.tokenStore(tokenStore).approvalStore(approvalStore).authenticationManager(authenticationManager);
+        endpoints.tokenStore(tokenStore)
+            .accessTokenConverter(accessTokenConverter)
+            .approvalStore(approvalStore)
+            .authenticationManager(authenticationManager);
 
         LOGGER.info("//> Configure endpoints of tokenStore, approvalStore and authenticationManager");
     }

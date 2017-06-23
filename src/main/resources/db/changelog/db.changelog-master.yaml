@@ -2,3 +2,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: 1.0/db.changelog-add-basic-tables-for-oauth.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 1.10/db.changelog-drop-access-token.yaml
