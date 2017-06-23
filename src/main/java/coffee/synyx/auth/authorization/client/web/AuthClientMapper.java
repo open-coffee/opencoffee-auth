@@ -2,6 +2,7 @@ package coffee.synyx.auth.authorization.client.web;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.provider.ClientDetails;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,23 +41,24 @@ class AuthClientMapper {
     }
 
 
-    static AuthClientDto toDto(AuthClient authClient) {
+    static AuthClientDto toDto(ClientDetails clientDetails) {
 
         AuthClientDto authClientDto = new AuthClientDto();
 
-        authClientDto.setClientId(authClient.getClientId());
-        authClientDto.setClientSecret(authClient.getClientSecret());
-        authClientDto.setResourceIds(collectionToCommaDelimitedString(authClient.getResourceIds()));
-        authClientDto.setScope(collectionToCommaDelimitedString(authClient.getScope()));
-        authClientDto.setAuthorizedGrantTypes(collectionToCommaDelimitedString(authClient.getAuthorizedGrantTypes()));
+        authClientDto.setClientId(clientDetails.getClientId());
+        authClientDto.setClientSecret(clientDetails.getClientSecret());
+        authClientDto.setResourceIds(collectionToCommaDelimitedString(clientDetails.getResourceIds()));
+        authClientDto.setScope(collectionToCommaDelimitedString(clientDetails.getScope()));
+        authClientDto.setAuthorizedGrantTypes(collectionToCommaDelimitedString(
+                clientDetails.getAuthorizedGrantTypes()));
 
         authClientDto.setRegisteredRedirectUri(collectionToCommaDelimitedString(
-                authClient.getRegisteredRedirectUri()));
+                clientDetails.getRegisteredRedirectUri()));
 
-        authClientDto.setAuthorities(collectionToCommaDelimitedString(authClient.getAuthorities()));
-        authClientDto.setAccessTokenValidity(authClient.getAccessTokenValiditySeconds());
-        authClientDto.setRefreshTokenValidity(authClient.getRefreshTokenValiditySeconds());
-        authClientDto.setAdditionalInformation(authClient.getAdditionalInformation());
+        authClientDto.setAuthorities(collectionToCommaDelimitedString(clientDetails.getAuthorities()));
+        authClientDto.setAccessTokenValidity(clientDetails.getAccessTokenValiditySeconds());
+        authClientDto.setRefreshTokenValidity(clientDetails.getRefreshTokenValiditySeconds());
+        authClientDto.setAdditionalInformation(clientDetails.getAdditionalInformation());
 
         return authClientDto;
     }

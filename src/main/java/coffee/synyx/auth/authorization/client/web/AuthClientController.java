@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
+import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 
@@ -85,7 +86,7 @@ public class AuthClientController {
 
         List<AuthClientDto> clientDetails = jdbcClientDetailsService.listClientDetails()
                 .stream()
-                .map(client -> toDto((AuthClient) client))
+                .map(AuthClientMapper::toDto)
                 .collect(toList());
 
         model.addAttribute("clients", clientDetails);
@@ -99,7 +100,7 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}/edit", method = GET)
     public String getEditView(@PathVariable("authClientId") String authClientId, Model model) {
 
-        AuthClient authClient = (AuthClient) jdbcClientDetailsService.loadClientByClientId(authClientId);
+        ClientDetails authClient = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute(CLIENT, toDto(authClient));
 
         LOGGER.info("//> Clients: Provide client edit page of client {}", authClientId);
@@ -187,7 +188,7 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}", method = GET)
     public String getClientView(@PathVariable("authClientId") String authClientId, Model model) {
 
-        AuthClient authClient = (AuthClient) jdbcClientDetailsService.loadClientByClientId(authClientId);
+        ClientDetails authClient = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute(CLIENT, toDto(authClient));
 
         LOGGER.debug("//> Clients: Provide specific client page of {}", authClientId);
@@ -199,7 +200,7 @@ public class AuthClientController {
     @RequestMapping(value = "/{authClientId}/delete", method = GET)
     public String getDeleteConfirmationView(@PathVariable("authClientId") String authClientId, Model model) {
 
-        AuthClient authClient = (AuthClient) jdbcClientDetailsService.loadClientByClientId(authClientId);
+        ClientDetails authClient = jdbcClientDetailsService.loadClientByClientId(authClientId);
         model.addAttribute(CLIENT, toDto(authClient));
 
         LOGGER.debug("//> Clients: Provide client confirmation page to deleted {}", authClientId);
