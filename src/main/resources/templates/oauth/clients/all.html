@@ -7,7 +7,7 @@
     <title th:text="#{clients.all.title}"></title>
 </head>
 <body>
-<!--/*@thymesVar id="clients" type="java.util.List<coffee.synyx.auth.oauth.client.web.ClientDetailsResource>"*/-->
+<!--/*@thymesVar id="clients" type="java.util.List<coffee.synyx.auth.authorization.client.web.AuthClientDto>"*/-->
 <main layout:fragment="auth_main">
     <div class="text-center alert alert-global alert-success" th:if="${successMessage != null}" th:text="#{${successMessage}}"></div>
     <div class="container-fluid">
