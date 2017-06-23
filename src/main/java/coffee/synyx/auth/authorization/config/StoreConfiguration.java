@@ -76,6 +76,8 @@ class StoreConfiguration {
 
             final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(jksPath, jksPassword);
             converter.setKeyPair(keyStoreKeyFactory.getKeyPair(keyStoreProperties.getJksAlias()));
+
+            LOGGER.info("//> Prepared and added key pair to JwtAccessTokenConverter");
         }
 
         ((DefaultAccessTokenConverter) converter.getAccessTokenConverter()).setUserTokenConverter(
