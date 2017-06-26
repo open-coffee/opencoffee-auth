@@ -1,5 +1,8 @@
 # Changelog 
 
+### 1.10.1
+* Fix bug that user endpoint does not return authorities
+
 ### 1.10.0
 * Upgrade CoffeeNet starter-logging to version 0.23.0
 * Upgrade CoffeeNet starter-discovery to version 0.23.0
