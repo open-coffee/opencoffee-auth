@@ -1,5 +1,7 @@
 # Changelog 
 
+### 1.11.0
+
 ### 1.10.1
 * Fix bug that user endpoint does not return authorities
 
