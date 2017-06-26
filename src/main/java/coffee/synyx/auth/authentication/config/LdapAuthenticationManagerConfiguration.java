@@ -14,6 +14,7 @@ import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.ldap.search.FilterBasedLdapUserSearch;
+import org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsService;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -65,10 +66,17 @@ public class LdapAuthenticationManagerConfiguration extends GlobalAuthentication
     @Bean
     public LdapUserDetailsService ldapUserDetailsService() {
 
-        FilterBasedLdapUserSearch userSearch = new FilterBasedLdapUserSearch(
-                ldapConfigurationProperties.getUserSearchBase(), ldapConfigurationProperties.getUserSearchFilter(),
-                contextSource());
-        LdapUserDetailsService service = new LdapUserDetailsService(userSearch);
+        LdapContextSource contextSource = contextSource();
+        String userSearchBase = ldapConfigurationProperties.getUserSearchBase();
+        String userSearchFilter = ldapConfigurationProperties.getUserSearchFilter();
+        FilterBasedLdapUserSearch userSearch = new FilterBasedLdapUserSearch(userSearchBase, userSearchFilter,
+                contextSource);
+
+        String groupSearchBase = ldapConfigurationProperties.getGroupSearchBase();
+        DefaultLdapAuthoritiesPopulator authoritiesPopulator = new DefaultLdapAuthoritiesPopulator(contextSource,
+                groupSearchBase);
+
+        LdapUserDetailsService service = new LdapUserDetailsService(userSearch, authoritiesPopulator);
         service.setUserDetailsMapper(ldapCoffeeNetUserDetailsContextMapper);
 
         return service;
