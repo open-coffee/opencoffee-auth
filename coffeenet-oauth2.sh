@@ -7,17 +7,6 @@
 #	./coffeenet-oauth2.sh token client - to return all token informaton of a client
 #	./coffeenet-oauth2.sh token user - to return all token informaton of a user
 
-DEFAULT_OAUTH_TOKEN_URL="https://auth-test.synyx.coffee/oauth/token"
-
-while getopts u:d:p:f: option
-do
-	case "${option}"
-		in
-		u) OAUTH_TOKEN_URL==${OPTARG:-$DEFAULT_OAUTH_TOKEN_URL};;
-		s) SCOPE=${OPTARG:openid};;
-	esac
-done
-
 OAUTH_TOKEN_URL="https://auth-test.synyx.coffee/oauth/token"
 
 set -e
