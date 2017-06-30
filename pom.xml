@@ -49,7 +49,7 @@
 
         <dependency>
             <groupId>coffee.synyx</groupId>
-            <artifactId>starter-web-thymeleaf</artifactId>
+            <artifactId>starter-navigation-thymeleaf</artifactId>
         </dependency>
 
         <!-- Database -->
