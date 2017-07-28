@@ -4,8 +4,8 @@
 # depends on Python's built-in json module to prettify output
 #
 # Usage:
-#	./coffeenet-oauth2.sh token client - to return all token informaton of a client
-#	./coffeenet-oauth2.sh token user - to return all token informaton of a user
+#	./coffeenet-oauth2.sh token client - to return all token information of a client
+#	./coffeenet-oauth2.sh token user - to return all token information of a user
 
 OAUTH_TOKEN_URL="https://auth-test.synyx.coffee/oauth/token"
 
