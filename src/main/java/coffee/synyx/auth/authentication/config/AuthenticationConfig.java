@@ -18,6 +18,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -61,12 +62,19 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+
+        web.ignoring().mvcMatchers("/webjars/**", "/img/**");
+    }
+
+
+    @Override
     public void configure(HttpSecurity http) throws Exception { // NOSONAR
 
         //J-
         http.requestMatchers()
                 .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", LOGOUT,
-                        "/webjars/**", "/health", CLIENTS, "/forbidden")
+                        CLIENTS, "/forbidden")
             .and()
                 .formLogin()
                 .defaultSuccessUrl(authConfigurationProperties.getDefaultRedirectUrl())
@@ -80,10 +88,6 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, LOGOUT)
-                .permitAll()
-            .and()
-                .authorizeRequests()
-                .antMatchers("/webjars/**", "/health")
                 .permitAll()
             .and()
                 .authorizeRequests()
