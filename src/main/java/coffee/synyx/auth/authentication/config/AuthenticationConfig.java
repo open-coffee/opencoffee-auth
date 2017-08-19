@@ -15,14 +15,14 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.annotation.Order;
 
-import org.springframework.http.HttpMethod;
-
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import static org.slf4j.LoggerFactory.getLogger;
+
+import static org.springframework.http.HttpMethod.GET;
 
 import static java.lang.invoke.MethodHandles.lookup;
 
@@ -77,30 +77,23 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                         CLIENTS, "/forbidden")
             .and()
                 .formLogin()
-                .defaultSuccessUrl(authConfigurationProperties.getDefaultRedirectUrl())
-                .loginPage("/login")
-                .permitAll()
+                    .defaultSuccessUrl(authConfigurationProperties.getDefaultRedirectUrl())
+                    .loginPage("/login").permitAll()
             .and()
                 .logout()
-                .logoutUrl(LOGOUT)
-                .logoutSuccessHandler(logoutSuccessHandler)
-                .deleteCookies(serverProperties.getSession().getCookie().getName())
+                    .logoutUrl(LOGOUT)
+                    .logoutSuccessHandler(logoutSuccessHandler)
+                    .deleteCookies(serverProperties.getSession().getCookie().getName())
                 .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, LOGOUT)
-                .permitAll()
+                    .authorizeRequests().antMatchers(GET, LOGOUT).permitAll()
             .and()
                 .authorizeRequests()
-                .antMatchers("/clients/new", "/clients/*/edit", "/clients/*/delete")
-                .hasAuthority(ADMIN_ROLE)
+                .antMatchers("/clients/new", "/clients/*/edit", "/clients/*/delete").hasAuthority(ADMIN_ROLE)
             .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, CLIENTS)
-                .authenticated()
-                .antMatchers(CLIENTS)
-                .hasAuthority(ADMIN_ROLE)
-                .anyRequest()
-                .authenticated()
+                .antMatchers(GET, CLIENTS).authenticated()
+                .antMatchers(CLIENTS).hasAuthority(ADMIN_ROLE)
+                .anyRequest().authenticated()
             .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new DefaultAccessDeniedHandler(authConfigurationProperties));
