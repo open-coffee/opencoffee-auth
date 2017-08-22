@@ -1,4 +1,4 @@
-package coffee.synyx.auth.authentication.config;
+package coffee.synyx.auth.authentication.config.ldap;
 
 import org.hibernate.validator.constraints.NotBlank;
 

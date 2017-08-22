@@ -1,5 +1,6 @@
-package coffee.synyx.auth.authentication.config;
+package coffee.synyx.auth.authentication.config.ldap;
 
+import coffee.synyx.auth.authentication.config.CoffeeNetUserDetails;
 import org.slf4j.Logger;
 
 import org.springframework.ldap.core.DirContextOperations;
