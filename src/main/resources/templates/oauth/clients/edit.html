@@ -16,7 +16,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span th:text="#{clients.new.title}"></span>
+                        <span th:text="#{clients.edit.title}"></span>
                     </div>
                     <div class="panel-body">
                         <form role="form" th:action="@{/clients/{id}(id=${client.clientId})}" th:object="${client}" th:method="put">
