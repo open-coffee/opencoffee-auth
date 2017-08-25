@@ -32,6 +32,7 @@
     </issueManagement>
 
     <properties>
+        <spring.version>4.3.9.RELEASE</spring.version>
         <docker.finalName>${project.build.finalName}</docker.finalName>
     </properties>
 
