@@ -6,7 +6,7 @@
     <parent>
         <groupId>coffee.synyx</groupId>
         <artifactId>coffeenet-starter-parent</artifactId>
-        <version>0.25.0</version>
+        <version>0.26.0</version>
     </parent>
 
     <artifactId>auth</artifactId>
@@ -32,7 +32,6 @@
     </issueManagement>
 
     <properties>
-        <spring.version>4.3.9.RELEASE</spring.version>
         <docker.finalName>${project.build.finalName}</docker.finalName>
     </properties>
 
