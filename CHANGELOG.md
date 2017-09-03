@@ -1,6 +1,6 @@
 # Changelog 
 
-### 1.11.0-SNAPSHOT
+### 1.11.0
 
 * Fix
   * Use ldap uid as username instead of user typed username
