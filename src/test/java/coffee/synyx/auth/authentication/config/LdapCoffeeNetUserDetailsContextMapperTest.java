@@ -43,7 +43,8 @@ public class LdapCoffeeNetUserDetailsContextMapperTest {
     @Test
     public void mapUserFromContext() throws InvalidNameException {
 
-        String username = "username";
+        String username = "uSeRnAme";
+        String uid = "username";
         String password = "password";
         String mail = "user@coffeenet";
         String distinguishName = "uid=user,ou=employees,ou=accounts,dc=coffee,dc=net";
@@ -51,13 +52,14 @@ public class LdapCoffeeNetUserDetailsContextMapperTest {
         DirContextAdapter ctx = new DirContextAdapter();
         ctx.setDn(new LdapName(distinguishName));
         ctx.addAttributeValue("mail", mail);
+        ctx.addAttributeValue("uid", uid);
         ctx.addAttributeValue("userPassword", password);
 
         LdapAuthority authority = new LdapAuthority("ADMIN", "dn");
         List<LdapAuthority> authorities = singletonList(authority);
 
         CoffeeNetUserDetails userDetails = (CoffeeNetUserDetails) sut.mapUserFromContext(ctx, username, authorities);
-        assertThat(userDetails.getUsername(), is(username));
+        assertThat(userDetails.getUsername(), is(uid));
         assertThat(userDetails.getMail(), is(mail));
         assertThat(userDetails.getPassword(), is(password));
         assertThat(userDetails.getAuthorities(), contains(authority));
@@ -72,11 +74,12 @@ public class LdapCoffeeNetUserDetailsContextMapperTest {
         ctx.setDn(new LdapName("uid=schneider,ou=employees,ou=accounts,dc=coffee,dc=net"));
         ctx.addAttributeValue("mail", "user@coffeenet");
         ctx.addAttributeValue("userPassword", "passw0rd");
+        ctx.addAttributeValue("uid", "username");
 
         LdapAuthority authority = new LdapAuthority("ADMIN", "dn");
         List<LdapAuthority> authorities = singletonList(authority);
 
-        CoffeeNetUserDetails userDetails = (CoffeeNetUserDetails) sut.mapUserFromContext(ctx, "username", authorities);
+        CoffeeNetUserDetails userDetails = (CoffeeNetUserDetails) sut.mapUserFromContext(ctx, "uSeRnAme", authorities);
         userDetails.eraseCredentials();
         assertThat(userDetails.getPassword(), nullValue());
     }
