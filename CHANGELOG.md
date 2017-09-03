@@ -2,6 +2,14 @@
 
 ### 1.11.0
 
+* Fix
+  * close unnecessary open /health endpoint
+  * wrong message property in clients edit page
+
+* Improvement
+  * DockerFile - use default alpine openjdk image as base
+  * CoffeeNet OAuth2 script to receive token
+
 ### 1.10.1
 * Fix bug that user endpoint does not return authorities
 
