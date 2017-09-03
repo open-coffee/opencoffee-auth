@@ -4,62 +4,71 @@
 # depends on Python's built-in json module to prettify output
 #
 # Usage:
-#	./coffeenet-oauth2.sh token client - to return all token information of a client
-#	./coffeenet-oauth2.sh token user - to return all token information of a user
+#  ./coffeenet-oauth2.sh token client - to return all token information of a client
+#  ./coffeenet-oauth2.sh token user - to return all token information of a user
 
-OAUTH_TOKEN_URL="https://auth-test.synyx.coffee/oauth/token"
+if [ 3 -eq $# ]; then
 
-set -e
+OAUTH_TOKEN_URL=$3
 
-if [ "$1" == "token" ] && [ "$2" == "client" ]; then
+    set -e
 
-	echo "Type the client id, followed by [ENTER]:"
-	read CLIENT_ID
+    if [ "$1" == "token" ] && [ "$2" == "client" ]; then
 
-	echo "Type the client secret, followed by [ENTER]:"
-	read -s CLIENT_SECRET
+        echo "Type the client id, followed by [ENTER]:"
+        read CLIENT_ID
 
-	RESPONSE=`curl --request POST --header 'Content-Type: application/x-www-form-urlencoded' -u $CLIENT_ID:$CLIENT_SECRET --silent $OAUTH_TOKEN_URL --data "grant_type=client_credentials&scope=$SCOPE"`
+        echo "Type the client secret, followed by [ENTER]:"
+        read -s CLIENT_SECRET
 
-	RESPONSE_JSON=`echo "$RESPONSE" | python -mjson.tool`
-	ACCESS_TOKEN=`echo "$RESPONSE" | python -mjson.tool | grep -oP 'access_token"\s*:\s*"\K(.*)"' | sed 's/"//'`
+        RESPONSE=`curl --request POST --header 'Content-Type: application/x-www-form-urlencoded' -u ${CLIENT_ID}:${CLIENT_SECRET} --silent ${OAUTH_TOKEN_URL} --data "grant_type=client_credentials&scope=${SCOPE}"`
 
-	echo ""
-	echo "> RESPONSE:"
-	echo "$RESPONSE_JSON"
-	echo ""
+        RESPONSE_JSON=`echo "${RESPONSE}" | python -mjson.tool`
+        ACCESS_TOKEN=`echo "${RESPONSE}" | python -mjson.tool | grep -oP 'access_token"\s*:\s*"\K(.*)"' | sed 's/"//'`
 
-	echo "------------"
-	echo ""
-	echo "> Access Token:"
-	echo "$ACCESS_TOKEN"
+        echo ""
+        echo "> RESPONSE:"
+        echo "${RESPONSE}_JSON"
+        echo ""
 
-elif [ "$1" == "token" ] && [ "$2" == "user" ]; then
+        echo "------------"
+        echo ""
+        echo "> Access Token:"
+        echo "${ACCESS_TOKEN}"
 
-	echo "Type the client id, followed by [ENTER]:"
-	read CLIENT_ID
+    elif [ "$1" == "token" ] && [ "$2" == "user" ]; then
 
-	echo "Type the client secret, followed by [ENTER]:"
-	read -s CLIENT_SECRET
+        echo "Type the client id, followed by [ENTER]:"
+        read CLIENT_ID
 
-	echo "Type your username, followed by [ENTER]:"
-	read USERNAME
+        echo "Type the client secret, followed by [ENTER]:"
+        read -s CLIENT_SECRET
 
-	echo "Type your password, followed by [ENTER]:"
-	read -s  PASSWORD
+        echo "Type your username, followed by [ENTER]:"
+        read USERNAME
 
-	RESPONSE=`curl --request POST --header 'Content-Type: application/x-www-form-urlencoded' -u $CLIENT_ID:$CLIENT_SECRET --silent $OAUTH_TOKEN_URL --data "grant_type=password&username=$USERNAME&password=$PASSWORD&scope=$SCOPE"`
+        echo "Type your password, followed by [ENTER]:"
+        read -s  PASSWORD
 
-	RESPONSE_JSON=`echo "$RESPONSE" | python -mjson.tool`
-	ACCESS_TOKEN=`echo "$RESPONSE" | python -mjson.tool | grep -oP 'access_token"\s*:\s*"\K(.*)"' | sed 's/"//'`
+        RESPONSE=`curl --request POST --header 'Content-Type: application/x-www-form-urlencoded' -u ${CLIENT_ID}:${CLIENT_SECRET} --silent ${OAUTH_TOKEN_URL} --data "grant_type=password&username=$USERNAME&password=${PASSWORD}&scope=${SCOPE}"`
 
-	echo ""
-	echo "> RESPONSE:"
-	echo "$RESPONSE_JSON"
-	echo ""
+        RESPONSE_JSON=`echo "${RESPONSE}" | python -mjson.tool`
+        ACCESS_TOKEN=`echo "${RESPONSE}" | python -mjson.tool | grep -oP 'access_token"\s*:\s*"\K(.*)"' | sed 's/"//'`
 
-	echo "------------"
-	echo ""
-	echo "> Access Token:"
-	echo "$ACCESS_TOKEN"
+        echo ""
+        echo "> RESPONSE:"
+        echo "${RESPONSE}_JSON"
+        echo ""
+
+        echo "------------"
+        echo ""
+        echo "> Access Token:"
+        echo "${ACCESS_TOKEN}"
+    fi
+else
+  echo "this scripts expects 3 parameter:"
+  echo "  1: what to you want to receive? e.g. token"
+  echo "  2: specify first argument e.g. 'client' or 'user' if first argument is 'token'"
+  echo "  3: url of the oauth2 token endpoint"
+  exit -1
 fi
