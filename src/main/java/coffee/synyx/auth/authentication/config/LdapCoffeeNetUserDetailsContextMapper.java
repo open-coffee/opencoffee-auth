@@ -39,7 +39,7 @@ public class LdapCoffeeNetUserDetailsContextMapper extends LdapUserDetailsMapper
 
         String mail = ctx.getStringAttribute("mail");
         CoffeeNetUserDetails coffeeNetUserDetails = new CoffeeNetUserDetails(ldapUserDetails, mail);
-        LOGGER.info("//> Mapped user {} from ldap to CoffeeNetUserDetails", username);
+        LOGGER.info("//> Mapped user {} from ldap to CoffeeNetUserDetails", uid);
         LOGGER.debug("//> User {} is", coffeeNetUserDetails);
 
         return coffeeNetUserDetails;
