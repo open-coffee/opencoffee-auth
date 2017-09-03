@@ -1,10 +1,15 @@
 # Changelog 
 
-### 1.11.0
+### 1.11.0-SNAPSHOT
 
 * Fix
+  * Use ldap uid as username instead of user typed username
   * close unnecessary open /health endpoint
   * wrong message property in clients edit page
+
+* Upgrade
+  * CoffeeNet starter-logging to version 0.26.0
+  * CoffeeNet starter-discovery to version 0.26.0
 
 * Improvement
   * DockerFile - use default alpine openjdk image as base
