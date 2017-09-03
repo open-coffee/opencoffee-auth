@@ -1,5 +1,7 @@
 # Changelog 
 
+### 1.12.0-SNAPSHOT
+
 ### 1.11.0
 
 * Fix
