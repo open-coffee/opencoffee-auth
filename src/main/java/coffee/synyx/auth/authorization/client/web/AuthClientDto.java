@@ -24,9 +24,9 @@ public class AuthClientDto {
     private String registeredRedirectUri;
 
     private String resourceIds;
-    private String scope;
-    private String authorizedGrantTypes;
-    private String authorities;
+    private String scope = "openid";
+    private String authorizedGrantTypes = "authorization_code,password,client_credentials";
+    private String authorities = "";
     private Integer accessTokenValidity;
     private Integer refreshTokenValidity;
     private Map<String, Object> additionalInformation = new HashMap<>();
