@@ -2,6 +2,9 @@
 
 ### 1.12.0-SNAPSHOT
 
+* Fix
+  * Default values for AuthClientDto
+
 ### 1.11.0
 
 * Fix
