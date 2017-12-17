@@ -25,11 +25,38 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <ul>
-                            <li th:each="url : ${#strings.arraySplit(client.getRegisteredRedirectUri(), ',')}">
-                                <a th:text="${url}" th:href="${url}"></a>
-                            </li>
-                        </ul>
+                        <div class="coffeenet--clients-container">
+                            <span class="coffeenet--clients-details-header" th:text="#{client.resourceIds.header}"></span>
+                            <span th:text="${client.resourceIds}"></span>
+                        </div>
+                        <div class="coffeenet--clients-container">
+                            <span class="coffeenet--clients-details-header" th:text="#{client.scope.header}"></span>
+                            <span th:text="${client.scope}"></span>
+                        </div>
+                        <div class="coffeenet--clients-container">
+                            <span class="coffeenet--clients-details-header" th:text="#{client.authorizedGrantTypes.header}"></span>
+                            <span th:text="${client.authorizedGrantTypes}"></span>
+                        </div>
+                        <div class="coffeenet--clients-container">
+                            <span class="coffeenet--clients-details-header" th:text="#{client.authorities.header}"></span>
+                            <span th:text="${client.authorities}"></span>
+                        </div>
+                        <div class="coffeenet--clients-container">
+                            <span class="coffeenet--clients-details-header" th:text="#{client.accessTokenValidity.header}"></span>
+                            <span th:text="${client.accessTokenValidity}"></span>
+                        </div>
+                        <div class="coffeenet--clients-container">
+                            <span class="coffeenet--clients-details-header" th:text="#{client.refreshTokenValidity.header}"></span>
+                            <span th:text="${client.refreshTokenValidity}"></span>
+                        </div>
+                        <div class="coffeenet--clients-container">
+                            <span class="coffeenet--clients-details-header" th:text="#{client.redirect.header}"></span>
+                            <ul>
+                                <li th:each="url : ${#strings.arraySplit(client.getRegisteredRedirectUri(), ',')}">
+                                    <a th:text="${url}" th:href="${url}"></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

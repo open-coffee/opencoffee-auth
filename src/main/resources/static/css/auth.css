@@ -188,6 +188,17 @@ body {
     text-align: center;
 }
 
+/* Clients */
+.coffeenet--clients-details-container {
+    margin-bottom: 10px;
+}
+
+.coffeenet--clients-details-header {
+    font-weight: bold;
+    min-width: 20%;
+    display: inline-block;
+}
+
 /* CoffeeNet Buttons */
 .btn-success {
     background-color: #6c4227 !important;
@@ -240,10 +251,6 @@ body {
 
 .form-error {
     color: darkred;
-    font-weight: bold;
-}
-
-.details--header {
     font-weight: bold;
 }
 
