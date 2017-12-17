@@ -37,8 +37,8 @@ public class AuthClientDtoTest {
         assertThat(sut.getClientSecret(), is(nullValue()));
         assertThat(sut.getRegisteredRedirectUri(), is(nullValue()));
         assertThat(sut.getResourceIds(), is(nullValue()));
-        assertThat(sut.getScope(), is("openid"));
-        assertThat(sut.getAuthorizedGrantTypes(), is("authorization_code,password,client_credentials"));
+        assertThat(sut.getScope(), is(nullValue()));
+        assertThat(sut.getAuthorizedGrantTypes(), is(nullValue()));
         assertThat(sut.getAuthorities(), is(""));
         assertThat(sut.getAccessTokenValidity(), is(nullValue()));
         assertThat(sut.getAdditionalInformation().size(), is(0));
