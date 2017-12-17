@@ -17,7 +17,7 @@
                 <div th:each="client : ${clients}" class="panel panel-default">
                     <div class="panel-heading">
                         <a th:href="@{/clients/{id}(id=${client.clientId})}" th:text="${client.clientId}"></a>
-                        <div sec:authorize="hasRole('ROLE_COFFEENET-ADMIN')" class="pull-right"><!-- TODO - correct ROLE? -->
+                        <div sec:authorize="hasRole('ROLE_COFFEENET-ADMIN')" class="pull-right">
                             <a th:href="@{/clients/{id}/edit(id=${client.clientId})}"
                                class="glyphicon glyphicon-cog"></a>
                             <a th:href="@{/clients/{id}/delete(id=${client.clientId})}"
