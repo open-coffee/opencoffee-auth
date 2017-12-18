@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout-plain">
 <head>
-    <title th:text="#{login.title}"></title>
+    <title th:text="#{logout.title}"></title>
 </head>
 <body class="coffeenet--login-body">
 <main layout:fragment="auth_main">
@@ -12,7 +12,7 @@
 
         <form id="logoutForm" name="logoutForm" th:action="@{/logout}" th:method="POST">
             <button class="btn btn-block btn-success" type="submit">
-                <span th:text="#{login.button.logout}" th:attr="aria-label=#{login.button.logout}"></span>
+                <span th:text="#{logout.button.text}" th:attr="aria-label=#{logout.button.text}"></span>
             </button>
         </form>
     </div>
