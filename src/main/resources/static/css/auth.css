@@ -1,3 +1,9 @@
+* {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
 body {
     background-color: #FFFFFF;
 }
@@ -21,8 +27,22 @@ body {
 }
 
 /* CoffeeNet Login & Logout */
+.coffeenet--login-body {
+    background: radial-gradient(circle, #eed5b3 0%, #eac699 60%) 0 50%;
+    background-size: 100% 200%;
+}
+
 .coffeenet--container-login {
-    width: 300px;
+    max-width: 300px;
+}
+
+.coffeenet--login-logo-hand {
+    margin-top: 45px;
+    margin-bottom: 15px;
+}
+
+.coffeenet--login-logo-text {
+    margin-bottom: 30px;
 }
 
 .coffeenet--login-form input {
@@ -30,8 +50,42 @@ body {
 }
 
 .coffeenet--login-password-recovery {
-    text-align: center;
+    text-align: right;
     margin-top: 24px;
+}
+
+.coffeenet--login-password-recovery > a {
+    color: #7D4C32;
+}
+
+.coffeenet--login-logo-hand.password-error {
+    animation: coffeenet--login-shake .5s ease-in-out;
+}
+
+@keyframes coffeenet--login-shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-10px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 /* CoffeeNet Error & Forbidden */
@@ -95,6 +149,12 @@ body {
 
 .alert-global {
     margin-top: -20px;
+}
+
+.alert-danger {
+    color: #7D4C32;
+    background-color: #eac699;
+    border-color: #eac699;
 }
 
 .form-error {
