@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout-plain">
+      layout:decorator="layout">
 <head>
     <title th:text="#{error.notfound.title}"></title>
 </head>
 <body>
 <main layout:fragment="auth_main">
-    <div class="coffeenet--container coffeenet--container-error">
+    <div class="coffeenet--container coffeenet--container-error-icon">
         <img class="logo" alt="coffeenet Logo" src="/images/logo.svg"/>
     </div>
 
-    <div class="coffeenet--container">
+    <div class="coffeenet--container coffeenet--container-error-text">
         <div>
             <h2 th:text="#{error.notfound}"></h2>
             <p th:text="#{error.notfound.messageA}"></p>
