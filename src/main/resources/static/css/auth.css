@@ -89,8 +89,13 @@ body {
 }
 
 /* CoffeeNet Error & Forbidden */
-.coffeenet--container-error {
+.coffeenet--container-error-icon {
     width: 150px;
+    margin-top: 45px;
+}
+
+.coffeenet--container-error-text {
+    width: 400px;
 }
 
 /* CoffeeNet authorize client by user */
