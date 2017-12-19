@@ -129,32 +129,33 @@ body {
 }
 
 .coffeenet--login-logo-hand.password-error {
-    animation: coffeenet--login-shake .5s ease-in-out;
+    animation: coffeenet--login-shake .4s ease-in-out;
+    animation-delay: .25s;
 }
 
 @keyframes coffeenet--login-shake {
     0% {
-        transform: translateX(0);
+        transform: rotateZ(0);
     }
 
     20% {
-        transform: translateX(-10px);
+        transform: rotateZ(-10deg);
     }
 
     40% {
-        transform: translateX(10px);
+        transform: rotateZ(10deg);
     }
 
     60% {
-        transform: translateX(-10px);
+        transform: rotateZ(-10deg);
     }
 
     80% {
-        transform: translateX(10px);
+        transform: rotateZ(10deg);
     }
 
     100% {
-        transform: translateX(0);
+        transform: rotateZ(0);
     }
 }
 
