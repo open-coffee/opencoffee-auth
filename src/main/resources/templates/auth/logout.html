@@ -8,7 +8,8 @@
 <main layout:fragment="auth_main">
 
     <div class="coffeenet--container-column coffeenet--container-login">
-        <img class="coffeenet--logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
+        <img class="coffeenet--logout-logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
+        <img class="coffeenet--logout-text" alt="CoffeeNet Text" src="/images/04_logo_text_without.svg"/>
 
         <form id="logoutForm" name="logoutForm" th:action="@{/logout}" th:method="POST">
             <button class="btn btn-block btn-success" type="submit">

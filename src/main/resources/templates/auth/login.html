@@ -9,9 +9,9 @@
 
     <div class="coffeenet--container-column coffeenet--container-login">
 
-        <img th:classappend="${param.error} ? 'password-error' : ''" class="coffeenet--login-logo-hand"
+        <img th:classappend="${param.error} ? 'password-error' : ''" class="coffeenet--login-logo"
              alt="CoffeeNet Logo" src="/images/03_logo_hand.svg"/>
-        <img class="coffeenet--login-logo-text" alt="CoffeeNet Logo" src="/images/04_logo_text.svg"/>
+        <img class="coffeenet--login-logo-text" alt="CoffeeNet Text" src="/images/04_logo_text.svg"/>
 
         <div th:if="${param.error}" th:text="#{login.failure}" class="alert alert-danger"></div>
 

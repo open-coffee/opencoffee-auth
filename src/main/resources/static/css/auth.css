@@ -42,12 +42,12 @@ body {
     margin-top: 2em;
 }
 
-.coffeenet--login-logo-hand {
+.coffeenet--login-logo, .coffeenet--logout-logo {
     max-width: 25vw;
     margin: 0 auto;
 }
 
-.coffeenet--login-logo-text {
+.coffeenet--login-logo-text, .coffeenet--logout-text {
     max-width: 75vw;
     margin: 0 auto 1em;
 }
@@ -71,12 +71,12 @@ body {
         margin-top: 2em;
     }
 
-    .coffeenet--login-logo-hand {
+    .coffeenet--login-logo, .coffeenet--logout-logo {
         max-width: 20vw;
         margin: 0 auto;
     }
 
-    .coffeenet--login-logo-text {
+    .coffeenet--login-logo-text, .coffeenet--logout-text {
         max-width: 30vw;
         margin: 0 auto .5em;
     }
@@ -88,12 +88,17 @@ body {
         margin-top: 2em;
     }
 
-    .coffeenet--login-logo-hand {
+    .coffeenet--login-logo {
         max-width: 25vw;
         margin: 0 auto;
     }
 
-    .coffeenet--login-logo-text {
+    .coffeenet--logout-logo {
+        max-width: 15vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--login-logo-text, .coffeenet--logout-text {
         max-width: 25vw;
         margin: 0 auto 1em;
     }
@@ -105,12 +110,12 @@ body {
         margin-top: 2em;
     }
 
-    .coffeenet--login-logo-hand {
+    .coffeenet--login-logo, .coffeenet--logout-logo {
         max-width: 15vw;
         margin: 0 auto;
     }
 
-    .coffeenet--login-logo-text {
+    .coffeenet--login-logo-text, .coffeenet--logout-text {
         max-width: 20vw;
         margin: 0 auto 1em;
     }
@@ -128,7 +133,7 @@ body {
     color: #7D4C32;
 }
 
-.coffeenet--login-logo-hand.password-error {
+.coffeenet--login-logo.password-error {
     animation: coffeenet--login-shake .4s ease-in-out;
     animation-delay: .25s;
 }
