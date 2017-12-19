@@ -1,3 +1,9 @@
+* {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
 body {
     background-color: #FFFFFF;
 }
@@ -20,23 +26,152 @@ body {
     margin: auto;
 }
 
+.coffeenet--logo {
+    margin-top: 45px;
+    margin-bottom: 15px;
+}
+
 /* CoffeeNet Login & Logout */
+.coffeenet--login-body {
+    background: radial-gradient(circle, #eed5b3 0%, #eac699 60%) 0 50%;
+    background-size: 100% 200%;
+}
+
 .coffeenet--container-login {
-    width: 300px;
+    max-width: 80vw;
+    margin-top: 2em;
+}
+
+.coffeenet--login-logo, .coffeenet--logout-logo {
+    max-width: 25vw;
+    margin: 0 auto;
+}
+
+.coffeenet--login-logo-text, .coffeenet--logout-text {
+    max-width: 75vw;
+    margin: 0 auto 1em;
 }
 
 .coffeenet--login-form input {
-    margin-bottom: 10px;
+    margin-bottom: .25em;
+}
+
+.coffeenet--login-form button {
+    margin-top: .5em;
 }
 
 .coffeenet--login-password-recovery {
-    text-align: center;
-    margin-top: 24px;
+    text-align: right;
+    margin-top: 1em;
+}
+
+@media (min-width: 768px) {
+    .coffeenet--container-login {
+        max-width: 35vw;
+        margin-top: 2em;
+    }
+
+    .coffeenet--login-logo, .coffeenet--logout-logo {
+        max-width: 20vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--login-logo-text, .coffeenet--logout-text {
+        max-width: 30vw;
+        margin: 0 auto .5em;
+    }
+}
+
+@media (min-width: 992px) {
+    .coffeenet--container-login {
+        max-width: 25vw;
+        margin-top: 2em;
+    }
+
+    .coffeenet--login-logo {
+        max-width: 25vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--logout-logo {
+        max-width: 15vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--login-logo-text, .coffeenet--logout-text {
+        max-width: 25vw;
+        margin: 0 auto 1em;
+    }
+}
+
+@media (min-width: 1200px) {
+    .coffeenet--container-login {
+        max-width: 20vw;
+        margin-top: 2em;
+    }
+
+    .coffeenet--login-logo, .coffeenet--logout-logo {
+        max-width: 15vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--login-logo-text, .coffeenet--logout-text {
+        max-width: 20vw;
+        margin: 0 auto 1em;
+    }
+
+    .coffeenet--login-form input {
+        margin-bottom: .5em;
+    }
+
+    .coffeenet--login-form button {
+        margin-top: 1em;
+    }
+}
+
+.coffeenet--login-password-recovery > a {
+    color: #7D4C32;
+}
+
+.coffeenet--login-logo.password-error {
+    animation: coffeenet--login-shake .4s ease-in-out;
+    animation-delay: .25s;
+}
+
+@keyframes coffeenet--login-shake {
+    0% {
+        transform: rotateZ(0);
+    }
+
+    20% {
+        transform: rotateZ(-10deg);
+    }
+
+    40% {
+        transform: rotateZ(10deg);
+    }
+
+    60% {
+        transform: rotateZ(-10deg);
+    }
+
+    80% {
+        transform: rotateZ(10deg);
+    }
+
+    100% {
+        transform: rotateZ(0);
+    }
 }
 
 /* CoffeeNet Error & Forbidden */
-.coffeenet--container-error {
+.coffeenet--container-error-icon {
     width: 150px;
+    margin-top: 45px;
+}
+
+.coffeenet--container-error-text {
+    width: 400px;
 }
 
 /* CoffeeNet authorize client by user */
@@ -95,6 +230,12 @@ body {
 
 .alert-global {
     margin-top: -20px;
+}
+
+.alert-danger {
+    color: #7D4C32;
+    background-color: #eac699;
+    border-color: #eac699;
 }
 
 .form-error {

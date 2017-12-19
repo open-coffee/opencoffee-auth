@@ -4,11 +4,14 @@
 <head>
     <title th:text="#{login.title}"></title>
 </head>
-<body>
+<body class="coffeenet--login-body">
 <main layout:fragment="auth_main">
 
     <div class="coffeenet--container-column coffeenet--container-login">
-        <img class="logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
+
+        <img th:classappend="${param.error} ? 'password-error' : ''" class="coffeenet--login-logo"
+             alt="CoffeeNet Logo" src="/images/03_logo_hand.svg"/>
+        <img class="coffeenet--login-logo-text" alt="CoffeeNet Text" src="/images/04_logo_text.svg"/>
 
         <div th:if="${param.error}" th:text="#{login.failure}" class="alert alert-danger"></div>
 
@@ -22,7 +25,6 @@
                    th:placeholder="#{login.password}"/>
 
             <button type="submit" class="btn btn-block btn-success">
-                <span class="glyphicon glyphicon-log-in"></span>
                 <span th:text="#{login.button.login}" th:attr="aria-label=#{login.button.login}"></span>
             </button>
         </form>

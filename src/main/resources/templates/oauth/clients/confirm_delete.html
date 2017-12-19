@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout-plain">
+      layout:decorator="layout">
 <!--/*@thymesVar id="client" type="coffee.synyx.auth.authorization.client.web.AuthClientDto"*/-->
 <head>
-    <title th:text="#{authorize.title}"></title>
+    <title th:text="#{client.delete.confirm.title}"></title>
     <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 
@@ -11,7 +11,7 @@
 <main layout:fragment="auth_main">
 
     <div class="coffeenet--container coffeenet--container-authorize">
-        <img class="logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
+        <img class="coffeenet--logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
     </div>
 
     <div th:if="${client != null}" class="authorize--form">

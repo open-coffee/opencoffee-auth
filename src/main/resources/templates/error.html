@@ -4,13 +4,13 @@
 <head>
     <title th:text="#{error.title}"></title>
 </head>
-<body>
+<body class="coffeenet--login-body">
 <main layout:fragment="auth_main">
-    <div class="coffeenet--container coffeenet--container-error">
-        <img class="logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
+    <div class="coffeenet--container coffeenet--container-error-icon">
+        <img class="coffeenet--logo" alt="CoffeeNet Logo" src="/images/logo.svg"/>
     </div>
 
-    <div class="coffeenet--container">
+    <div class="coffeenet--container coffeenet--container-error-text">
         <div>
             <h2 th:text="#{error.general}"></h2>
             <p th:text="#{error.general.messageA}"></p>
