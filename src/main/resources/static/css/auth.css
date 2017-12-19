@@ -26,6 +26,11 @@ body {
     margin: auto;
 }
 
+.coffeenet--logo {
+    margin-top: 45px;
+    margin-bottom: 15px;
+}
+
 /* CoffeeNet Login & Logout */
 .coffeenet--login-body {
     background: radial-gradient(circle, #eed5b3 0%, #eac699 60%) 0 50%;
@@ -33,25 +38,90 @@ body {
 }
 
 .coffeenet--container-login {
-    max-width: 300px;
+    max-width: 80vw;
+    margin-top: 2em;
 }
 
-.coffeenet--logo, .coffeenet--login-logo-hand {
-    margin-top: 45px;
-    margin-bottom: 15px;
+.coffeenet--login-logo-hand {
+    max-width: 25vw;
+    margin: 0 auto;
 }
 
 .coffeenet--login-logo-text {
-    margin-bottom: 30px;
+    max-width: 75vw;
+    margin: 0 auto 1em;
 }
 
 .coffeenet--login-form input {
-    margin-bottom: 10px;
+    margin-bottom: .25em;
+}
+
+.coffeenet--login-form button {
+    margin-top: .5em;
 }
 
 .coffeenet--login-password-recovery {
     text-align: right;
-    margin-top: 24px;
+    margin-top: 1em;
+}
+
+@media (min-width: 768px) {
+    .coffeenet--container-login {
+        max-width: 35vw;
+        margin-top: 2em;
+    }
+
+    .coffeenet--login-logo-hand {
+        max-width: 20vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--login-logo-text {
+        max-width: 30vw;
+        margin: 0 auto .5em;
+    }
+}
+
+@media (min-width: 992px) {
+    .coffeenet--container-login {
+        max-width: 25vw;
+        margin-top: 2em;
+    }
+
+    .coffeenet--login-logo-hand {
+        max-width: 25vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--login-logo-text {
+        max-width: 25vw;
+        margin: 0 auto 1em;
+    }
+}
+
+@media (min-width: 1200px) {
+    .coffeenet--container-login {
+        max-width: 20vw;
+        margin-top: 2em;
+    }
+
+    .coffeenet--login-logo-hand {
+        max-width: 15vw;
+        margin: 0 auto;
+    }
+
+    .coffeenet--login-logo-text {
+        max-width: 20vw;
+        margin: 0 auto 1em;
+    }
+
+    .coffeenet--login-form input {
+        margin-bottom: .5em;
+    }
+
+    .coffeenet--login-form button {
+        margin-top: 1em;
+    }
 }
 
 .coffeenet--login-password-recovery > a {
