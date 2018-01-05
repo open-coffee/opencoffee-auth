@@ -29,6 +29,10 @@ import java.util.ArrayList;
 
 import javax.servlet.Filter;
 
+import static org.hamcrest.CoreMatchers.is;
+
+import static org.hamcrest.Matchers.hasProperty;
+
 import static org.mockito.Matchers.any;
 
 import static org.mockito.Mockito.doThrow;
@@ -72,9 +76,8 @@ public class AuthClientControllerTest {
     @Before
     public void setupMockMvc() {
 
-        mockMvc = MockMvcBuilders.webAppContextSetup(webContext)
-                .apply(springSecurity(springSecurityFilterChain))
-                .build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webContext).apply(springSecurity(springSecurityFilterChain))
+            .build();
     }
 
 
@@ -194,6 +197,21 @@ public class AuthClientControllerTest {
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(view().name("oauth/clients/new"));
         resultActions.andExpect(model().attributeExists("client"));
+    }
+
+
+    @Test
+    @WithMockUser(roles = { "COFFEENET-ADMIN" })
+    public void getNewClientViewWithDefaultValues() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(get("/clients/new"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(view().name("oauth/clients/new"));
+        resultActions.andExpect(model().attributeExists("client"));
+        resultActions.andExpect(model().attribute("client", hasProperty("scope", is("openid"))));
+        resultActions.andExpect(model().attribute("client",
+                hasProperty("authorizedGrantTypes", is("authorization_code,password,client_credentials"))));
+        resultActions.andExpect(model().attribute("client", hasProperty("authorities", is(""))));
     }
 
 

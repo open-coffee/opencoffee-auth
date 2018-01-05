@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout">
 <head>
     <meta charset="UTF-8"/>
@@ -34,6 +33,36 @@
                                 <label for="registeredRedirectUri" class="control-label" th:text="#{client.redirect.header}"></label>
                                 <input id="registeredRedirectUri" th:field="*{registeredRedirectUri}" class="form-control" type="text" name="registeredRedirectUri" placeholder="http://myApp.org,https://myApp.org,..."/>
                                 <span class="form-error" th:if="${#fields.hasErrors('registeredRedirectUri')}" th:errors="*{registeredRedirectUri}">registeredRedirectUri error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="resourceIds" class="control-label" th:text="#{client.resourceIds.header}"></label>
+                                <input id="resourceIds" th:field="*{resourceIds}" class="form-control" type="text" name="resourceIds"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('resourceIds')}" th:errors="*{resourceIds}">resourceIds error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="scope" class="control-label" th:text="#{client.scope.header}"></label>
+                                <input id="scope" th:field="*{scope}" class="form-control" type="text" name="scope"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('scope')}" th:errors="*{scope}">scope error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="authorizedGrantTypes" class="control-label" th:text="#{client.authorizedGrantTypes.header}"></label>
+                                <input id="authorizedGrantTypes" th:field="*{authorizedGrantTypes}" class="form-control" type="text" name="authorizedGrantTypes"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('authorizedGrantTypes')}" th:errors="*{authorizedGrantTypes}">authorizedGrantTypes error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="authorities" class="control-label" th:text="#{client.authorities.header}"></label>
+                                <input id="authorities" th:field="*{authorities}" class="form-control" type="text" name="authorities"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('authorities')}" th:errors="*{authorities}">authorities error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="accessTokenValidity" class="control-label" th:text="#{client.accessTokenValidity.header}"></label>
+                                <input id="accessTokenValidity" th:field="*{accessTokenValidity}" class="form-control" type="number" name="accessTokenValidity"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('accessTokenValidity')}" th:errors="*{accessTokenValidity}">accessTokenValidity error</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="refreshTokenValidity" class="control-label" th:text="#{client.refreshTokenValidity.header}"></label>
+                                <input id="refreshTokenValidity" th:field="*{refreshTokenValidity}" class="form-control" type="number" name="refreshTokenValidity"/>
+                                <span class="form-error" th:if="${#fields.hasErrors('refreshTokenValidity')}" th:errors="*{refreshTokenValidity}">refreshTokenValidity error</span>
                             </div>
 
                             <button type="submit" class="btn btn-success" th:text="#{client.edit.submit}"></button>

@@ -16,6 +16,11 @@ import static org.springframework.util.StringUtils.commaDelimitedListToSet;
  */
 class AuthClientMapper {
 
+    private AuthClientMapper() {
+
+        throw new IllegalStateException("Mapper class");
+    }
+
     static AuthClient toEntity(AuthClientDto authClientDto) {
 
         AuthClient authClient = new AuthClient();
@@ -27,8 +32,8 @@ class AuthClientMapper {
         authClient.setRegisteredRedirectUri(commaDelimitedListToSet(authClientDto.getRegisteredRedirectUri()));
 
         List<GrantedAuthority> grantedAuthorities = commaDelimitedListToSet(authClientDto.getAuthorities()).stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
 
         authClient.setAuthorities(grantedAuthorities);
 
