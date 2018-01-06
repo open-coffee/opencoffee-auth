@@ -2,6 +2,9 @@
 
 ### 1.12.0-SNAPSHOT
 
+* Add
+  * Run integration tests with mariaDB instead of h2
+
 
 ### 1.11.1
 

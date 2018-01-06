@@ -149,12 +149,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <repositories>
@@ -189,14 +183,17 @@
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
             </plugin>
+
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
             </plugin>
+
             <!-- Overriding build properties with local modifications per user -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -218,6 +215,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Docker -->
             <plugin>
                 <groupId>io.fabric8</groupId>
@@ -240,6 +238,71 @@
                         </image>
                     </images>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>docker-prepare-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <startParallel>true</startParallel>
+                            <images>
+                                <!-- MariaDB -->
+                                <image>
+                                    <name>coffeenet/coffeenet-auth-mariadb</name>
+                                    <build>
+                                        <dockerFileDir>mariadb</dockerFileDir>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>docker.mariadb.port:3306</port>
+                                        </ports>
+                                        <wait>
+                                            <!-- Do not change this - Do not even remove one of the two whitespaces -->
+                                            <log>socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution</log>
+                                            <time>60000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>docker-stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <removeVolumes>true</removeVolumes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Integration tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <!-- Those can be overridden in build.properties.local -->
+                            <systemPropertyVariables>
+                                <!-- Spring Datasource configuration -->
+                                <spring.datasource.url>
+                                    jdbc:mariadb://${docker.host.address}:${docker.mariadb.port}/auth
+                                </spring.datasource.url>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

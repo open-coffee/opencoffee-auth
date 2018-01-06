@@ -35,7 +35,7 @@ import static java.util.Collections.singletonList;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LdapCoffeeNetUserDetailsContextMapper.class)
-public class LdapCoffeeNetUserDetailsContextMapperTest {
+public class LdapCoffeeNetUserDetailsContextMapperIT {
 
     @Autowired
     private LdapCoffeeNetUserDetailsContextMapper sut;

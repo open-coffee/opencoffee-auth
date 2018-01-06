@@ -33,7 +33,7 @@ public class TokenControllerTest {
     private ConsumerTokenServices consumerTokenServicesMock;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         sut = new TokenController(consumerTokenServicesMock);
     }
