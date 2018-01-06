@@ -53,8 +53,8 @@ import static java.util.Collections.singletonList;
  * @author  Tobias Schneider - schneider@synyx.de
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class LoginControllerIT {
+@SpringBootTest(properties = "coffeenet.discovery.enabled=true")
+public class LoginControllerDiscoveryEnabledIT {
 
     @Autowired
     private WebApplicationContext webContext;
