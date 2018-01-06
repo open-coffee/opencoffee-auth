@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.ldap.core.support.DefaultTlsDirContextAuthenticationStrategy;
 import org.springframework.ldap.core.support.LdapContextSource;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -91,7 +92,7 @@ public class LdapAuthenticationManagerConfiguration extends GlobalAuthentication
         contextSource.setBase(ldapConfigurationProperties.getBase());
 
         if (ldapConfigurationProperties.isConnectionWithTls()) {
-            contextSource.setAuthenticationStrategy(new CoffeeNetDefaultTlsDirContextAuthenticationStrategy());
+            contextSource.setAuthenticationStrategy(new DefaultTlsDirContextAuthenticationStrategy());
         }
 
         LOGGER.info("//> Created LdapContextSource for AuthenticationManagerBuilder");
