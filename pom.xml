@@ -247,7 +247,6 @@
                             <goal>start</goal>
                         </goals>
                         <configuration>
-                            <startParallel>true</startParallel>
                             <images>
                                 <!-- MariaDB -->
                                 <image>
