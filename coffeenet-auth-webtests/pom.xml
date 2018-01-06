@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>coffee.synyx</groupId>
+    <artifactId>auth-webtests</artifactId>
+    <version>0.1-SNAPSHOT</version>
+
+    <name>CoffeeNet Auth Webtests</name>
+    <description>Webtests for the CoffeeNet Auth server based on Selenium (via Serenity)</description>
+
+    <scm>
+        <url>https://github.com/coffeenet/coffeenet-auth/coffeenet-auth-webtests</url>
+        <connection>scm:git:git://github.com/coffeenet/coffeenet-auth.git</connection>
+        <developerConnection>scm:git:git@github.com:coffeenet/coffeenet-auth.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <log4j.version>1.2.17</log4j.version>
+        <slf4j-log4j12.version>1.7.25</slf4j-log4j12.version>
+        <junit.version>4.12</junit.version>
+        <serenity.version>1.8.20</serenity.version>
+        <serenity.maven.version>1.8.20</serenity.maven.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- LOGGING DEPENDENCIES - LOG4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- JUNIT DEPENDENCY FOR TESTING -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Serenity for BDD style UI tests -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-spring</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>releases.public.nexus.synyx.de</id>
+            <url>http://nexus.synyx.de/content/repositories/public-releases</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <testResources>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+
+        <plugins>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.23.0</version>
+                <executions>
+                    <execution>
+                        <id>docker-prepare-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <autoCreateCustomNetworks>true</autoCreateCustomNetworks>
+                            <images>
+                                <!-- CoffeeNet Discovery -->
+                                <image>
+                                    <name>coffeenet/coffeenet-discovery:latest</name>
+                                    <alias>coffeenet-discovery-webtests.coffeenet</alias>
+                                    <run>
+                                        <namingStrategy>alias</namingStrategy>
+                                        <network>
+                                            <mode>custom</mode>
+                                            <name>coffeenet-webtest-network</name>
+                                        </network>
+                                        <volumes>
+                                            <bind>
+                                                <volume>./src/main/docker/coffeenet-discovery/application.yml:/application.yml</volume>
+                                            </bind>
+                                        </volumes>
+                                    </run>
+                                </image>
+                                <!-- CoffeeNet Auth database -->
+                                <image>
+                                    <name>coffeenet/coffeenet-auth-mariadb</name>
+                                    <alias>coffeenet-auth-mariadb-webtests.coffeenet</alias>
+                                    <build>
+                                        <dockerFileDir>mariadb</dockerFileDir>
+                                    </build>
+                                    <run>
+                                        <namingStrategy>alias</namingStrategy>
+                                        <network>
+                                            <mode>custom</mode>
+                                            <name>coffeenet-webtest-network</name>
+                                        </network>
+                                        <wait>
+                                            <!-- Do not change this - Do not even remove one of the two whitespaces -->
+                                            <log>socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution</log>
+                                            <time>60000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                                <!-- CoffeeNet Auth ldap -->
+                                <image>
+                                    <name>coffeenet/ldap-ds-389:0.1</name>
+                                    <alias>coffeenet-ldap.coffeenet</alias>
+                                    <build>
+                                        <dockerFileDir>ldap-ds-389</dockerFileDir>
+                                    </build>
+                                    <run>
+                                        <namingStrategy>alias</namingStrategy>
+                                        <network>
+                                            <mode>custom</mode>
+                                            <name>coffeenet-webtest-network</name>
+                                        </network>
+                                    </run>
+                                </image>
+                                <!-- CoffeeNet Auth -->
+                                <image>
+                                    <name>coffeenet/coffeenet-auth:latest</name>
+                                    <alias>coffeenet-auth-webtests.coffeenet</alias>
+                                    <run>
+                                        <namingStrategy>alias</namingStrategy>
+                                        <network>
+                                            <mode>custom</mode>
+                                            <name>coffeenet-webtest-network</name>
+                                        </network>
+                                        <ports>
+                                            <port>9999:9999</port>
+                                        </ports>
+                                        <volumes>
+                                            <bind>
+                                                <volume>./src/main/docker/coffeenet-auth/application.yml:/application.yml</volume>
+                                            </bind>
+                                        </volumes>
+                                    </run>
+                                </image>
+                                <!-- selenium -->
+                                <image>
+                                    <name>selenium/standalone-firefox:3.8.1-chlorine</name>
+                                    <alias>coffeenet-auth-selenium-webtests.coffeenet</alias>
+                                    <run>
+                                        <namingStrategy>alias</namingStrategy>
+                                        <network>
+                                            <mode>custom</mode>
+                                            <name>coffeenet-webtest-network</name>
+                                        </network>
+                                        <ports>
+                                            <port>4444:4444</port>
+                                        </ports>
+                                        <wait>
+                                            <time>25000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>docker-stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <removeVolumes>true</removeVolumes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Serenity Plugin to manage BDD style UI tests-->
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.serenity-bdd</groupId>
+                        <artifactId>serenity-core</artifactId>
+                        <version>${serenity.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <configuration>
+                            <generateOutcomes>true</generateOutcomes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

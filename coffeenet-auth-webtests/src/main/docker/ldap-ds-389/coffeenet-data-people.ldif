@@ -1,0 +1,32 @@
+version:1
+
+dn: ou=People,dc=coffeenet
+objectClass: organizationalUnit
+objectClass: top
+ou: People
+
+# user
+dn: uid=admin,ou=People,dc=coffeenet
+givenName: admin
+sn: admin
+cn: admin
+mail: admin@coffeenet
+uid: admin
+userPassword: admin
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user,ou=People,dc=coffeenet
+givenName: user
+sn: user
+cn: user
+mail: user@coffeenet
+uid: spencer
+userPassword: user
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser

@@ -1,0 +1,14 @@
+version: 1
+
+dn: cn=USER,ou=Groups,dc=coffeenet
+objectClass: top
+objectClass: groupOfNames
+cn: USER
+member: uid=admin,ou=People,dc=coffeenet
+member: uid=user,ou=People,dc=coffeenet
+
+dn: cn=COFFEENET-ADMIN,ou=Groups,dc=coffeenet
+objectClass: top
+objectClass: groupOfNames
+cn: COFFEENET-ADMIN
+member: uid=admin,ou=People,dc=coffeenet

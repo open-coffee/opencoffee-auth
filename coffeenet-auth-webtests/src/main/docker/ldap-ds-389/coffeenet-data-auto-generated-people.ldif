@@ -1,0 +1,130 @@
+# user
+dn: uid=user1,ou=People,dc=coffeenet
+givenName: user1
+sn: user1
+cn: user1 1
+mail: user1@coffeenet
+uid: user1
+userPassword: user1
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user2,ou=People,dc=coffeenet
+givenName: user2
+sn: user2
+cn: user2 2
+mail: user2@coffeenet
+uid: user2
+userPassword: user2
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user3,ou=People,dc=coffeenet
+givenName: user3
+sn: user3
+cn: user3 3
+mail: user3@coffeenet
+uid: user3
+userPassword: user3
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user4,ou=People,dc=coffeenet
+givenName: user4
+sn: user4
+cn: user4 4
+mail: user4@coffeenet
+uid: user4
+userPassword: user4
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user5,ou=People,dc=coffeenet
+givenName: user5
+sn: user5
+cn: user5 5
+mail: user5@coffeenet
+uid: user5
+userPassword: user5
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user6,ou=People,dc=coffeenet
+givenName: user6
+sn: user6
+cn: user6 6
+mail: user6@coffeenet
+uid: user6
+userPassword: user6
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user7,ou=People,dc=coffeenet
+givenName: user7
+sn: user7
+cn: user7 7
+mail: user7@coffeenet
+uid: user7
+userPassword: user7
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user8,ou=People,dc=coffeenet
+givenName: user8
+sn: user8
+cn: user8 8
+mail: user8@coffeenet
+uid: user8
+userPassword: user8
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user9,ou=People,dc=coffeenet
+givenName: user9
+sn: user9
+cn: user9 9
+mail: user9@coffeenet
+uid: user9
+userPassword: user9
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+
+# user
+dn: uid=user10,ou=People,dc=coffeenet
+givenName: user10
+sn: user10
+cn: user10 10
+mail: user10@coffeenet
+uid: user10
+userPassword: user10
+objectClass: top
+objectClass: inetorgperson
+objectClass: person
+objectClass: coffeeNetUser
+

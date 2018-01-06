@@ -1,0 +1,18 @@
+[General]
+FullMachineName= coffeenet-ldap.coffeenet
+SuiteSpotUserID= dirsrv
+SuiteSpotGroup= dirsrv
+AdminDomain= coffeenet
+ConfigDirectoryAdminID= admin
+ConfigDirectoryAdminPwd= admin
+
+[slapd]
+SlapdConfigForMC= Yes
+UseExistingMC= 0
+ServerPort= 9389
+ServerIdentifier= ldap
+Suffix= dc=coffeenet
+RootDN= cn=Directory Manager
+RootDNPwd= Iexeemah4ieb4M
+ds_bename=ldap
+AddSampleEntries= No
