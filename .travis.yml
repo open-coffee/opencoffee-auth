@@ -2,6 +2,8 @@ sudo: required
 
 language: java
 
+script: ./mvnw verify
+
 jdk:
 - oraclejdk8
 
