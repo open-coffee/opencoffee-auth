@@ -16,7 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import org.springframework.security.test.context.support.WithMockUser;
 
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -55,8 +54,7 @@ import static java.util.Collections.singletonList;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class LoginControllerTest {
+public class LoginControllerIT {
 
     @Autowired
     private WebApplicationContext webContext;
@@ -72,9 +70,8 @@ public class LoginControllerTest {
     @Before
     public void setupMockMvc() {
 
-        mockMvc = MockMvcBuilders.webAppContextSetup(webContext)
-                .apply(springSecurity(springSecurityFilterChain))
-                .build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webContext).apply(springSecurity(springSecurityFilterChain))
+            .build();
     }
 
 

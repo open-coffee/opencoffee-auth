@@ -33,7 +33,7 @@ public class LogoutRedirectSuccessHandlerTest {
     private HttpServletResponse responseMock = mock(HttpServletResponse.class);
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         sut = new LogoutRedirectSuccessHandler(new AuthConfigurationProperties());
     }
