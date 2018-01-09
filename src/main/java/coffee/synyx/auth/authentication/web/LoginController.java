@@ -30,7 +30,10 @@ import static java.lang.invoke.MethodHandles.lookup;
 
 
 /**
+ * Controller to handle the {@link coffee.synyx.autoconfigure.security.service.AbstractCoffeeNetUser} login calls.
+ *
  * @author  Yannic Klem - klem@synyx.de
+ * @author  Tobias Schneider
  */
 @Controller
 @EnableConfigurationProperties(AuthConfigurationProperties.class)
@@ -39,14 +42,12 @@ public class LoginController {
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
     private final AuthConfigurationProperties authConfigurationProperties;
-    private final CoffeeNetAppService coffeeNetAppService;
+    private CoffeeNetAppService coffeeNetAppService;
 
     @Autowired
-    public LoginController(AuthConfigurationProperties authConfigurationProperties,
-        CoffeeNetAppService coffeeNetAppService) {
+    public LoginController(AuthConfigurationProperties authConfigurationProperties) {
 
         this.authConfigurationProperties = authConfigurationProperties;
-        this.coffeeNetAppService = coffeeNetAppService;
     }
 
     @RequestMapping(value = "/login", method = GET)
@@ -71,15 +72,35 @@ public class LoginController {
 
         String passwordRecoveryServiceName = authConfigurationProperties.getPasswordRecoveryServiceName();
 
-        AppQuery query = AppQuery.builder().withAppName(passwordRecoveryServiceName).build();
-        List<CoffeeNetApp> profileApps = coffeeNetAppService.getApps(query).get(passwordRecoveryServiceName);
+        if (coffeeNetAppService != null) {
+            LOGGER.info("//> Trying to find the password recovery service (search '{}')", passwordRecoveryServiceName);
 
-        if (profileApps != null) {
-            CoffeeNetApp profileService = profileApps.get(0);
+            AppQuery query = AppQuery.builder().withAppName(passwordRecoveryServiceName).build();
+            List<CoffeeNetApp> profileApps = coffeeNetAppService.getApps(query).get(passwordRecoveryServiceName);
 
-            return profileService.getUrl() + authConfigurationProperties.getPasswordRecoveryPath();
+            if (profileApps != null) {
+                CoffeeNetApp profileService = profileApps.get(0);
+
+                LOGGER.info("//> Password recovery service '{}' found", passwordRecoveryServiceName);
+
+                return profileService.getUrl() + authConfigurationProperties.getPasswordRecoveryPath();
+            }
         }
 
+        LOGGER.info("//> No password recovery service found", passwordRecoveryServiceName);
+
         return null;
+    }
+
+
+    /**
+     * Optional dependency if the service discovery is activated. For this optional dependency we use setter injection
+     *
+     * @param  coffeeNetAppService  to find the password recovery application
+     */
+    @Autowired(required = false)
+    public void setCoffeeNetAppService(CoffeeNetAppService coffeeNetAppService) {
+
+        this.coffeeNetAppService = coffeeNetAppService;
     }
 }

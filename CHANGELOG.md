@@ -2,9 +2,12 @@
 
 ### 1.12.0-SNAPSHOT
 
+* Fix
+  * coffeenet.discovery.enabled=false does not instantiate 'CoffeeNetAppService'
+    that was not optional by the 'LoginController' and not can be optional
+
 * Add
   * Run integration tests with mariaDB instead of h2
-
 
 ### 1.11.1
 
