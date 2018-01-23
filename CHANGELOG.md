@@ -1,13 +1,23 @@
 # Changelog 
 
-### 1.12.0-SNAPSHOT
+### 1.12.0
+
+* Change
+  * New CoffeeNet login page
 
 * Fix
   * coffeenet.discovery.enabled=false does not instantiate 'CoffeeNetAppService'
     that was not optional by the 'LoginController' and not can be optional
+  * Use default TlsDirContextAuthenticationStrategy
+  * Cleanups
 
 * Add
   * Run integration tests with mariaDB instead of h2
+  * More configuration possibilities for clients
+
+* Upgrade
+  * CoffeeNet starter-logging to version 0.27.1
+  * CoffeeNet starter-discovery to version 0.27.1
 
 ### 1.11.1
 
