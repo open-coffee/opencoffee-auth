@@ -2,6 +2,14 @@
 
 ### 1.13.0-SNAPSHOT
 
+* Change
+  * Minimize login logo for 992px-1200px
+
+* Upgrade
+  * CoffeeNet starter-logging to version 0.28.0
+  * CoffeeNet starter-discovery to version 0.28.0
+  * docker-maven-plugin to version 0.24.0
+
 ### 1.12.0
 
 * Change
