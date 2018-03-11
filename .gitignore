@@ -2,6 +2,7 @@
 target/
 *.iml
 logs/
+!/.mvn/wrapper/maven-wrapper.jar
 
 # Spring configuration files (only toplevel)
 /application*.properties
