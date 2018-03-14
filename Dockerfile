@@ -2,6 +2,8 @@ FROM openjdk:8-jre-alpine
 
 EXPOSE 9999
 
+RUN apk add --no-cache curl
+
 VOLUME /tmp
 ADD /maven/${docker.finalName}.jar app.jar
 ENV JAVA_OPTS=""
