@@ -106,17 +106,17 @@ body {
 
 @media (min-width: 1200px) {
     .coffeenet--container-login {
-        max-width: 20vw;
+        max-width: 18vw;
         margin-top: 2em;
     }
 
     .coffeenet--login-logo, .coffeenet--logout-logo {
-        max-width: 15vw;
+        max-width: 10vw;
         margin: 0 auto;
     }
 
     .coffeenet--login-logo-text, .coffeenet--logout-text {
-        max-width: 20vw;
+        max-width: 18vw;
         margin: 0 auto 1em;
     }
 
