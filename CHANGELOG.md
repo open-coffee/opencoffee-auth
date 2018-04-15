@@ -1,6 +1,6 @@
 # Changelog 
 
-### 1.14.0-SNAPSHOT
+### 1.14.0
 
 * Change
   * Minimize login logo for 1200px and above
