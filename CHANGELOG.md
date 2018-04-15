@@ -8,6 +8,9 @@
 * Change
   * Minimize login logo for 1200px and above
 
+* Upgrade
+  * CoffeeNet starter-logging to version 0.29.0
+
 ### 1.13.0
 
 * Change
