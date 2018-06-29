@@ -2,6 +2,8 @@
 
 ### 1.15.0-SNAPSHOT
 
+* Upgrade
+  * CoffeeNet starter-logging to version 0.31.0
 
 ### 1.14.0
 
