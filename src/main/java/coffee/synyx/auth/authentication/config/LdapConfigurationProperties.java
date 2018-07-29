@@ -45,6 +45,10 @@ public class LdapConfigurationProperties {
     @NotNull
     private boolean connectionWithTls = true;
 
+    private String bindDn;
+
+    private String bindPassword;
+
     public String getUrl() {
 
         return url;
@@ -150,5 +154,21 @@ public class LdapConfigurationProperties {
     public void setConnectionWithTls(boolean connectionWithTls) {
 
         this.connectionWithTls = connectionWithTls;
+    }
+
+    public String getBindDn() {
+        return bindDn;
+    }
+
+    public void setBindDn(String bindDn) {
+        this.bindDn = bindDn;
+    }
+
+    public String getBindPassword() {
+        return bindPassword;
+    }
+
+    public void setBindPassword(String bindPassword) {
+        this.bindPassword = bindPassword;
     }
 }
