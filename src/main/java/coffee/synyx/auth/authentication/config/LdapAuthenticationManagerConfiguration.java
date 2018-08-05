@@ -91,6 +91,14 @@ public class LdapAuthenticationManagerConfiguration extends GlobalAuthentication
         contextSource.setUrl(ldapConfigurationProperties.getUrl());
         contextSource.setBase(ldapConfigurationProperties.getBase());
 
+        final String bindDn = ldapConfigurationProperties.getBindDn();
+        final String bindPassword = ldapConfigurationProperties.getBindPassword();
+
+        if (bindDn != null && bindPassword != null) {
+            contextSource.setUserDn(bindDn);
+            contextSource.setPassword(bindPassword);
+        }
+
         if (ldapConfigurationProperties.isConnectionWithTls()) {
             contextSource.setAuthenticationStrategy(new DefaultTlsDirContextAuthenticationStrategy());
         }

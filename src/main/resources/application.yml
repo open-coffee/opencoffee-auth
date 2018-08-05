@@ -21,6 +21,8 @@ auth:
     groupSearchBase: ou=Groups
     groupSearchFilter: member={0}
     connection-with-tls: false
+    bindDn:
+    bindPassword:
 
 server:
   port: 9999
