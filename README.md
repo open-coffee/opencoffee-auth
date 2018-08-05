@@ -4,7 +4,7 @@
 
 The CoffeeNet Auth Server is an OAuth2 provider to achieve single sign-on for the CoffeeNet. 
 It authenticates against a LDAP-Server. See [how to configure LDAP](#ldap)
-To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-sso).
+To use the Auth-Server in your application, see [README of CoffeeNet Starter Security](https://github.com/coffeenet/coffeenet-starter/tree/master/coffeenet-starter-security).
 
 
 ## Configuration
