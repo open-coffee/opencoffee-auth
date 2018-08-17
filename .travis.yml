@@ -2,6 +2,9 @@ sudo: required
 
 language: java
 
+before_install:
+- sudo apt-get install -y markdown
+
 script: ./mvnw verify
 
 jdk:
@@ -14,6 +17,7 @@ before_deploy:
   - mvn -DskipTests package
   - export JAR_FILE=$(ls target/auth-*.jar)
   - echo "deploying $JAR_FILE to GitHub releases"
+  - export RELEASE_NOTES=$(awk -v start=1 '/^#{2}[[:space:]].*$/{n++;next};n==start;n==start+1{exit}' CHANGELOG.md | markdown | awk '{printf "%s",$0} END {print ""}')
 
 deploy:
   - provider: script
@@ -24,6 +28,7 @@ deploy:
     api_key:
       secure: WPEK5P558xqcCeH4i6ZP4IQTUYdpB96dzIskSR6qxlugnOEtvDKfrqj8vDCHvPvGGirzGsOnh+9cXWbFtzND6i3o5chzb9CYNNrV9qSJelpdj//PqUIQ99oioKwGQQjfgS76VBkEeyj/mUljgsUgUKkBM6r7xGISnaEHaq4vk4IPjKfZJoznLlk73Jo1tC+CqURwa1MiQSqJEO5WYt/fY4YJJW6jwfuXLv/K/6is3+nlSaxN4hlRFrnYXpmGdqrxh2q+QKW45gzBfFn+YtkzobMAPBbj7soofmF/lPS1Hhc5l2XXH90qHk0Dnppe5+kkiobN/SsdVRzm1eZ2xakZfojaz0WvLW3fhjBBiT1ZrmlFYMmoTy4hNScrQDOBlp+JhgOGmw2MkKtc1O+3t3l2r2X4Bdh2nkx1GlDfSZJSd3sV45LtDBL0RRzOwXiXv4s2u2y5VseOHWqb9/YmA5jcYQScNtejJBoMeYvC0KIPaHF2pbz7VwKjjEfUBRtFbcN6JFjgJcx6IUkcjzBJ9+LvE+c0wqE2ux+mrmiFJ7HIWWGd9TI/P4hb++r87jjkcJUe69l3KfisXNaA5ZCRM8x5NybWtu7ThNxMJACWVNYyOIsvEoHlhBWsZB/hBT9co3IZNLSAyB3GwtYk4AM3/3znTwO/P5cU8wLAbiPoVSiwP5w=
     file: "${JAR_FILE}"
+    body: "${RELEASE_NOTES}"
     skip_cleanup: true
     on:
       tags: true
