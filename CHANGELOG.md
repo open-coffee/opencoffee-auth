@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
+
 ## [1.16.0]
 ### Added
 - Add `auth.ldap.bindDn` and `auth.ldap.bindPassword`
@@ -172,6 +175,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - `auth.ldap.*` moved from `ldap.*` now with `auth.*` prefix
 
 
+[Unreleased]: https://github.com/coffeenet/coffeenet-auth/compare/auth-1.16.0...HEAD
 [1.16.0]: https://github.com/coffeenet/coffeenet-auth/compare/auth-1.15.0...auth-1.16.0
 [1.15.0]: https://github.com/coffeenet/coffeenet-auth/compare/auth-1.14.0...auth-1.15.0
 [1.14.0]: https://github.com/coffeenet/coffeenet-auth/compare/auth-1.13.0...auth-1.14.0
