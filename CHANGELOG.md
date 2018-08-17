@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+### Added
+- Add `auth.ldap.bindDn` and `auth.ldap.bindPassword`
+- Actuator to have `/health` endpoint
 
+### Changed
+- CoffeeNet starter-logging to version 0.32.0
+- Changlog format
+
+### Fixed
+- Link in readme
 
 ## [1.15.0]
 ### Changed
