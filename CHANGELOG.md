@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - CoffeeNet starter-logging to version 0.32.0
-- Changlog format
+- Changelog format
 
 ### Fixed
 - Link in readme
