@@ -31,10 +31,6 @@
         <system>GitHub Issues</system>
     </issueManagement>
 
-    <properties>
-        <docker.finalName>${project.build.finalName}</docker.finalName>
-    </properties>
-
     <dependencies>
         <!-- CoffeeNet -->
         <dependency>
@@ -226,7 +222,14 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.24.0</version>
+                <version>0.27.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>run-java-sh</artifactId>
+                        <version>1.2.2</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <images>
                         <image>
